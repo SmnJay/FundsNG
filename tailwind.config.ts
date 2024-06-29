@@ -12,9 +12,11 @@ const config: Config = {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+          "signUp-pattern": "url('/images/bg-rectangle.png')"
       },
       colors: {
         primary: '#20525C',
+        FBlack: "#313030",
         leafGreen: {
           DEFAULT: '#213502',
           10: "#42650B",
