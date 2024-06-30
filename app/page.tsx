@@ -15,9 +15,9 @@ export default function Home() {
         <div className="space-y-4 pt-6">
 
           <div>
-            <div className='form-group rounded-lg border border-[#E5E2E1] px-3 py-2'>
-              <label htmlFor="" className="block text-sm text-[#929090]">Email</label>
-              <input type="email" autoComplete="off" className="w-full text-FBlack font-medium focus:border-none focus:ring-none focus:outline-none" placeholder="Enter your Email" />
+            <div className='form-group rounded-lg border border-[#E5E2E1] px-3 py-2 peer-focus:border-primary'>
+              <label htmlFor="" className="block text-sm text-[#929090] peer-focus:text-red-600">Email</label>
+              <input type="email" autoComplete="off" className="w-full text-FBlack font-medium focus:border-none focus:ring-none focus:outline-none peer" placeholder="Enter your Email" />
             </div>
             <span className="text-red-500 hidden">Error</span>
           </div>
@@ -46,7 +46,7 @@ export default function Home() {
         <p className="text-FBlack text-center">
           <span className="">Already have an account?</span>
           <span className="pl-1">
-            <Links href="/SignIn" ariaLabel="link to go to sign in page" name={"Sign in here"} />
+            <Links href="/signin" ariaLabel="link to go to sign in page" name={"Sign in here"} />
           </span>
         </p>
       </form>

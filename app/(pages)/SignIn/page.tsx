@@ -2,6 +2,7 @@ import React from 'react'
 import Image from 'next/image';
 import Links from '@/app/components/Links/Index';
 import Button from '@/app/components/Button/Button';
+import Input from '@/app/components/Input/Input';
 
 const SignIn = () => {
     return (
@@ -14,13 +15,14 @@ const SignIn = () => {
                 <p className="text-center text-[#929090] max-md:text-white">Glad to have you back. Your account details</p>
 
                 <div className="space-y-4 pt-6">
-                    <div>
-                        <div className='form-group rounded-lg border border-[#E5E2E1] px-3 py-2'>
-                            <label htmlFor="" className="block text-sm text-[#929090] max-md:text-white">Email</label>
-                            <input type="email" autoComplete="off" className="max-md:bg-transparent max-md:text-white w-full text-FBlack font-medium focus:border-none focus:ring-none focus:outline-none" placeholder="Enter your Email" />
-                        </div>
-                        <span className="text-red-500 hidden">Error</span>
-                    </div>
+                    <Input 
+                        label='Email'
+                        name='email'
+                        type='email'
+                        placeholder='Enter Email Address'
+                        autoComplete='off'
+                        error=''
+                    />
 
                     <div>
                         <div className='form-group rounded-lg border border-[#E5E2E1] px-3 py-2'>
@@ -37,7 +39,7 @@ const SignIn = () => {
                 <p className="text-FBlack text-center">
                     <span className="max-md:text-white">Don&apos;t have an account?</span>
                     <span className="pl-1">
-                        <Links color='text-white' href="/" ariaLabel="link to go to sign in page" name={"Sign up here"} />
+                        <Links color='text-white' href="/" ariaLabel="link to go to sign up page" name={"Sign up here"} />
                     </span>
                 </p>
             </form>
