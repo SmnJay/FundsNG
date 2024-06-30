@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { ReactNode, forwardRef } from 'react';
 
 interface IInput {
     label: string
@@ -13,7 +13,7 @@ const Input = forwardRef<HTMLInputElement, IInput>(
     ({ label, error, name, autoComplete, placeholder, type, ...props }, ref) => {
         return (
 
-            <div className='relative form-group'>
+            <div className='relative'>
                 <div className='form-group rounded-lg border border-[#E5E2E1] px-3 py-2'>
                     <label htmlFor={name} className="block text-sm text-[#929090] max-md:text-white">{label}</label>
                     <input

@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Button from "./components/Button/Button";
 import Links from "./components/Links/Index";
+import Input from "./components/Input/Input";
+import PasswordInput from "./components/Input/PasswordInput";
 
 export default function Home() {
   return (
@@ -14,37 +16,40 @@ export default function Home() {
 
         <div className="space-y-4 pt-6">
 
-          <div>
-            <div className='form-group rounded-lg border border-[#E5E2E1] px-3 py-2 peer-focus:border-primary'>
-              <label htmlFor="" className="block text-sm text-[#929090] peer-focus:text-red-600">Email</label>
-              <input type="email" autoComplete="off" className="w-full text-FBlack font-medium focus:border-none focus:ring-none focus:outline-none peer" placeholder="Enter your Email" />
-            </div>
-            <span className="text-red-500 hidden">Error</span>
-          </div>
-          
-          <div>
-            <div className='form-group rounded-lg border border-[#E5E2E1] px-3 py-2'>
-              <label htmlFor="" className="block text-sm text-[#929090]">Password</label>
-              <input type="password" autoComplete="off" className="w-full text-FBlack font-medium focus:border-none focus:ring-none focus:outline-none" placeholder="Enter your Password" />
-            </div>
-            <span className="text-red-500 hidden">Error</span>
-          </div>
+          <Input
+            label='Email'
+            name='email'
+            type='email'
+            placeholder='Enter Email Address'
+            autoComplete='off'
+            error=''
+          />
 
-          <div>
-            <div className='form-group rounded-lg border border-[#E5E2E1] px-3 py-2'>
-              <label htmlFor="" className="block text-sm text-[#929090]">Confirm Password</label>
-              <input type="password" autoComplete="off" className="w-full text-FBlack font-medium focus:border-none focus:ring-none focus:outline-none" placeholder="Enter your Password again" />
-            </div>
-            <span className="text-red-500 hidden">Error</span>
-          </div>
+          <PasswordInput
+            label='Password'
+            name='passworrd'
+            type='password'
+            placeholder='Enter your password'
+            autoComplete='off'
+            error=''
+          />
+
+          <PasswordInput
+            label='Confirm Password'
+            name='passworrd'
+            type='password'
+            placeholder='Enter your password again'
+            autoComplete='off'
+            error=''
+          />
         </div>
 
         <div className="flex flex-col gap-4 py-16 ">
           <Button name="Sign up with Google" ariaLabel="button to sign up with google" color="grey" />
           <Button name="Continue" ariaLabel="Continue button" color="primary" />
         </div>
-        <p className="text-FBlack text-center">
-          <span className="">Already have an account?</span>
+        <p className="text-center">
+          <span className="text-FBlack">Already have an account?</span>
           <span className="pl-1">
             <Links href="/signin" ariaLabel="link to go to sign in page" name={"Sign in here"} />
           </span>

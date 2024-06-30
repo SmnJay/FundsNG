@@ -1,4 +1,5 @@
-import React, { forwardRef, useState } from 'react';
+'use client';
+import React, { ReactNode, forwardRef, useState } from 'react';
 import Input from './Input';
 import { IoEye, IoEyeOffSharp } from 'react-icons/io5';
 
@@ -9,11 +10,10 @@ interface IPasswordInput {
     placeholder: string
     name: string
     type: string
-    register: any
 }
 
-const PasswprdInput = forwardRef<HTMLInputElement, IPasswordInput>(
-    ({ label, error, name, autoComplete, register, placeholder, type, ...props }, ref) => {
+const PasswordInput = forwardRef<HTMLInputElement, IPasswordInput>(
+    ({ label, error, name, autoComplete, placeholder, type, ...props }, ref) => {
         const [hidePassword, setHidePassword] = useState(false);
 
         const handleHidePassword = () => {
@@ -21,26 +21,44 @@ const PasswprdInput = forwardRef<HTMLInputElement, IPasswordInput>(
         }
 
         return (
-            <>
-                <Input
-                    {...props}
-                    ref={ref}
-                    label={label}
-                    type={!hidePassword ? "text" : "password"}
-                    error={error}
-                    {...register(name)}
-                />
-                <span className="absolute top-[35px] transform right-3">
+            <div className='relative'>
+                <div className='form-group rounded-lg border border-[#E5E2E1] px-3 py-2'>
+                    <label htmlFor={name} className="block text-sm text-[#929090] max-md:text-white">{label}</label>
+                    <input
+                        {...props}
+                        name={name}
+                        type={!hidePassword ? 'password' : 'text'}
+                        autoComplete={autoComplete || 'off'}
+                        className="max-md:bg-transparent max-md:text-white w-full text-FBlack font-medium focus:border-none focus:ring-none focus:outline-none"
+                        placeholder={placeholder}
+                    />
+                </div>
+                <span className="absolute bg-white right-0 -translate-x-1 top-8 px-3 overflow-hidden z-10">
                     {hidePassword ? (
-                        <IoEyeOffSharp
+                        <button
                             onClick={handleHidePassword}
-                            className="cursor-pointer"
-                        />
+                            type="button"
+                        >
+                            <IoEyeOffSharp
+                                size={18}
+                                className="cursor-pointer text-primary"
+                            />
+                        </button>
                     ) : (
-                        <IoEye onClick={handleHidePassword} className="cursor-pointer" />
+                        <button
+                            onClick={handleHidePassword}
+                            type="button"
+                        >
+                            <IoEye
+                                size={18}
+                                className="text-primary cursor-pointer"
+                            />
+                        </button>
+
                     )}
                 </span>
-            </>
+                <span className="text-red-500">{error}</span>
+            </div>
         )
     })
-export default PasswprdInput;
+export default PasswordInput;
