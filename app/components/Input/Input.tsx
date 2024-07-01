@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-// import style from './InputField.module.css';
+import style from './InputField.module.css';
 
 interface IInput {
     label: string
@@ -15,7 +15,7 @@ const Input = forwardRef<HTMLInputElement, IInput>(
         return (
 
             <div className='relative'>
-                <div className={`form-group rounded-lg border px-3 py-2 s{style.container}`}>
+                <div className={`form-group rounded-lg border px-3 py-2 ${style.container}`}>
                     <label htmlFor={name} className="block text-sm text-[#929090] max-md:text-white">{label}</label>
                     <input
                         {...props}
@@ -32,4 +32,8 @@ const Input = forwardRef<HTMLInputElement, IInput>(
 
         )
     })
+
+
 export default Input;
+
+Input.displayName = 'Input';

@@ -1,7 +1,8 @@
 'use client';
 import React, { forwardRef, useState } from 'react';
-// import style from './InputField.module.css';
+import style from './InputField.module.css';
 import { IoEye, IoEyeOffSharp } from 'react-icons/io5';
+import { Input } from 'postcss';
 
 interface IPasswordInput {
     label: string
@@ -22,7 +23,7 @@ const PasswordInput = forwardRef<HTMLInputElement, IPasswordInput>(
 
         return (
             <div className='relative'>
-                <div className={`form-group rounded-lg border px-3 py-2 $s{style.container}`}>
+                <div className={`form-group rounded-lg border px-3 py-2 ${style.container}`}>
                     <label htmlFor={name} className="block text-sm text-[#929090] max-md:text-white">{label}</label>
                     <input
                         {...props}
@@ -63,3 +64,5 @@ const PasswordInput = forwardRef<HTMLInputElement, IPasswordInput>(
         )
     })
 export default PasswordInput;
+
+PasswordInput.displayName = 'PasswordInput'
