@@ -7,7 +7,7 @@ import Logo from '@/app/components/Logo/Logo';
 
 const SignIn = () => {
     return (
-        <main className='md:bg-signUp-pattern h-screen md:grid md:place-items-center md:bg-[length:12em_12em]'>
+        <main className='md:bg-signUp-pattern md:bg-primary h-screen md:grid md:place-items-center md:bg-[length:12em_12em]'>
             <form className="relative md:shadow-lg md:bg-white rounded-2xl px-4 py-8 md:p-8 w-auto md:min-w-[500px]" autoComplete="off">
                 <div className="pt-6 pb-10">
                     <Logo />
