@@ -1,15 +1,15 @@
-import Image from "next/image";
 import Button from "./components/Button/Button";
 import Links from "./components/Links/Index";
 import Input from "./components/Input/Input";
 import PasswordInput from "./components/Input/PasswordInput";
+import Logo from "./components/Logo/Logo";
 
 export default function Home() {
   return (
     <main className='md:bg-signUp-pattern h-screen md:grid md:place-items-center md:bg-[length:12em_12em]'>
       <form className="md:shadow-lg md:bg-white rounded-2xl w-auto md:min-w-[500px] px-4 py-8 md:p-8" autoComplete="off">
         <div className="pt-6 pb-10">
-          <Image src='/images/full_logo.png' alt="Funds Ng Logo" width={193} height={40} className="mx-auto" />
+          <Logo />
         </div>
         <p className="text-primary font-medium text-center text-xl leading-loose">Good Day, Welcome!</p>
         <p className="text-center text-[#929090]">It&apos;s a good day to create ideas that will change the world</p>
