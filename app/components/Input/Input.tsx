@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import style from './Input.module.css';
+import style from './InputField.module.css';
 
 interface IInput {
     label: string

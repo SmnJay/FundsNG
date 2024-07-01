@@ -1,6 +1,6 @@
 'use client';
 import React, { forwardRef, useState } from 'react';
-import style from './Input.module.css';
+import style from './InputField.module.css';
 import { IoEye, IoEyeOffSharp } from 'react-icons/io5';
 
 interface IPasswordInput {

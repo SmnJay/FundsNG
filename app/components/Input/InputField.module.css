@@ -1,7 +1,5 @@
-/* InputField.module.css */
 .container {
     border-color: #E5E2E1;
-    /* Default border color */
 }
 
 .container:has(input:focus) {
