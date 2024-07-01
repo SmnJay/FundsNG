@@ -1,4 +1,5 @@
 import React, { ReactNode, forwardRef } from 'react';
+import style from './Input.module.css';
 
 interface IInput {
     label: string
@@ -14,14 +15,15 @@ const Input = forwardRef<HTMLInputElement, IInput>(
         return (
 
             <div className='relative'>
-                <div className='form-group rounded-lg border border-[#E5E2E1] px-3 py-2'>
+                <div className={`form-group rounded-lg border px-3 py-2 ${style.container}`}>
                     <label htmlFor={name} className="block text-sm text-[#929090] max-md:text-white">{label}</label>
                     <input
                         {...props}
+                        ref={ref}
                         name={name}
                         type={type}
                         autoComplete={autoComplete || 'off'}
-                        className="max-md:bg-transparent max-md:text-white w-full text-FBlack font-medium focus:border-none focus:ring-none focus:outline-none"
+                        className="peer max-md:bg-transparent max-md:text-white w-full text-FBlack font-medium focus:border-none focus:ring-none focus:outline-none"
                         placeholder={placeholder}
                     />
                 </div>
