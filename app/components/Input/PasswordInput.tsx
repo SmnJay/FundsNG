@@ -1,5 +1,5 @@
 'use client';
-import React, { ReactNode, forwardRef, useState } from 'react';
+import React, { forwardRef, useState } from 'react';
 import style from './Input.module.css';
 import { IoEye, IoEyeOffSharp } from 'react-icons/io5';
 
@@ -26,6 +26,7 @@ const PasswordInput = forwardRef<HTMLInputElement, IPasswordInput>(
                     <label htmlFor={name} className="block text-sm text-[#929090] max-md:text-white">{label}</label>
                     <input
                         {...props}
+                        ref={ref}
                         name={name}
                         type={!hidePassword ? 'password' : 'text'}
                         autoComplete={autoComplete || 'off'}
