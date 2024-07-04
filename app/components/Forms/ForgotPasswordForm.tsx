@@ -10,7 +10,7 @@ const ForgotPasswordForm = () => {
                 <Logo />
             </div>
             <p className="text-primary font-medium text-center text-xl leading-loose">Forgot Password</p>
-            <p className="text-center text-[#929090] ">Oh snap! Let's recover your account.</p>
+            <p className="text-center text-[#929090] ">Oh snap! Let&apos;s recover your account.</p>
             <div className="space-y-4 pt-6">
                 <Input
                     label='Email'
