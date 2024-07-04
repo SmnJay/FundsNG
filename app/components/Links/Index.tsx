@@ -7,9 +7,10 @@ interface ILinks {
   ariaLabel: string
   name: ReactNode
   color?: string
+  cls?: string
 }
 
-const Links: FC<ILinks> = ({href, color, processing, name, ariaLabel, ...props}) => {
+const Links: FC<ILinks> = ({href, color, processing, name, cls, ariaLabel, ...props}) => {
   return (
     <Link 
       {...props}
@@ -17,7 +18,7 @@ const Links: FC<ILinks> = ({href, color, processing, name, ariaLabel, ...props})
       aria-busy={processing}
       aria-label={ariaLabel}
       aria-live='polite'
-      className={`${color ? color + 'md:text-primary' : 'text-primary'}`}
+      className={`${color ? color + 'md:text-primary' : 'text-primary'} ${cls}`}
     >
       {name}
     </Link>
