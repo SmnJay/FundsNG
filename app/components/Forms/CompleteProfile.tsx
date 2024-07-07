@@ -6,10 +6,10 @@ import Button from '../Button/Button'
 const CompleteProfile = () => {
     return (
         <form className="relative md:shadow-lg md:bg-white rounded-2xl px-4 py-8 md:p-8 w-auto md:min-w-[500px]" autoComplete="off">
-            <div className="pt-6 pb-10">
+            <div className="pt-6 pb-6">
                 <Logo />
             </div>
-            <p className="text-primary font-medium text-center text-xl leading-loose">Complete your profile</p>
+            <h6 className="text-primary font-medium text-center text-xl leading-loose">Complete your profile</h6>
             <p className="text-center text-[#929090] ">It&apos; a good day to create ideas that will change the world</p>
             <div className="space-y-4 pt-6">
                 <Input
@@ -46,7 +46,7 @@ const CompleteProfile = () => {
                 />
             </div>
 
-            <div className="flex flex-col gap-4 py-16 ">
+            <div className="flex flex-col gap-4 py-10">
                 <Button name="Continue" ariaLabel="Continue button" color="primary" />
             </div>
         </form>

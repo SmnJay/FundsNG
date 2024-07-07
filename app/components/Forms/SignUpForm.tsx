@@ -13,10 +13,10 @@ const SignUpForm = () => {
 
     return (
         <form className="md:shadow-lg md:bg-white rounded-2xl w-auto md:min-w-[500px] px-4 py-8 md:p-8" autoComplete="off">
-            <div className="pt-6 pb-10">
+            <div className="pt-6 pb-6">
                 <Logo />
             </div>
-            <p className="text-primary font-medium text-center text-xl leading-loose">Good Day, Welcome!</p>
+            <h6 className="text-primary font-medium text-center text-xl leading-loose">Good Day, Welcome!</h6>
             <p className="text-center text-[#929090]">It&apos;s a good day to create ideas that will change the world</p>
 
             <div className="space-y-4 pt-6">
@@ -49,7 +49,7 @@ const SignUpForm = () => {
                 />
             </div>
 
-            <div className="flex flex-col gap-4 py-16 ">
+            <div className="flex flex-col gap-4 py-10 ">
                 <Button name="Sign up with Google" ariaLabel="button to sign up with google" color="grey" />
                 <Button name="Continue" ariaLabel="Continue button" color="primary" onClick={() => router.push('/verify-email')}/>
             </div>
