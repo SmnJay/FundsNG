@@ -1,5 +1,5 @@
 import React from 'react'
-import Button from '../Button/Button'
+import Button, { ButtonLink } from '../Button/Button'
 import PasswordInput from '../Input/PasswordInput'
 import Links from '../Links/Index'
 import Logo from '../Logo/Logo'
@@ -35,7 +35,7 @@ const SignInForm = () => {
                 <Links color='text-primary' cls='text-sm' href='/forgot-password' ariaLabel='Link to visit the forgot password page.' name='Forgot Password?' />
             </div>
             <div className="flex flex-col gap-4 py-10">
-                <Button name="Continue" ariaLabel="Continue button" color="primary" />
+                <ButtonLink href='/dashboard' name="Continue" ariaLabel="Continue button" color="primary" />
             </div>
             <p className="text-center">
                 <span className=" text-FBlack ">Don&apos;t have an account?</span>

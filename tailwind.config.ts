@@ -17,6 +17,7 @@ const config: Config = {
       colors: {
         primary: '#20525C',
         FBlack: "#313030",
+        appGrey: "#ECEEEE",
         leafGreen: {
           DEFAULT: '#213502',
           10: "#42650B",

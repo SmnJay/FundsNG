@@ -1,4 +1,4 @@
-import Button from '@/app/components/Button/Button'
+import Button, { ButtonLink } from '@/app/components/Button/Button'
 import Input from '@/app/components/Input/Input'
 import Logo from '@/app/components/Logo/Logo'
 import React from 'react'
@@ -47,7 +47,7 @@ const CompleteProfile = () => {
             </div>
 
             <div className="flex flex-col gap-4 py-10">
-                <Button name="Continue" ariaLabel="Continue button" color="primary" />
+                <ButtonLink href='/dashboard' name="Continue" ariaLabel="Continue button" color="primary" />
             </div>
         </form>
     )

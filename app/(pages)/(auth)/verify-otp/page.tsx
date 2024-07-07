@@ -1,6 +1,6 @@
 'use client';
 
-import Button from '@/app/components/Button/Button'
+import Button, { ButtonLink } from '@/app/components/Button/Button'
 import OTPInput from '@/app/components/Forms/OTPInput';
 import React from 'react'
 import toast from 'react-hot-toast';
@@ -23,7 +23,7 @@ const page = () => {
       </section>
 
       <div className="flex flex-col gap-4 py-10 ">
-        <Button name="Continue" ariaLabel="button to continue" color="primary" />
+        <ButtonLink href='/signin' name="Continue" ariaLabel="button to continue" color="primary" />
       </div>
     </form>
   )
