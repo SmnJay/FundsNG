@@ -4,8 +4,8 @@ import Links from '../Links/Index';
 
 const Header = () => {
     return (
-        <header className='bg-white text-primary h-[4rem] flex justify-end gap-1 items-center sticky top-0 left-0'>
-            <BsBellFill size={34} className='hover:bg-appGrey p-2 rounded-full ease-linear duration-200'/>
+        <header className='bg-white h-[4rem] flex justify-end gap-1 items-center sticky top-0 left-0'>
+            <BsBellFill size={34} className='hover:bg-appGrey text-primary-10 p-2 rounded-full ease-linear duration-200'/>
             <Links
                 href='/signin'
                 ariaLabel='link to sign out of the application'

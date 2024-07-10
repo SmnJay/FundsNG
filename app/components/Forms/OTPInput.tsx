@@ -31,7 +31,7 @@ const OTPInput = ({ length = 6, onComplete }: InputProps) => {
     };
 
     return (
-        <div className={`mt-6`}>
+        <div className={`mt-6 flex items-center justify-between gap-1 w-4/5 mx-auto`}>
             {Array.from({ length }, (_, index) => {
                 return (
                     <>
@@ -44,12 +44,12 @@ const OTPInput = ({ length = 6, onComplete }: InputProps) => {
                             ref={(ref) => {
                                 inputRefs.current[index] = ref;
                             }}
-                            className="h-12 w-12 border-2 mx-auto border-solid text-center rounded-lg  focus:border-primary outline-none"
+                            className="h-12 w-12 border-2 mx-auto border-solid text-center rounded-lg focus:border-primary outline-none"
                             placeholder="-"
-                            style={{ marginRight: index === length - 1 ? '0' : '10px' }}
+                            // style={{ marginRight: index === length - 1 ? '0' : '10px' }} 
                         />
                         {
-                            index === (length / 2) - 1 && <span className='pl-2 pr-4'>-</span>
+                            index === (length / 2) - 1 && <span className=''>-</span>
                         }
                     </>
                 )

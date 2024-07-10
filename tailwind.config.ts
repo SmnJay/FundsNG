@@ -15,7 +15,10 @@ const config: Config = {
           "signUp-pattern": "url('/images/bg-rectangle.png')"
       },
       colors: {
-        primary: '#20525C',
+        primary: {
+          DEFAULT: '#20525C',
+          10: "#2D7381"
+        },
         FBlack: "#313030",
         appGrey: "#ECEEEE",
         leafGreen: {
