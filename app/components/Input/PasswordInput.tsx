@@ -2,7 +2,6 @@
 import React, { forwardRef, useState } from 'react';
 import style from './InputField.module.css';
 import { IoEye, IoEyeOffSharp } from 'react-icons/io5';
-import { Input } from 'postcss';
 
 interface IPasswordInput {
     label: string
