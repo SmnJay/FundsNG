@@ -12,12 +12,12 @@ const SignUpForm = () => {
     const router = useRouter();
 
     return (
-        <form className="smd:bg-white mx-auto max-w-[500px] px-4 py-8 md:p-8" autoComplete="off">
+        <form className="mx-auto max-w-[500px] px-4 py-8 md:p-8" autoComplete="off">
             <div className="pt-6 pb-6">
                 <Logo color='white'/>
             </div>
             <h6 className="text-white font-semibold text-left text-2xl leading-loose">Good Day, Welcome!</h6>
-            <p className=" text-white/80">Sign up with your email to access the platform</p>
+            <p className=" text-white/80 font-extralight">Sign up with your email to access the platform</p>
 
             <div className="space-y-4 pt-6">
 

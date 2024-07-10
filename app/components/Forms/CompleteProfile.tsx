@@ -10,7 +10,7 @@ const CompleteProfile = () => {
                 <Logo color='white' />
             </div>
             <h6 className="text-white font-semibold text-left text-2xl leading-loose">Complete your profile</h6>
-            <p className="text-white ">It&apos; a good day to create ideas that will change the world</p>
+            <p className="text-white/80 font-extralight">It&apos; a good day to create ideas that will change the world</p>
             <div className="space-y-4 pt-6">
                 <Input
                     label='First Name'

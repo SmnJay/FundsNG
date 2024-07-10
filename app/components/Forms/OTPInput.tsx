@@ -44,12 +44,11 @@ const OTPInput = ({ length = 6, onComplete }: InputProps) => {
                             ref={(ref) => {
                                 inputRefs.current[index] = ref;
                             }}
-                            className="h-12 w-12 border-2 mx-auto border-solid text-center rounded-lg focus:border-primary outline-none"
+                            className="h-12 w-12 font-semibold text-primary-30 border-2 mx-auto border-solid text-center rounded-lg focus:border-primary-30 outline-none"
                             placeholder="-"
-                            // style={{ marginRight: index === length - 1 ? '0' : '10px' }} 
                         />
                         {
-                            index === (length / 2) - 1 && <span className=''>-</span>
+                            index === (length / 2) - 1 && <span className='text-white font-semibold'>-</span>
                         }
                     </>
                 )

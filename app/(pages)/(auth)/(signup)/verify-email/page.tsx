@@ -6,7 +6,7 @@ import React from 'react'
 const VerifyEmail = () => {
 
     return (
-        <form className="relative md:shadow-lg md:bg-white rounded-2xl px-4 py-8 md:p-8 w-auto md:min-w-[500px]" autoComplete="off">
+        <form className="mx-auto max-w-[500px] px-4 py-8 md:p-8 relative" autoComplete="off">
             <div className="pt-6 pb-6">
                 <Logo color='white'/>
             </div>

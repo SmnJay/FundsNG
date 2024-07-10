@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import Link from 'next/link';
-import React from 'react'
+import React, { ReactNode } from 'react'
 
 interface ButtonProps {
     processing?: boolean;
@@ -9,6 +9,7 @@ interface ButtonProps {
     outline?: boolean;
     color?: 'primary' | 'secondary' | 'grey' | 'black' | 'white'
     type?: 'button' | 'submit' | 'reset';
+    icon?: ReactNode
     onClick?: () => void
 }
 
@@ -54,7 +55,7 @@ const Button: React.FC<ButtonProps> = ({ type = 'button', onClick, color, outlin
 }
 
 
-export const ButtonLink: React.FC<ButtonLinkProps> = ({ href, color, outline, ariaLabel, processing, name, fullWidth, ...props }) => {
+export const ButtonLink: React.FC<ButtonLinkProps> = ({ href, color, outline, ariaLabel, processing, name, icon, fullWidth, ...props }) => {
     const buttonClassNames = clsx(
         'border-2 font-semibold px-8 max-md:text-sm group rounded-lg',
         {
@@ -81,7 +82,7 @@ export const ButtonLink: React.FC<ButtonLinkProps> = ({ href, color, outline, ar
                     processing ?
                         <span className='block py-3 animate-pulse'>...sending</span>
                         :
-                        <span className="block py-3 duration-300 ease-in-out text-center">{name}</span>
+                        <span className="py-3 duration-300 ease-in-out text-center flex items-center justify-center gap-1">{name}{icon}</span>
                 }
             </Link>
         </div>

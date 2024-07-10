@@ -5,7 +5,7 @@ const layout = ({ children }: Readonly<{
     children: React.ReactNode;
 }>) => {
     return (
-        <div className="lggrid lg:grid-cols-3 h-full overflow-y-auto">
+        <div className="lg:grid lg:grid-cols-3 h-full overflow-y-auto">
             <div className="col-span-2 lg:my-auto">
                 {children}
             </div>

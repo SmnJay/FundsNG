@@ -5,12 +5,12 @@ import { ButtonLink } from '../Button/Button'
 
 const ForgotPasswordForm = () => {
     return (
-        <form className="relative md:shadow-lg md:bg-white rounded-2xl px-4 py-8 md:p-8 w-auto md:min-w-[500px]" autoComplete="off">
+        <form className="relative mx-auto max-w-[500px] px-4 py-8 md:p-8" autoComplete="off">
             <div className="pt-6 pb-6">
                 <Logo color='white'/>
             </div>
             <h6 className="text-white font-medium text-left text-xl leading-loose">Forgot Password</h6>
-            <p className="text-left text-white ">Oh snap! Let&apos;s recover your account.</p>
+            <p className="text-left text-white/80 font-extralight">Oh snap! Let&apos;s recover your account.</p>
             <div className="space-y-4 pt-6">
                 <Input
                     label='Email'
