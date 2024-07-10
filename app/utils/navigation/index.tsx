@@ -1,0 +1,44 @@
+import { ReactNode } from "react";
+import { HiOutlineCog6Tooth } from "react-icons/hi2";
+import { BsFileEarmarkText } from "react-icons/bs";
+import { BiHomeSmile } from "react-icons/bi";
+import { TbMessage2, TbMoneybag } from "react-icons/tb";
+
+export type NavData = {
+    id: number,
+    name: string,
+    link: string,
+    icon: ReactNode
+};
+
+
+const nav_data: NavData[] = [
+    {
+        id: 1,
+        name: 'dashboard',
+        link: '/dashboard',
+        icon: <BiHomeSmile />
+    }, {
+        id: 2,
+        name: 'campaigns',
+        link: '/',
+        icon: <TbMessage2 />
+    }, {
+        id: 3,
+        name: 'savings',
+        link: '/',
+        icon: <TbMoneybag />
+    }, {
+        id: 4,
+        name: 'history',
+        link: '/',
+        icon: <BsFileEarmarkText />
+    }, {
+        id: 5,
+        name: 'settings',
+        link: '/',
+        icon: <HiOutlineCog6Tooth />
+    }
+];
+
+export { nav_data };

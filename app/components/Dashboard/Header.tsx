@@ -4,7 +4,7 @@ import Links from '../Links/Index';
 
 const Header = () => {
     return (
-        <header className='bg-white h-[4rem] flex justify-end gap-1 items-center sticky top-0 left-0 p-8'>
+        <header className='bg-white h-[4rem] flex justify-end gap-1 items-center sticky top-0 left-0 p-8 border-b-2'>
             <BsBellFill size={34} className='hover:bg-appGrey text-primary-10 p-2 rounded-lg ease-linear duration-200'/>
             <Links
                 href='/signin'

@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import React, { FC, ReactNode } from 'react'
+import React, { FC, ReactNode } from 'react';
 
 interface ILinks {
   href: string
@@ -8,9 +8,11 @@ interface ILinks {
   name: ReactNode
   color?: string
   cls?: string
+  icon?: ReactNode
 }
 
-const Links: FC<ILinks> = ({href, color, processing, name, cls, ariaLabel, ...props}) => {
+const Links: FC<ILinks> = ({href, color, icon, processing, name, cls, ariaLabel, ...props}) => {
+
   return (
     <Link 
       {...props}

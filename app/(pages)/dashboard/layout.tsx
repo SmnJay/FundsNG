@@ -6,7 +6,7 @@ const AppLayout = ({ children }: Readonly<{
   children: React.ReactNode;
 }>) => {
   return (
-    <div className='bg-appGrey/50 h-screen'>
+    <div className='bg-appGrey/50 min-h-screen'>
       <Header />
       <Aside />
       <main className="ml-[250px] p-8">
