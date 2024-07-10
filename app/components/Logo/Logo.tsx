@@ -1,10 +1,11 @@
 import Image from 'next/image'
 import React from 'react'
 
-const Logo = () => {
+const Logo = ({ color }: { color?: string }) => {
     return (
-        <Image src='/images/full_logo.png' alt="Funds Ng Logo" width={193} height={40} className="mx-auto" />
+        <Image src={`${color === 'white' ? '/images/white-full_logo.png' : '/images/full_logo.png'} `} alt="FundsNg Logo" width={193} height={40} className="" />
     )
 }
+
 
 export default Logo

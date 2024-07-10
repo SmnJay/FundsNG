@@ -1,5 +1,5 @@
 
-import SignUpForm from "../../components/Forms/SignUpForm";
+import SignUpForm from "../../../components/Forms/SignUpForm";
 
 export default function Home() {
   return (

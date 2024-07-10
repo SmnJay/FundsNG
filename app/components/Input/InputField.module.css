@@ -1,7 +1,7 @@
 .container {
-    border-color: #E5E2E1;
+    border-color: #ffffff31;
 }
 
 .container:has(input:focus) {
-    border-color: #20525C;
+    border-color: #ffffffda;
 }

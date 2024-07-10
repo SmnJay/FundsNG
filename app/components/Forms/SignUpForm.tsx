@@ -12,20 +12,28 @@ const SignUpForm = () => {
     const router = useRouter();
 
     return (
-        <form className="md:shadow-lg md:bg-white rounded-2xl w-auto md:min-w-[500px] px-4 py-8 md:p-8" autoComplete="off">
+        <form className="smd:bg-white mx-auto max-w-[500px] px-4 py-8 md:p-8" autoComplete="off">
             <div className="pt-6 pb-6">
-                <Logo />
+                <Logo color='white'/>
             </div>
-            <h6 className="text-primary font-medium text-center text-xl leading-loose">Good Day, Welcome!</h6>
-            <p className="text-center text-[#929090]">It&apos;s a good day to create ideas that will change the world</p>
+            <h6 className="text-white font-semibold text-left text-2xl leading-loose">Good Day, Welcome!</h6>
+            <p className=" text-white/80">Sign up with your email to access the platform</p>
 
             <div className="space-y-4 pt-6">
+
+                <Input
+                    label='Username'
+                    name='username'
+                    type='text'
+                    placeholder='(eg @babablue)'
+                    error=''
+                />
 
                 <Input
                     label='Email'
                     name='email'
                     type='email'
-                    placeholder='Enter Email Address'
+                    placeholder='Enter your Email Address'
                     autoComplete='off'
                     error=''
                 />
@@ -50,13 +58,12 @@ const SignUpForm = () => {
             </div>
 
             <div className="flex flex-col gap-4 py-10 ">
-                <Button name="Sign up with Google" ariaLabel="button to sign up with google" color="grey" />
-                <Button name="Continue" ariaLabel="Continue button" color="primary" onClick={() => router.push('/verify-email')}/>
+                <Button name="Continue" ariaLabel="Continue button" color="white" onClick={() => router.push('/verify-email')}/>
             </div>
             <p className="text-center">
-                <span className="text-FBlack">Already have an account?</span>
+                <span className="text-white">Already have an account?</span>
                 <span className="pl-1">
-                    <Links href="/signin" ariaLabel="link to go to sign in page" name={"Sign in here"} />
+                    <Links cls='text-white underline' color='white' href="/signin" ariaLabel="link to go to sign in page" name={"Sign in here"} />
                 </span>
             </p>
         </form>

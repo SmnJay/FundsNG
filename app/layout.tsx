@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Be_Vietnam_Pro } from "next/font/google";
 import "./globals.css";
 import NextTopLoader from "nextjs-toploader";
 import StoreProvider from "./redux/Provider";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], display: 'swap', variable: '--font-inter' });
+
+// const be_vietnam_pro = Be_Vietnam_Pro({subsets: ['latin']})
 
 export const metadata: Metadata = {
   title: "FundsNg",

@@ -23,19 +23,19 @@ const PasswordInput = forwardRef<HTMLInputElement, IPasswordInput>(
 
         return (
             <div className='relative'>
-                <div className={`form-group rounded-lg border px-3 py-2 ${style.container}`}>
-                    <label htmlFor={name} className="block text-sm text-[#929090]">{label}</label>
+                <div className={`form-group rounded-lg bg-primary-30 border px-3 py-2 ${style.container}`}>
+                    <label htmlFor={name} className="block text-sm text-primary-20">{label}</label>
                     <input
                         {...props}
                         ref={ref}
                         name={name}
                         type={!hidePassword ? 'password' : 'text'}
                         autoComplete={autoComplete || 'off'}
-                        className="max-md:bg-transparent w-full text-FBlack font-medium focus:border-none focus:ring-none focus:outline-none"
+                        className="peer w-full text-white placeholder:text-white/70 bg-transparent focus:border-none focus:ring-none focus:outline-none"
                         placeholder={placeholder}
                     />
                 </div>
-                <span className="absolute bg-white right-0 -translate-x-1 top-8 px-3 overflow-hidden z-10">
+                <span className="absolute right-0 -translate-x-1 top-8 px-3 overflow-hidden z-10">
                     {hidePassword ? (
                         <button
                             onClick={handleHidePassword}
@@ -43,7 +43,7 @@ const PasswordInput = forwardRef<HTMLInputElement, IPasswordInput>(
                         >
                             <IoEyeOffSharp
                                 size={18}
-                                className="cursor-pointer text-primary"
+                                className="cursor-pointer text-white"
                             />
                         </button>
                     ) : (
@@ -53,7 +53,7 @@ const PasswordInput = forwardRef<HTMLInputElement, IPasswordInput>(
                         >
                             <IoEye
                                 size={18}
-                                className="text-primary cursor-pointer"
+                                className="text-white cursor-pointer"
                             />
                         </button>
 

@@ -19,7 +19,7 @@ interface ButtonLinkProps extends ButtonProps {
 
 const Button: React.FC<ButtonProps> = ({ type = 'button', onClick, color, outline, ariaLabel, processing, name, ...props }) => {
     const buttonClassNames = clsx(
-        'border-2 px-8 max-md:text-sm group rounded-lg',
+        'border-2 font-semibold px-8 max-md:text-sm group rounded-lg',
         {
             'bg-primary text-white border-primary': color === 'primary' && !outline,
             'bg-transparent text-primary border-primary': color === 'primary' && outline,
@@ -56,7 +56,7 @@ const Button: React.FC<ButtonProps> = ({ type = 'button', onClick, color, outlin
 
 export const ButtonLink: React.FC<ButtonLinkProps> = ({ href, color, outline, ariaLabel, processing, name, fullWidth, ...props }) => {
     const buttonClassNames = clsx(
-        'border-2 px-8 max-md:text-sm group rounded-lg',
+        'border-2 font-semibold px-8 max-md:text-sm group rounded-lg',
         {
             'bg-primary text-white border-primary': color === 'primary' && !outline,
             'bg-transparent text-primary border-primary': color === 'primary' && outline,

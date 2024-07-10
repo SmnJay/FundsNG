@@ -14,20 +14,19 @@ const page = () => {
   };
 
   return (
-    <form className="md:shadow-lg md:bg-white rounded-2xl w-auto md:min-w-[500px] px-4 py-8 md:p-8" autoComplete="off">
+    <form className="rounded-2xl w-auto md:min-w-[500px] px-4 py-8 md:p-8" autoComplete="off">
       <div className="pt-6 pb-6">
-        <Logo />
+        <Logo color='white'/>
       </div>
-      <h6 className="text-primary font-medium text-center text-xl leading-loose">Check your email</h6>
-      <p className="text-center text-[#929090] w-5/6 mx-auto">We sent an OTP to email. Please check to recover your account</p>
+      <h6 className="text-white font-medium text-left text-xl leading-loose">Check your email</h6>
+      <p className="text-left text-white lg:w-5/6 mx-auto">We sent an OTP to email. Please check to recover your account</p>
 
       <section className='mx-auto flex justify-center'>
         <OTPInput length={6} onComplete={handleSubmit} />
-
       </section>
 
       <div className="flex flex-col gap-4 py-10 ">
-        <ButtonLink href='/signin' name="Continue" ariaLabel="button to continue" color="primary" />
+        <ButtonLink href='/signin' name="Continue" ariaLabel="button to continue" color="white" />
       </div>
     </form>
   )

@@ -12,12 +12,14 @@ const config: Config = {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-          "signUp-pattern": "url('/images/bg-rectangle.png')"
+          "signUp-pattern": "url('/images/bg-pattern.png')"
       },
       colors: {
         primary: {
           DEFAULT: '#20525C',
-          10: "#2D7381"
+          10: "#2D7381",
+          20: "#83B3BE",
+          30: "#4f7e89",
         },
         FBlack: "#313030",
         appGrey: "#ECEEEE",
