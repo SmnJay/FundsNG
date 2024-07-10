@@ -1,5 +1,5 @@
 import { ButtonLink } from '@/app/components/Button/Button'
-import Logo from '@/app/components/Logo/Logo'
+import Logo, { WhiteLogo } from '@/app/components/Logo/Logo'
 import Image from 'next/image'
 import React from 'react'
 
@@ -8,7 +8,7 @@ const VerifyEmail = () => {
     return (
         <form className="mx-auto max-w-[500px] px-4 py-8 md:p-8 relative" autoComplete="off">
             <div className="pt-6 pb-6">
-                <Logo color='white'/>
+                <WhiteLogo />
             </div>
             <h6 className="text-white font-semibold text-left text-2xl leading-loose">Check your email</h6>
             <p className="text-left text-white ">We sent you an email. Please, check to verify your acount.</p>

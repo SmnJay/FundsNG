@@ -1,5 +1,5 @@
 import React from 'react'
-import Logo from '../Logo/Logo'
+import Logo, { WhiteLogo } from '../Logo/Logo'
 import Input from '../Input/Input'
 import { ButtonLink } from '../Button/Button'
 
@@ -7,7 +7,7 @@ const ForgotPasswordForm = () => {
     return (
         <form className="relative mx-auto max-w-[500px] px-4 py-8 md:p-8" autoComplete="off">
             <div className="pt-6 pb-6">
-                <Logo color='white'/>
+                <WhiteLogo />
             </div>
             <h6 className="text-white font-medium text-left text-xl leading-loose">Forgot Password</h6>
             <p className="text-left text-white/80 font-extralight">Oh snap! Let&apos;s recover your account.</p>

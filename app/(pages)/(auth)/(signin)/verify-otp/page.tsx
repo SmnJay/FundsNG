@@ -2,7 +2,7 @@
 
 import Button, { ButtonLink } from '@/app/components/Button/Button'
 import OTPInput from '@/app/components/Forms/OTPInput';
-import Logo from '@/app/components/Logo/Logo';
+import Logo, { WhiteLogo } from '@/app/components/Logo/Logo';
 import React from 'react'
 import toast from 'react-hot-toast';
 
@@ -16,7 +16,7 @@ const page = () => {
   return (
     <form className="mx-auto max-w-[500px] px-4 py-8 md:p-8 relative" autoComplete="off">
       <div className="pt-6 pb-6">
-        <Logo color='white'/>
+        <WhiteLogo />
       </div>
       <h6 className="text-white font-medium text-left text-xl leading-loose">Check your email</h6>
       <p className="text-left text-white lg:w-5/6 ">We sent an OTP to email. Please check to recover your account</p>

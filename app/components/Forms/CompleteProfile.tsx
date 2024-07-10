@@ -1,5 +1,5 @@
 import React from 'react'
-import Logo from '../Logo/Logo'
+import Logo, { WhiteLogo } from '../Logo/Logo'
 import Input from '../Input/Input'
 import Button from '../Button/Button'
 
@@ -7,7 +7,7 @@ const CompleteProfile = () => {
     return (
         <form className="relative md:shadow-lg md:bg-white rounded-2xl px-4 py-8 md:p-8 w-auto md:min-w-[500px]" autoComplete="off">
             <div className="pt-6 pb-6">
-                <Logo color='white' />
+                <WhiteLogo />
             </div>
             <h6 className="text-white font-semibold text-left text-2xl leading-loose">Complete your profile</h6>
             <p className="text-white/80 font-extralight">It&apos; a good day to create ideas that will change the world</p>

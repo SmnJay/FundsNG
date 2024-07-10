@@ -1,13 +1,13 @@
 import Button, { ButtonLink } from '@/app/components/Button/Button'
 import Input from '@/app/components/Input/Input'
-import Logo from '@/app/components/Logo/Logo'
+import Logo, { WhiteLogo } from '@/app/components/Logo/Logo'
 import React from 'react'
 
 const CompleteProfile = () => {
     return (
         <form className="relative mx-auto max-w-[500px] px-4 py-8 md:p-8" autoComplete="off">
             <div className="pt-6 pb-6">
-                <Logo color='white' />
+                <WhiteLogo />
             </div>
             <h6 className="text-white font-semibold text-left text-2xl leading-loose">Complete your profile</h6>
             <p className="text-left text-white ">It&apos; a good day to create ideas that will change the world</p>

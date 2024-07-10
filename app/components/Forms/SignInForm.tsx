@@ -2,7 +2,7 @@ import React from 'react'
 import Button, { ButtonLink } from '../Button/Button'
 import PasswordInput from '../Input/PasswordInput'
 import Links from '../Links/Index'
-import Logo from '../Logo/Logo'
+import Logo, { WhiteLogo } from '../Logo/Logo'
 import Input from '../Input/Input'
 import { FcGoogle } from 'react-icons/fc'
 
@@ -10,7 +10,7 @@ const SignInForm = () => {
     return (
         <form className="relative mx-auto max-w-[500px] px-4 py-8 md:p-8" autoComplete="off">
             <div className="pt-6 pb-6">
-                <Logo color='white' />
+                <WhiteLogo />
             </div>
             <h6 className="text-white font-semibold text-left text-2xl leading-loose">Welcome Back!</h6>
             <p className="text-left text-white/80 font-extralight">Glad to have you back. Your account details</p>

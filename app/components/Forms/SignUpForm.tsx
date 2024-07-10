@@ -5,7 +5,7 @@ import PasswordInput from '../Input/PasswordInput'
 import Button from '../Button/Button'
 import Links from '../Links/Index'
 import Input from '../Input/Input'
-import Logo from '../Logo/Logo'
+import Logo, { WhiteLogo } from '../Logo/Logo'
 import { useRouter } from 'next/navigation'
 
 const SignUpForm = () => {
@@ -14,7 +14,7 @@ const SignUpForm = () => {
     return (
         <form className="mx-auto max-w-[500px] px-4 py-8 md:p-8" autoComplete="off">
             <div className="pt-6 pb-6">
-                <Logo color='white'/>
+                <WhiteLogo />
             </div>
             <h6 className="text-white font-semibold text-left text-2xl leading-loose">Good Day, Welcome!</h6>
             <p className=" text-white/80 font-extralight">Sign up with your email to access the platform</p>
