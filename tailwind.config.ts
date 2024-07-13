@@ -25,10 +25,14 @@ const config: Config = {
           20: "#83B3BE",
           30: "#4f7e89",
         },
+        secondary: {
+          DEFAULT: "#7CCDDE"
+        },
         FBlack: "#313030",
         appGrey: "#ECEEEE",
         leafGreen: {
           DEFAULT: '#213502',
+          5: "#557726",
           10: "#42650B",
           20: "#618F19",
           30: "#7FB42D",

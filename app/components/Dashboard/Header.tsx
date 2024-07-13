@@ -1,11 +1,13 @@
 import React from 'react';
 import { BsBellFill } from "react-icons/bs";
 import Links from '../Links/Index';
+import Avatar from '../UserProfilePicture';
+import Link from 'next/link';
 
 const Header = () => {
     return (
-        <header className='bg-white h-[4rem] flex justify-end gap-1 items-center sticky top-0 left-0 p-8 border-b-2'>
-            <BsBellFill size={34} className='hover:bg-appGrey text-primary-10 p-2 rounded-lg ease-linear duration-200'/>
+        <header className='bg-white h-[4rem] flex justify-end gap-2 items-center sticky top-0 left-0 p-8 border-b-2'>
+            <BsBellFill size={34} className='hover:bg-appGrey text-primary-10 p-2 rounded-lg ease-linear duration-200' />
             <Links
                 href='/signin'
                 ariaLabel='link to sign out of the application'
@@ -17,6 +19,12 @@ const Header = () => {
                 </>
 
             />
+            <Link href='/settings/profile'>
+                <div className="flex justify-center items-center ml-2 gap-2">
+                    <Avatar />
+                    <h3 className="font-semibold">Tosin Akerele</h3>
+                </div>
+            </Link>
         </header>
     )
 }

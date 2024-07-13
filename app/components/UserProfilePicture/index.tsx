@@ -3,7 +3,7 @@ import React from 'react'
 
 const Avatar = () => {
     return (
-        <div className='ring-1 ring-white relative h-[50px] w-[50px] overflow-hiddens grid place-items-center'>
+        <div className='ring-1 ring-white relative h-[30px] w-[30px] overflow-hiddens grid place-items-center'>
             <Image
                 className='rounded-full'
                 src={'/images/passport.jpg'}

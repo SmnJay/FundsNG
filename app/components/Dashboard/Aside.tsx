@@ -9,14 +9,6 @@ const Aside = () => {
       <div className="h-[4rem] grid place-items-center">
         <Logo />
       </div>
-
-      <div className="flex justify-center items-center gap-2 mt-6">
-        <Avatar />
-        <div className="">
-          <h3 className="font-semibold">Tosin Akerele</h3>
-          <p className="text-primary-30 text-xs">@TosinJ</p>
-        </div>
-      </div>
     
       <div className='border-b-2'>
         <Navigation />

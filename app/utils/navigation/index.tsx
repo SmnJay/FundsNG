@@ -26,7 +26,7 @@ const nav_data: NavData[] = [
     }, {
         id: 3,
         name: 'savings',
-        link: '/',
+        link: '/dashboard/savings',
         icon: <TbMoneybag />
     }, {
         id: 4,

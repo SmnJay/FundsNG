@@ -11,7 +11,7 @@ const inter = Inter({
 
 const be_vietnam_pro = Be_Vietnam_Pro({
   subsets: ['latin'],
-  weight: "800",
+  weight: ["400", "800"],
   variable: '--font-bvp'
 })
 
