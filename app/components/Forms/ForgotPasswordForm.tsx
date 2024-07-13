@@ -9,7 +9,7 @@ const ForgotPasswordForm = () => {
             <div className="pt-6 pb-6">
                 <WhiteLogo />
             </div>
-            <h6 className="text-white font-medium text-left text-xl leading-loose">Forgot Password</h6>
+            <h6 className="text-white font-medium text-left text-3xl font-bvp leading-loose">Forgot Password</h6>
             <p className="text-left text-white/80 font-extralight">Oh snap! Let&apos;s recover your account.</p>
             <div className="space-y-4 pt-6">
                 <Input

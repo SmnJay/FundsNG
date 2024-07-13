@@ -4,9 +4,16 @@ import "./globals.css";
 import NextTopLoader from "nextjs-toploader";
 import StoreProvider from "./redux/Provider";
 
-const inter = Inter({ subsets: ["latin"], display: 'swap', variable: '--font-inter' });
+const inter = Inter({
+  subsets: ["latin"],
+  variable: '--font-inter'
+});
 
-// const be_vietnam_pro = Be_Vietnam_Pro({subsets: ['latin']})
+const be_vietnam_pro = Be_Vietnam_Pro({
+  subsets: ['latin'],
+  weight: "800",
+  variable: '--font-bvp'
+})
 
 export const metadata: Metadata = {
   title: "FundsNg",
@@ -20,9 +27,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.variable} ${be_vietnam_pro.variable}`}>
         <NextTopLoader color='#20525C' showSpinner={false} />
-          {children}
+        {children}
       </body>
     </html>
   );

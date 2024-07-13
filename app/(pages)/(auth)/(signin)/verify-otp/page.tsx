@@ -18,7 +18,7 @@ const page = () => {
       <div className="pt-6 pb-6">
         <WhiteLogo />
       </div>
-      <h6 className="text-white font-medium text-left text-xl leading-loose">Check your email</h6>
+      <h6 className="text-white font-medium text-left text-xl leading-loose font-bvp">Check your email</h6>
       <p className="text-left text-white lg:w-5/6 ">We sent an OTP to email. Please check to recover your account</p>
 
       <section className='mx-auto flex justify-center'>

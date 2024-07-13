@@ -12,7 +12,7 @@ const SignInForm = () => {
             <div className="pt-6 pb-6">
                 <WhiteLogo />
             </div>
-            <h6 className="text-white font-semibold text-left text-2xl leading-loose">Welcome Back!</h6>
+            <h6 className="text-white font-semibold text-left text-3xl font-bvp leading-loose">Welcome Back!</h6>
             <p className="text-left text-white/80 font-extralight">Glad to have you back. Your account details</p>
             <div className="space-y-4 pt-6">
                 <Input

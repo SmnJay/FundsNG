@@ -16,7 +16,7 @@ const SignUpForm = () => {
             <div className="pt-6 pb-6">
                 <WhiteLogo />
             </div>
-            <h6 className="text-white font-semibold text-left text-2xl leading-loose">Good Day, Welcome!</h6>
+            <h6 className="text-white font-semibold text-left text-3xl font-bvp leading-loose">Good Day, Welcome!</h6>
             <p className=" text-white/80 font-extralight">Sign up with your email to access the platform</p>
 
             <div className="space-y-4 pt-6">
