@@ -6,7 +6,7 @@ import React from 'react'
 const VerifyEmail = () => {
 
     return (
-        <form className="mx-auto max-w-[500px] px-4 py-8 md:p-8 relative" autoComplete="off">
+        <div className="mx-auto max-w-[500px] px-4 py-8 md:p-8 relative">
             <div className="pt-6 pb-6">
                 <WhiteLogo />
             </div>
@@ -21,7 +21,7 @@ const VerifyEmail = () => {
                 <ButtonLink href='/complete-profile' name="Continue" ariaLabel="Continue button" color="white" />
             </div>
 
-        </form>
+        </div>
     )
 }
 

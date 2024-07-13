@@ -47,7 +47,7 @@ const CompleteProfile = () => {
             </div>
 
             <div className="flex flex-col gap-4 py-10">
-                <ButtonLink href='/dashboard' name="Continue" ariaLabel="Continue button" color="white" />
+                <ButtonLink href='/ready' name="Continue" ariaLabel="Continue button" color="white" />
             </div>
         </form>
     )
