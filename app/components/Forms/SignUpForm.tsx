@@ -13,11 +13,11 @@ const SignUpForm = () => {
 
     return (
         <form className="mx-auto max-w-[500px] px-4 py-8 md:p-8" autoComplete="off">
-            <div className="pt-6 pb-6">
+            <div className="pb-4 md:py-6">
                 <WhiteLogo />
             </div>
-            <h6 className="text-white font-semibold text-left text-3xl font-bvp leading-loose">Good Day, Welcome!</h6>
-            <p className=" text-white/80 font-extralight">Sign up with your email to access the platform</p>
+            <h6 className="text-white font-semibold text-left text-xl md:text-3xl font-bvp leading-loose">Good Day, Welcome!</h6>
+            <p className="text-sm md:text-base text-white/80 font-extralight">Sign up with your email to access the platform</p>
 
             <div className="space-y-4 pt-6">
 

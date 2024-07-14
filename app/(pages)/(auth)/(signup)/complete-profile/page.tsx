@@ -6,11 +6,11 @@ import React from 'react'
 const CompleteProfile = () => {
     return (
         <form className="relative mx-auto max-w-[500px] px-4 py-8 md:p-8" autoComplete="off">
-            <div className="pt-6 pb-6">
+            <div className="pb-4 md:py-6">
                 <WhiteLogo />
             </div>
-            <h6 className="text-white font-semibold text-left text-3xl leading-loose font-bvp">Complete your profile</h6>
-            <p className="text-left text-white ">It&apos; a good day to create ideas that will change the world</p>
+            <h6 className="text-white font-semibold text-left text-xl md:text-3xl leading-loose font-bvp">Complete your profile</h6>
+            <p className="text-sm md:text-base text-left text-white ">It&apos;s a good day to create ideas that will change the world</p>
             <div className="space-y-4 pt-6">
                 <Input
                     label='First Name'

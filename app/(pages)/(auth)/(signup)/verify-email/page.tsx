@@ -7,11 +7,11 @@ const VerifyEmail = () => {
 
     return (
         <div className="mx-auto max-w-[500px] px-4 py-8 md:p-8 relative">
-            <div className="pt-6 pb-6">
+            <div className="pb-4 md:py-6">
                 <WhiteLogo />
             </div>
-            <h6 className="text-white font-semibold text-left text-3xl leading-loose font-bvp">Check your email</h6>
-            <p className="text-left text-white ">We sent you an email. Please, check to verify your acount.</p>
+            <h6 className="text-white font-semibold text-left text-xl md:text-3xl leading-loose font-bvp">Check your email</h6>
+            <p className="text-sm md:text-base text-left text-white ">We sent you an email. Please, check to verify your acount.</p>
 
             <div>
                 <Image src={'/images/verify-email.gif'} width={253} className='mx-auto' height={253} alt={'Envelope representing email sent to the mailbox'} />

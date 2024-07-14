@@ -15,11 +15,11 @@ const page = () => {
 
   return (
     <form className="mx-auto max-w-[500px] px-4 py-8 md:p-8 relative" autoComplete="off">
-      <div className="pt-6 pb-6">
+      <div className="pb-4 md:py-6">
         <WhiteLogo />
       </div>
-      <h6 className="text-white font-medium text-left text-xl leading-loose font-bvp">Check your email</h6>
-      <p className="text-left text-white lg:w-5/6 ">We sent an OTP to email. Please check to recover your account</p>
+      <h6 className="text-white font-medium text-left text-xl md:text-3xl leading-loose font-bvp">Check your email</h6>
+      <p className="text-sm md:text-base text-left text-white lg:w-5/6 ">We sent an OTP to email. Please check to recover your account</p>
 
       <section className='mx-auto flex justify-center'>
         <OTPInput length={6} onComplete={handleSubmit} />

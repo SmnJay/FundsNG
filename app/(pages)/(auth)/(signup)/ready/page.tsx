@@ -9,8 +9,8 @@ const Ready = () => {
             <div>
                 <Image src={'/images/check.gif'} width={253} className='mx-auto' height={253} alt={'check mark in a circle'} />
             </div>
-            <h6 className="text-white font-semibold text-center text-3xl leading-loose font-bvp">Your account is ready</h6>
-            <p className="text-center text-white">Welcome to the online platform for fundraising and efficient saving towards goals</p>
+            <h6 className="text-white font-semibold text-center text-xl md:text-3xl leading-loose font-bvp">Your account is ready</h6>
+            <p className="text-sm md:text-base text-center text-white">Welcome to the online platform for fundraising and efficient saving towards goals</p>
 
 
             <div className="flex flex-col gap-4 py-10">

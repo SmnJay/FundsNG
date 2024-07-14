@@ -9,11 +9,11 @@ import { FcGoogle } from 'react-icons/fc'
 const SignInForm = () => {
     return (
         <form className="relative mx-auto max-w-[500px] px-4 py-8 md:p-8" autoComplete="off">
-            <div className="pt-6 pb-6">
+            <div className="pb-4 md:py-6">
                 <WhiteLogo />
             </div>
-            <h6 className="text-white font-semibold text-left text-3xl font-bvp leading-loose">Welcome Back!</h6>
-            <p className="text-left text-white/80 font-extralight">Glad to have you back. Your account details</p>
+            <h6 className="text-white font-semibold text-left text-xl md:text-3xl font-bvp leading-loose">Welcome Back!</h6>
+            <p className="text-sm md:text-base text-left text-white/80 font-extralight">Glad to have you back. Your account details</p>
             <div className="space-y-4 pt-6">
                 <Input
                     label='Email'
