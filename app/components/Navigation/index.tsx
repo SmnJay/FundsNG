@@ -9,11 +9,10 @@ const Navigation: React.FC = () => {
   const activePath = usePathname();
 
     return (
-        <nav className='space-y-4 w-4/5 mx-auto py-8 font-bvp'>
+        <nav className='space-y-4 w-4/5 mx-auto py-6 md:py-8 font-bvp'>
             {
                 data.map((item) => {
                     const { id, name, link, icon } = item;
-                    console.log({link, activePath});
                     
                     return (
                         <Links
@@ -21,12 +20,12 @@ const Navigation: React.FC = () => {
                             href={link}
                             name={
                                 <div className='flex items-center gap-3'>
-                                    <span>{icon}</span>
-                                    <span>{name}</span>
+                                    <span className='text-2xl ease-linear duration-200 md:text-base'>{icon}</span>
+                                    <span className='hidden ease-linear duration-200 md:block'>{name}</span>
                                 </div>
                             }
                             ariaLabel={name} 
-                            cls={`${activePath === link && 'hover:cursor-text bg-appGrey pointer-events-none'} text-primary block capitalize font-medium leading-loose hover:bg-appGrey rounded-lg ease-linear duration-200 py-2 px-6 outline outline-transparent hover:outline-[#FFECE5]s`}
+                            cls={`${activePath === link && 'hover:cursor-text bg-[#CEE9B3] pointer-events-none'} w-fit text-primary block capitalize font-medium leading-loose hover:bg-[#CEE9B3] rounded-lg ease-linear duration-200 py-2 px-4 md:px-6 outline outline-transparent hover:outline-[#FFECE5]s`}
                         />
                     )
                 })
