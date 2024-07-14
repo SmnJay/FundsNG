@@ -1,4 +1,6 @@
+
 import Cards from '@/app/components/Cards'
+import Image from 'next/image'
 import React from 'react'
 
 const Savings = () => {
@@ -20,7 +22,6 @@ const Savings = () => {
                         <path d="M25.9968 24.1663L28.8835 25.833" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                         <path d="M11.1164 14.1663L14.0032 15.833" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>}
-
                 />
                 <Cards
                     title='Create New Target Savings'
@@ -30,6 +31,23 @@ const Savings = () => {
                     bgColor='bg-leafGreen-5'
                     titleColor='text-white'
                 />
+            </div>
+
+            <div className="mt-4 md:mt-8">
+                <button className="text-sm md:text-base font-semibold bg-primary text-white leading-loose py-2 px-4 md:py-3 md:px-6 rounded-l-lg">Ongoing Targets</button>
+                <button className="text-sm md:text-base font-semibold bg-white leading-loose py-2 px-4 md:py-3 md:px-6 rounded-r-lg">Completed Targets</button>
+            </div>
+
+            <div className="bg-white rounded-lg md:rounded-xl p-8 space-y-4 mt-4 md:mt-8">
+                <div className="flex items-center justify-center">
+                    <Image 
+                        src={'/icons/empty-savings.png'}
+                        alt='More like a bell picture'
+                        width={300}
+                        height={185}
+                    />
+                </div>
+                <p className="text-center text-sm md:text-base font-bvp text-[#535758]">Looks like you do not have any ongoing target savings. <br />Try creating one to get started</p>
             </div>
         </div>
     )
