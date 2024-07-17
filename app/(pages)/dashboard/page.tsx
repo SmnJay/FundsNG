@@ -35,12 +35,13 @@ const page = () => {
       <div className="bg-white rounded-md mt-4">
         <div className="border-b px-8 py-4 flex items-center justify-between">
           <p className="font-medium text-[#899192]">Your Fundraiser</p>
-          <Link href='' className='text-sm '>View All</Link>
+          <Link href='/dashboard/campaigns' className='text-sm '>View All</Link>
         </div>
         <div className="flex items-center justify-center p-8">
           <div className="grid place-items-center space-y-6">
             <p className="text-center max-w-[400px] mx-auto text-gray-600">Your currently do not have any ongoing campaign. <br />Create one to see them here</p>
-            <Button
+            <ButtonLink
+              href='/dashboard/campaigns'
               name='Start a Campaign'
               ariaLabel='Start a campaign button'
               color='leafGreen'
@@ -85,14 +86,15 @@ const page = () => {
       <div className="bg-white rounded-md mt-4">
         <div className="border-b px-8 py-4 flex items-center justify-between">
           <p className="font-medium text-[#899192]">Your Savings</p>
-          <Link href='' className='text-sm '>View All</Link>
+          <Link href='/dashboard/savings' className='text-sm '>View All</Link>
         </div>
         <div className="flex items-center justify-center p-8">
           <div className="grid place-items-center space-y-6">
             <p className="text-center max-w-[400px] mx-auto text-gray-600">Your currently do not have any ongoing savings. <br />Create one to see them here</p>
-            <Button
-              name='Start a Campaign'
-              ariaLabel='Start a campaign button'
+            <ButtonLink
+              href='/dashboard/savings'
+              name='Start Saving'
+              ariaLabel='Start Saving'
               color='primary'
             />
           </div>
