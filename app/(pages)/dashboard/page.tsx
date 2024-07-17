@@ -7,7 +7,7 @@ const page = () => {
     <div>
       <div className="flex items-center justify-between rounded-md px-4 py-2 bg-[#EBF7DF]">
         <p className="font-medium text-leafGreen-20">Before you continue, complete your profile</p>
-        <Link href='' className='text-sm text-leafGreen-30 font-medium bg-white rounded-lg py-2 leading-loose px-4'>
+        <Link href='/settings/profile' className='text-sm text-leafGreen-30 font-medium bg-white rounded-lg py-2 leading-loose px-4'>
           Complete Profile
         </Link>
       </div>
