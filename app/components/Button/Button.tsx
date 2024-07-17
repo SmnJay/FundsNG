@@ -7,9 +7,10 @@ interface ButtonProps {
     name: string;
     ariaLabel: string
     outline?: boolean;
-    color?: 'primary' | 'secondary' | 'grey' | 'black' | 'white'
+    color?: 'primary' | 'secondary' | 'grey' | 'black' | 'white' | 'leafGreen'
     type?: 'button' | 'submit' | 'reset';
     icon?: ReactNode
+    textColor?: string
     onClick?: () => void
 }
 
@@ -24,6 +25,8 @@ const Button: React.FC<ButtonProps> = ({ type = 'button', onClick, color, outlin
         {
             'bg-primary text-white border-primary': color === 'primary' && !outline,
             'bg-transparent text-primary border-primary': color === 'primary' && outline,
+            'bg-leafGreen-20 text-white border-leafGreen-20': color === 'leafGreen' && !outline,
+            'bg-transparent text-leafGreen-20 border-leafGreen-20': color === 'leafGreen' && outline,
             'bg-white text-primary border-white': color === 'white' && !outline,
             'bg-transparent text-white border-white': color === 'white' && outline,
             'bg-black text-white border-black': color === 'black' && !outline,
@@ -55,7 +58,7 @@ const Button: React.FC<ButtonProps> = ({ type = 'button', onClick, color, outlin
 }
 
 
-export const ButtonLink: React.FC<ButtonLinkProps> = ({ href, color, outline, ariaLabel, processing, name, icon, fullWidth, ...props }) => {
+export const ButtonLink: React.FC<ButtonLinkProps> = ({ href, textColor, color, outline, ariaLabel, processing, name, icon, fullWidth, ...props }) => {
     const buttonClassNames = clsx(
         'border-2 font-semibold px-8 max-md:text-sm group rounded-lg',
         {
