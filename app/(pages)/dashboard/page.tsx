@@ -9,7 +9,7 @@ import { FaBriefcaseMedical, FaHandHoldingHeart, FaHome, FaPlaneDeparture, FaWal
 import { GrEmergency } from 'react-icons/gr';
 import { MdBusinessCenter } from 'react-icons/md';
 
-const page = () => {
+const DashboardPage = () => {
   const [isEmpty, setIsEmpty] = useState(true);
   const handleIsEmpty = () => setIsEmpty(!isEmpty)
   return (
@@ -178,4 +178,4 @@ const page = () => {
   )
 };
 
-export default page;
+export default DashboardPage;
