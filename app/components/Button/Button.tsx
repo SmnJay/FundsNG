@@ -64,6 +64,8 @@ export const ButtonLink: React.FC<ButtonLinkProps> = ({ href, textColor, color, 
         {
             'bg-primary text-white border-primary': color === 'primary' && !outline,
             'bg-transparent text-primary border-primary': color === 'primary' && outline,
+            'bg-leafGreen-20 text-white border-leafGreen-20': color === 'leafGreen' && !outline,
+            'bg-transparent text-leafGreen-20 border-leafGreen-20': color === 'leafGreen' && outline,
             'bg-white text-primary border-white': color === 'white' && !outline,
             'bg-transparent text-white border-white': color === 'white' && outline,
             'bg-black text-white border-black': color === 'black' && !outline,

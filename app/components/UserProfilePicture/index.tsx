@@ -8,7 +8,7 @@ const Avatar = () => {
                 className='rounded-full'
                 src={'/images/passport.jpg'}
                 fill
-                objectPosition='center'
+                style={{objectPosition: 'center'}}
                 alt={'Authenticated user avatar'}
             />
             <div className="bg-green-700 h-3 w-3 rounded-full ring-2 ring-white absolute z-50 right-0 bottom-0 border"></div>
