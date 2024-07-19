@@ -18,7 +18,7 @@ const DashboardWrapper = () => {
             <button onClick={handleIsEmpty} className="p-2 bg-leafGreen-30 mb-4 text-white font-bvp text-sm">{isEmpty ? 'Check Not-Empty State' : 'Check empty State'}</button>
 
             {
-                isEmpty ? <div className="flex max-sm:flex-col items-end sm:items-center justify-between rounded-md px-4 py-2 bg-[#EBF7DF] w-2/3">
+                isEmpty ? <div className="flex max-sm:flex-col items-end sm:items-center justify-between rounded-md px-4 py-2 bg-[#EBF7DF] md: w-2/3">
                     <p className="font-medium text-leafGreen-20">Before you continue, complete your profile</p>
                     <Link href='/settings/profile' className='text-sm text-leafGreen-30 font-medium bg-white rounded-lg py-2 leading-loose px-4'>
                         Complete Profile
@@ -60,7 +60,7 @@ const DashboardWrapper = () => {
             }
 
             {
-                isEmpty ? <div className="w-2/3 mt-4 flex items-center justify-center sm:justify-between rounded-md bg-signUp-pattern bg-leafGreen-20 text-white p-4 sm:p-8">
+                isEmpty ? <div className="md: w-2/3 mt-4 flex items-center justify-center sm:justify-between rounded-md bg-signUp-pattern bg-leafGreen-20 text-white p-4 sm:p-8">
                     <div className='space-y-3'>
                         <h1 className="font-semibold text-xl">Welcome to FundsNg</h1>
                         <p className="font-thin">
