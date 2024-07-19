@@ -25,7 +25,7 @@ const Navigation: React.FC = () => {
                                 </div>
                             }
                             ariaLabel={name} 
-                            cls={`${activePath === link && 'hover:cursor-text bg-[#CEE9B3] pointer-events-none'} w-fit text-primary block capitalize font-medium leading-loose hover:bg-[#CEE9B3] rounded-lg ease-linear duration-200 py-2 px-4 md:px-6 outline outline-transparent hover:outline-[#FFECE5]s`}
+                            cls={`${activePath === link && 'hover:cursor-text bg-[#CEE9B3] pointer-events-none'} w-fit text-primary block capitalize font-medium leading-loose hover:bg-appGrey text-sm rounded-lg ease-linear duration-200 py-2 px-4 md:px-6 outline outline-transparent hover:outline-[#FFECE5]s w-full`}
                         />
                     )
                 })

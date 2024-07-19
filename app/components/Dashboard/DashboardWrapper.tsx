@@ -119,37 +119,37 @@ const DashboardWrapper = () => {
                 </div>
                 <div className="flex items-center justify-evenly gap-4 flex-wrap p-4 sm:p-8">
                     <div className="sm:space-y-2 text-center">
-                        <span className="bg-leafGreen-50 mx-auto grid place-items-center h-14 sm:h-20 w-14 sm:w-20 rounded-full">
+                        <span className="bg-leafGreen-80 mx-auto grid place-items-center h-14 sm:h-20 w-14 sm:w-20 rounded-full">
                             <FaBriefcaseMedical className='text-[#618F19] h-6 w-6 sm:h-10 sm:w-10' />
                         </span>
                         <span className="text-gray-600 block">Medical</span>
                     </div>
                     <div className="sm:space-y-2 text-center">
-                        <span className="bg-leafGreen-50 mx-auto grid place-items-center h-14 sm:h-20 w-14 sm:w-20 rounded-full">
+                        <span className="bg-leafGreen-80 mx-auto grid place-items-center h-14 sm:h-20 w-14 sm:w-20 rounded-full">
                             <GrEmergency className='text-[#618F19] h-6 w-6 sm:h-10 sm:w-10' />
                         </span>
                         <span className="text-gray-600 block">Emergency</span>
                     </div>
                     <div className="sm:space-y-2 text-center">
-                        <span className="bg-leafGreen-50 mx-auto grid place-items-center h-14 sm:h-20 w-14 sm:w-20 rounded-full">
+                        <span className="bg-leafGreen-80 mx-auto grid place-items-center h-14 sm:h-20 w-14 sm:w-20 rounded-full">
                             <FaHome className='text-[#618F19] h-6 w-6 sm:h-10 sm:w-10' />
                         </span>
                         <span className="text-gray-600 block">Housing</span>
                     </div>
                     <div className="sm:space-y-2 text-center">
-                        <span className="bg-leafGreen-50 mx-auto grid place-items-center h-14 sm:h-20 w-14 sm:w-20 rounded-full">
+                        <span className="bg-leafGreen-80 mx-auto grid place-items-center h-14 sm:h-20 w-14 sm:w-20 rounded-full">
                             <FaHandHoldingHeart className='text-[#618F19] h-6 w-6 sm:h-10 sm:w-10' />
                         </span>
                         <span className="text-gray-600 block">Charity</span>
                     </div>
                     <div className="sm:space-y-2 text-center">
-                        <span className="bg-leafGreen-50 mx-auto grid place-items-center h-14 sm:h-20 w-14 sm:w-20 rounded-full">
+                        <span className="bg-leafGreen-80 mx-auto grid place-items-center h-14 sm:h-20 w-14 sm:w-20 rounded-full">
                             <MdBusinessCenter className='text-[#618F19] h-6 w-6 sm:h-10 sm:w-10' />
                         </span>
                         <span className="text-gray-600 block">Business</span>
                     </div>
                     <div className="sm:space-y-2 text-center">
-                        <span className="bg-leafGreen-50 mx-auto grid place-items-center h-14 sm:h-20 w-14 sm:w-20 rounded-full">
+                        <span className="bg-leafGreen-80 mx-auto grid place-items-center h-14 sm:h-20 w-14 sm:w-20 rounded-full">
                             <FaPlaneDeparture className='text-[#618F19] h-6 w-6 sm:h-10 sm:w-10' />
                         </span>
                         <span className="text-gray-600 block">Travel</span>

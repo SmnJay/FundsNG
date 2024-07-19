@@ -40,6 +40,7 @@ const config: Config = {
           50: "#A4C374",
           60: "#BACB9F",
           70: "#D1D8C5",
+          80: "#EBF7DF",
         }
       }
     },

@@ -10,11 +10,7 @@ const AppLayout = ({ children }: Readonly<{
       <Header />
       <Aside />
       <main className="md:ml-[250px] p-4 md:p-8 grid grid-cols-1 lg:grid-cols-3 gap-12">
-        <section className="col-span-2">{children}</section>
-        <section className="col-span-1">
-          <h3 className="text-primary font-medium font-bvp">Recent Activity</h3>
-        </section>
-       
+        <section className="col-span-3">{children}</section>
       </main>
 
     </div>
