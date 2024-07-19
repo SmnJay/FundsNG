@@ -21,7 +21,7 @@ const nav_data: NavData[] = [
     }, {
         id: 2,
         name: 'campaigns',
-        link: '/',
+        link: '/dashboard/campaigns',
         icon: <TbMessage2 />
     }, {
         id: 3,
