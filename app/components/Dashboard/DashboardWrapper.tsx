@@ -103,7 +103,7 @@ const DashboardWrapper = () => {
                                         />
                                     </div>
                                     :
-                                    <div className='flex items-center gap-6'>
+                                    <div className='flex flex-col md:flex-row items-center gap-6'>
                                         <div className="">
                                             <Image src={'/images/underbridge.png'} width={300} height={350} alt='' />
                                         </div>
