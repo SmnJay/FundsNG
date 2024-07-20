@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+import { HiChevronRight } from 'react-icons/hi2';
 
 interface BreadcrumbItem {
     label: string
@@ -14,7 +15,7 @@ const Breadcrumb: FC<BreadcrumbProps> = ({ items }) => {
         <nav aria-label="Breadcrumb">
             <ol className="breadcrumb-list" style={{ listStyle: 'none', padding: 0, display: 'flex', alignItems: 'center' }}>
                 {items.map((item, index) => (
-                    <li key={index} style={{ marginRight: 0 }}>
+                    <li key={index} className='flex items-center'>
                         {item.path ? (
                             <a href={item.path} style={{ color: '#888F87', textDecoration: 'none' }}>
                                 {item.label}
@@ -22,7 +23,7 @@ const Breadcrumb: FC<BreadcrumbProps> = ({ items }) => {
                         ) : (
                             <span style={{ color: '#0C0C0C' }}>{item.label}</span>
                         )}
-                        {index < items.length - 1 && <span style={{ margin: '0 8px', color: '#888F87' }}>&gt;</span>}
+                        {index < items.length - 1 && <span style={{ margin: '0 6px', color: '#888F87' }}><HiChevronRight /></span>}
                     </li>
                 ))}
             </ol>

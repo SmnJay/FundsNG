@@ -30,7 +30,7 @@ const nav_data: NavData[] = [
         icon: <TbMoneybag />
     }, {
         id: 4,
-        name: 'history',
+        name: 'wallet',
         link: '/',
         icon: <BsFileEarmarkText />
     }, {

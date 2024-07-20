@@ -1,7 +1,18 @@
 import React, { forwardRef } from 'react';
 import style from './InputField.module.css';
 
-interface IInput {
+interface IInput extends React.InputHTMLAttributes<HTMLInputElement> {
+    label: string
+    error: string | undefined
+    autoComplete?: 'on' | 'off'
+    placeholder: string
+    name: string
+    type: string
+    accept?: string
+    where?: 'auth' | 'app'
+}
+
+interface TextArea extends React.InputHTMLAttributes<HTMLTextAreaElement> {
     label: string
     error: string | undefined
     autoComplete?: 'on' | 'off'
@@ -39,7 +50,7 @@ const Input = forwardRef<HTMLInputElement, IInput>(
 
 export default Input;
 
-export const InputTextArea = forwardRef<HTMLTextAreaElement, IInput>(
+export const InputTextArea = forwardRef<HTMLTextAreaElement, TextArea>(
     ({ label, error, name, where = 'auth', autoComplete, placeholder, type, ...props }, ref) => {
         return (
             <div className='relative'>
@@ -62,3 +73,4 @@ export const InputTextArea = forwardRef<HTMLTextAreaElement, IInput>(
 );
 
 Input.displayName = 'Input';
+InputTextArea.displayName = 'InputTextArea';
