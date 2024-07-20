@@ -4,16 +4,17 @@ import React from 'react'
 import Links from '../Links/Index';
 import { nav_data as data } from '@/app/utils/navigation';
 import { usePathname } from 'next/navigation';
+import { useMenu } from '@/app/utils/hooks/contexts';
 
 const Navigation: React.FC = () => {
-  const activePath = usePathname();
-
+    const activePath = usePathname();
+    const { handleIsOpen } = useMenu()
     return (
         <nav className='space-y-4 w-4/5 mx-auto py-6 md:py-8'>
             {
                 data.map((item) => {
                     const { id, name, link, icon } = item;
-                    
+
                     return (
                         <Links
                             key={id}
@@ -24,7 +25,8 @@ const Navigation: React.FC = () => {
                                     <span className='hidden ease-linear duration-200 md:block'>{name}</span>
                                 </div>
                             }
-                            ariaLabel={name} 
+                            handleClick={handleIsOpen}
+                            ariaLabel={name}
                             cls={`${activePath === link && 'hover:cursor-text bg-[#CEE9B3] pointer-events-none'} w-fit text-primary block capitalize font-medium leading-loose hover:bg-appGrey text-sm rounded-lg ease-linear duration-200 py-2 px-4 md:px-6 outline outline-transparent hover:outline-[#FFECE5]s w-full`}
                         />
                     )

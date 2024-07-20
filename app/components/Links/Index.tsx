@@ -9,20 +9,22 @@ interface ILinks {
   color?: string
   cls?: string
   icon?: ReactNode
+  handleClick?: () => void
 }
 
-const Links: FC<ILinks> = ({href, color, icon, processing, name, cls, ariaLabel, ...props}) => {
+const Links: FC<ILinks> = ({ href, color, handleClick, icon, processing, name, cls, ariaLabel, ...props }) => {
 
   return (
-    <Link 
-      {...props}
-      href={href}
-      aria-busy={processing}
-      aria-label={ariaLabel}
-      aria-live='polite'
-      className={`${color ? color + 'md:text-primary' : 'text-primary'} ${cls}`}
-    >
-      {name}
+    <Link legacyBehavior {...props} href={href}>
+      <a
+        aria-busy={processing}
+        aria-label={ariaLabel}
+        aria-live='polite'
+        className={`${color ? color + 'md:text-primary' : 'text-primary'} ${cls}`}
+        onClick={handleClick}
+      >
+        {name}
+      </a>
     </Link>
   )
 }
