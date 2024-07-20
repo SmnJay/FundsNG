@@ -5,3 +5,12 @@
 .container:has(input:focus) {
     border-color: #ffffffda;
 }
+
+.containerApp {
+    border-color: #D7DAD6;
+}
+
+.containerApp:has(input:focus) {
+    border-color: #618F19;
+}
+

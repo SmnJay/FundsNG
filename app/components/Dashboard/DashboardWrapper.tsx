@@ -68,7 +68,7 @@ const DashboardWrapper = () => {
                         <p className="font-thin max-md:text-sm">
                             Create your own unique fundraiser ad make a difference today. <br className="" />Whether it&apos;s for a personal cause, charity, or a community project.
                         </p>
-                        <Button name='Start a Campaign' color='white' ariaLabel='A button to start a campaign' />
+                        <ButtonLink href='/dashboard/campaigns/create' name='Start a Campaign' color='white' ariaLabel='A button to start a campaign' />
                     </div>
 
                     <div className="hidden sm:block">
@@ -98,7 +98,7 @@ const DashboardWrapper = () => {
                                     <div className="grid place-items-center space-y-6">
                                         <p className="text-center max-w-[400px] mx-auto text-gray-600">You currently do not have any ongoing campaign. <br />Create one to see them here</p>
                                         <ButtonLink
-                                            href='/dashboard/campaigns'
+                                            href='/dashboard/campaigns/create'
                                             name='Start a Campaign'
                                             ariaLabel='Start a campaign button'
                                             color='leafGreen'

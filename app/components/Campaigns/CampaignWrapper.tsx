@@ -1,8 +1,11 @@
 'use client';
 
 import React, { useState } from 'react'
-import Button from '../Button/Button';
+import Button, { ButtonLink } from '../Button/Button';
 import Image from 'next/image';
+import { IoFilterOutline } from "react-icons/io5";
+import { BiPlus } from 'react-icons/bi';
+import Link from 'next/link';
 
 const CampaignWrapper = () => {
     const [isEmpty, setIsEmpty] = useState(true);
@@ -71,22 +74,33 @@ const CampaignWrapper = () => {
                         </defs>
                     </svg>
 
-                    <p className="text-FBlack font-medium mb-6  text-sm">Looks like you dont have any ongoing campaigns. Try creating one to get started</p>
-                    <Button
+                    <p className="text-FBlack font-medium mb-6 text-sm">Looks like you dont have any ongoing campaigns. Try creating one to get started</p>
+                    <ButtonLink
+                        href='/dashboard/campaigns/create'
                         name='Create Campaign'
                         ariaLabel='create a campaign'
                         color='leafGreen'
                     />
                 </div> :
                 <div className="space-y-4">
-                    <div className="bg-white text-[#5f655e]  text-sm font-semibold rounded-lg p-3">
-                        Your Campaigns (3)
-                        {/* <Button></Button> */}
+                    <div className="bg-white text-[#5f655e] flex items-center justify-between text-sm font-semibold rounded-lg p-3">
+                        <span className="">Your Campaigns (3)</span>
+
+                        <div className="flex items-center gap-2">
+                            <button className="flex items-center gap-1 rounded-lg md:leading-4 border-2 px-2 py-2 font-medium">
+                                <IoFilterOutline />
+                                <span className="max-md:hidden">Filter</span>                                
+                            </button>
+                            <Link href={'/dashboard/campaigns/create'} className="flex items-center gap-1 rounded-lg md:leading-4 border-2 border-leafGreen-20 text-white bg-leafGreen-20 px-2 py-2 font-medium">
+                                <BiPlus color='white'/>
+                                <span className="max-md:hidden">Create Campaign</span>                                
+                            </Link>
+                        </div>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-4">
                         <div className="">
                             <div className="bg-white p-4 space-y-4 rounded-t-md">
-                                <Image src={'/images/underbridge.png'} width={300} height={120} style={{width: '100%'}} alt='' />
+                                <Image src={'/images/underbridge.png'} width={300} height={120} style={{ width: '100%' }} alt='' />
                                 <h6 className="text-[#3f4343]  font-semibold">Save the homeless people at Ikeja Underbridge</h6>
                                 <p className="text-[#888f87] text-xs">Created 24 April, 2024</p>
                             </div>
@@ -94,7 +108,7 @@ const CampaignWrapper = () => {
                         </div>
                         <div className="">
                             <div className="bg-white p-4 space-y-4 rounded-t-md">
-                                <Image src={'/images/underbridge.png'} width={300} height={120} style={{width: '100%'}} alt='' />
+                                <Image src={'/images/underbridge.png'} width={300} height={120} style={{ width: '100%' }} alt='' />
                                 <h6 className="text-[#3f4343]  font-semibold">Save the homeless people at Ikeja Underbridge</h6>
                                 <p className="text-[#888f87] text-xs">Created 24 April, 2024</p>
                             </div>
@@ -102,7 +116,7 @@ const CampaignWrapper = () => {
                         </div>
                         <div className="grayscale hover:cursor-not-allowed">
                             <div className="bg-white p-4 space-y-4 rounded-t-md">
-                                <Image src={'/images/underbridge.png'} width={300} height={120} style={{width: '100%'}} alt='' />
+                                <Image src={'/images/underbridge.png'} width={300} height={120} style={{ width: '100%' }} alt='' />
                                 <h6 className="text-[#3f4343]  font-semibold">Save the homeless people at Ikeja Underbridge</h6>
                                 <p className="text-[#888f87] text-xs">Created 24 April, 2024</p>
                             </div>

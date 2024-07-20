@@ -1,9 +1,18 @@
+import Breadcrumb from '@/app/components/Breadcrumb';
 import CampaignWrapper from '@/app/components/Campaigns/CampaignWrapper'
 import React from 'react'
 
 const Campaings = () => {
+  const breadcrumbItems = [
+    { label: 'Dashboard', path: '/dashboard' },
+    { label: 'Campaigns' }
+  ];
+
   return (
-    <CampaignWrapper />
+    <>
+      <Breadcrumb items={breadcrumbItems} />
+      <CampaignWrapper />
+    </>
   )
 }
 
