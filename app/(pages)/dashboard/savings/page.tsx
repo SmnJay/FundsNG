@@ -13,20 +13,20 @@ const Savings = () => {
                     title={'Total Savings'}
                     amount={'12500'}
                     icon={<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="3.33325" y="3.33301" width="33.3333" height="33.3333" rx="4" stroke="white" stroke-width="1.5" />
-                        <circle cx="6.66667" cy="6.66667" r="6.66667" transform="matrix(1 0 0 -1 13.3333 26.667)" stroke="white" stroke-width="1.5" />
-                        <path d="M20 13.3333V10" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                        <path d="M20 30.0003V26.667" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                        <path d="M25.9968 15.8337L28.8835 14.167" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                        <path d="M11.1164 25.8337L14.0032 24.167" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                        <path d="M25.9968 24.1663L28.8835 25.833" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                        <path d="M11.1164 14.1663L14.0032 15.833" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        <rect x="3.33325" y="3.33301" width="33.3333" height="33.3333" rx="4" stroke="white" strokeWidth="1.5" />
+                        <circle cx="6.66667" cy="6.66667" r="6.66667" transform="matrix(1 0 0 -1 13.3333 26.667)" stroke="white" strokeWidth="1.5" />
+                        <path d="M20 13.3333V10" stroke="white" strokeWidth="1.5" strokeLinecap="round" stroke-linejoin="round" />
+                        <path d="M20 30.0003V26.667" stroke="white" strokeWidth="1.5" strokeLinecap="round" stroke-linejoin="round" />
+                        <path d="M25.9968 15.8337L28.8835 14.167" stroke="white" strokeWidth="1.5" strokeLinecap="round" stroke-linejoin="round" />
+                        <path d="M11.1164 25.8337L14.0032 24.167" stroke="white" strokeWidth="1.5" strokeLinecap="round" stroke-linejoin="round" />
+                        <path d="M25.9968 24.1663L28.8835 25.833" stroke="white" strokeWidth="1.5" strokeLinecap="round" stroke-linejoin="round" />
+                        <path d="M11.1164 14.1663L14.0032 15.833" stroke="white" strokeWidth="1.5" strokeLinecap="round" stroke-linejoin="round" />
                     </svg>}
                 />
                 <Cards
                     title='Create New Target Savings'
                     icon={<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M19.9999 13.333V26.6663M26.6666 19.9997H13.3333M19.9999 36.6663C29.2047 36.6663 36.6666 29.2044 36.6666 19.9997C36.6666 10.7949 29.2047 3.33301 19.9999 3.33301C10.7952 3.33301 3.33325 10.7949 3.33325 19.9997C3.33325 29.2044 10.7952 36.6663 19.9999 36.6663Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M19.9999 13.333V26.6663M26.6666 19.9997H13.3333M19.9999 36.6663C29.2047 36.6663 36.6666 29.2044 36.6666 19.9997C36.6666 10.7949 29.2047 3.33301 19.9999 3.33301C10.7952 3.33301 3.33325 10.7949 3.33325 19.9997C3.33325 29.2044 10.7952 36.6663 19.9999 36.6663Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" stroke-linejoin="round" />
                     </svg>}
                     bgColor='bg-leafGreen-5'
                     titleColor='text-white'

@@ -5,6 +5,7 @@ import CreateCampaign2 from './CreateCampaign2';
 import PreviewCampaign from '../Campaigns/PreviewCampaign';
 import { TfiShine } from 'react-icons/tfi';
 import StepIndicator from '../StepIndicator';
+import CreateCampaign3 from './CreateCampaign3';
 
 interface FormData {
     campaign_for: string;
@@ -19,8 +20,8 @@ interface FormData {
     state: string;
     country: string;
     bank_name: string;
-    account_number: string;
-    bvn: string;
+    account_number: number | null;
+    bvn: number | null;
 }
 
 const MultiStepForm = () => {
@@ -44,11 +45,14 @@ const MultiStepForm = () => {
 
         // link account
         bank_name: '',
-        account_number: '',
-        bvn: ''
+        account_number: null,
+        bvn: null
     });
 
-    const nextStep = () => setCurrentStep(prev => prev + 1);
+    const nextStep = () => {
+        console.log(formData)
+        setCurrentStep(prev => prev + 1)
+    };
     const prevStep = () => setCurrentStep(prev => prev - 1);
     const togglePreview = () => setShowPreview(!showPreview);
 
@@ -74,8 +78,8 @@ const MultiStepForm = () => {
 
     const steps = [
         <CreateCampaign1 key={1} data={formData} handleChange={handleChange} handleFileChange={handleFileChange} />,
-        <CreateCampaign2 key={2} />,
-        <PreviewCampaign key={3} />
+        <CreateCampaign2 key={2} data={formData} handleChange={handleChange} />,
+        <CreateCampaign3 key={3} data={formData} handleChange={handleChange} />
     ];
 
     return (
@@ -97,11 +101,16 @@ const MultiStepForm = () => {
                         <button onClick={prevStep} disabled={currentStep === 1} className="bg-gray-300 text-sm hover:bg-gray-400 text-black font-medium py-2 px-6 rounded">
                             Back
                         </button>
-                        {currentStep < 3 && (
+                        {currentStep < 3
+                            ?
                             <button onClick={nextStep} className="bg-leafGreen-20 hover:bg-leafGreen-30 text-sm text-white font-medium py-2 px-6 rounded">
                                 Next
                             </button>
-                        )}
+                            :
+                            <button onClick={nextStep} className="bg-leafGreen-20 hover:bg-leafGreen-30 text-sm text-white font-medium py-2 px-6 rounded">
+                                Submit
+                            </button>
+                        }
 
                     </div>
                 </div>

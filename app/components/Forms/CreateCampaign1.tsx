@@ -53,9 +53,9 @@ const CreateCampaign1: React.FC<CreateCampaign1Props> = ({ data, handleChange, h
                     type='text'
                     value={data.description}
                     onChange={handleChange}
-                    name='campaign_for'
+                    name='description'
                 />
-                <div className="md:grid grid-cols-2 gap-8 relative items-center justify-between">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-10 relative items-center justify-between">
                     <Input
                         error=''
                         where='app'
@@ -67,7 +67,7 @@ const CreateCampaign1: React.FC<CreateCampaign1Props> = ({ data, handleChange, h
                         value={data.videoLink}
                         onChange={handleChange}
                     />
-                    <span className="text-center leading-loose block absolute left-1/2 -translate-x-1/2">Or</span>
+                    <span className="text-center text-sm leading-loose block absolute left-1/2 -translate-x-1/2">Or</span>
                     <Input
                         accept='.mp4'
                         error=''
