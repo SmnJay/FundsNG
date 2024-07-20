@@ -10,7 +10,7 @@ const CampaignWrapper = () => {
 
     return (
         <>
-            <button onClick={handleIsEmpty} className="p-2 bg-leafGreen-30 mb-4 text-white font-bvp text-sm">{isEmpty ? 'Check Not-Empty State' : 'Check empty State'}</button>
+            <button onClick={handleIsEmpty} className="p-2 bg-leafGreen-30 mb-4 text-white  text-sm">{isEmpty ? 'Check Not-Empty State' : 'Check empty State'}</button>
             {isEmpty ?
                 <div className='flex flex-col items-center justify-center h-full'>
                     <svg width="229" height="229" viewBox="0 0 229 229" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -71,7 +71,7 @@ const CampaignWrapper = () => {
                         </defs>
                     </svg>
 
-                    <p className="text-FBlack font-medium mb-6 font-bvp text-sm">Looks like you dont have any ongoing campaigns. Try creating one to get started</p>
+                    <p className="text-FBlack font-medium mb-6  text-sm">Looks like you dont have any ongoing campaigns. Try creating one to get started</p>
                     <Button
                         name='Create Campaign'
                         ariaLabel='create a campaign'
@@ -79,31 +79,34 @@ const CampaignWrapper = () => {
                     />
                 </div> :
                 <div className="space-y-4">
-                    <div className="bg-white text-[#5f655e] font-bvp text-sm font-semibold rounded-lg p-3">Your Campaigns (3)</div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="bg-white text-[#5f655e]  text-sm font-semibold rounded-lg p-3">
+                        Your Campaigns (3)
+                        {/* <Button></Button> */}
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-4">
                         <div className="">
                             <div className="bg-white p-4 space-y-4 rounded-t-md">
                                 <Image src={'/images/underbridge.png'} width={300} height={120} style={{width: '100%'}} alt='' />
-                                <h6 className="text-[#3f4343] font-bvp font-semibold">Save the homeless people at Ikeja Underbridge</h6>
-                                <p className="text-[#888f87] text-sm">Created 24 April,2024</p>
+                                <h6 className="text-[#3f4343]  font-semibold">Save the homeless people at Ikeja Underbridge</h6>
+                                <p className="text-[#888f87] text-xs">Created 24 April, 2024</p>
                             </div>
-                            <button className="w-full font-bvp bg-leafGreen-80 text-leafGreen-10 leading-loose py-1 px-2 font-semibold text-sm">Manage Campaign</button>
+                            <button className="w-full  bg-leafGreen-80 text-leafGreen-10 leading-loose py-1 px-2 font-semibold text-sm">Manage Campaign</button>
                         </div>
                         <div className="">
                             <div className="bg-white p-4 space-y-4 rounded-t-md">
                                 <Image src={'/images/underbridge.png'} width={300} height={120} style={{width: '100%'}} alt='' />
-                                <h6 className="text-[#3f4343] font-bvp font-semibold">Save the homeless people at Ikeja Underbridge</h6>
-                                <p className="text-[#888f87] text-sm">Created 24 April,2024</p>
+                                <h6 className="text-[#3f4343]  font-semibold">Save the homeless people at Ikeja Underbridge</h6>
+                                <p className="text-[#888f87] text-xs">Created 24 April, 2024</p>
                             </div>
-                            <button className="w-full font-bvp bg-leafGreen-80 text-leafGreen-10 leading-loose py-1 px-2 font-semibold text-sm">Manage Campaign</button>
+                            <button className="w-full  bg-leafGreen-80 text-leafGreen-10 leading-loose py-1 px-2 font-semibold text-sm">Manage Campaign</button>
                         </div>
                         <div className="grayscale hover:cursor-not-allowed">
                             <div className="bg-white p-4 space-y-4 rounded-t-md">
                                 <Image src={'/images/underbridge.png'} width={300} height={120} style={{width: '100%'}} alt='' />
-                                <h6 className="text-[#3f4343] font-bvp font-semibold">Save the homeless people at Ikeja Underbridge</h6>
-                                <p className="text-[#888f87] text-sm">Created 24 April,2024</p>
+                                <h6 className="text-[#3f4343]  font-semibold">Save the homeless people at Ikeja Underbridge</h6>
+                                <p className="text-[#888f87] text-xs">Created 24 April, 2024</p>
                             </div>
-                            <button disabled className="w-full font-bvp bg-leafGreen-80 text-leafGreen-10 leading-loose py-1 px-2 font-semibold text-sm">This Campaign is no longer active</button>
+                            <button disabled className="w-full  bg-leafGreen-80 text-leafGreen-10 leading-loose py-1 px-2 font-semibold text-sm">This Campaign is no longer active</button>
                         </div>
                     </div>
                 </div>

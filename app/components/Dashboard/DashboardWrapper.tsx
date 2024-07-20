@@ -8,6 +8,8 @@ import Button, { ButtonLink } from '../Button/Button';
 import Image from 'next/image';
 import { GrEmergency } from 'react-icons/gr';
 import { MdBusinessCenter } from 'react-icons/md';
+import ProgressBar from '../ProgressBar';
+import RecentActivity from '../Activity';
 
 const DashboardWrapper = () => {
     const [isEmpty, setIsEmpty] = useState(true);
@@ -18,14 +20,14 @@ const DashboardWrapper = () => {
             <button onClick={handleIsEmpty} className="p-2 bg-leafGreen-30 mb-4 text-white font-bvp text-sm">{isEmpty ? 'Check Not-Empty State' : 'Check empty State'}</button>
 
             {
-                isEmpty ? <div className="flex max-sm:flex-col items-end sm:items-center justify-between rounded-md px-4 py-2 bg-[#EBF7DF] md:w-2/3">
-                    <p className="font-medium text-leafGreen-20">Before you continue, complete your profile</p>
+                isEmpty ? <div className="flex max-sm:flex-col sm:items-center gap-2 sm:justify-between items-start rounded-md px-4 md:px-8 py-2 bg-[#EBF7DF] md:w-2/3">
+                    <p className="font-medium max-md:text-sm text-leafGreen-20">Before you continue, complete your profile</p>
                     <Link href='/settings/profile' className='text-sm text-leafGreen-30 font-medium bg-white rounded-lg py-2 leading-loose px-4'>
                         Complete Profile
                     </Link>
                 </div>
                     :
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4  mt-4 md:mt-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 md:mt-8">
                         <Cards
                             title='Total Donations made'
                             amount={'1500387'}
@@ -63,8 +65,8 @@ const DashboardWrapper = () => {
                 isEmpty ? <div className="md:w-2/3 mt-4 flex items-center justify-center sm:justify-between rounded-md bg-signUp-pattern bg-leafGreen-20 text-white p-4 sm:p-8">
                     <div className='space-y-3'>
                         <h1 className="font-semibold text-xl">Welcome to FundsNg</h1>
-                        <p className="font-thin">
-                            Create your own unique fundraiser ad make a difference tooday. <br className="" />Whether it&apos;s for a personal cause, charity, oro community project.
+                        <p className="font-thin max-md:text-sm">
+                            Create your own unique fundraiser ad make a difference today. <br className="" />Whether it&apos;s for a personal cause, charity, or a community project.
                         </p>
                         <Button name='Start a Campaign' color='white' ariaLabel='A button to start a campaign' />
                     </div>
@@ -108,9 +110,9 @@ const DashboardWrapper = () => {
                                             <Image src={'/images/underbridge.png'} width={300} height={350} alt='' />
                                         </div>
                                         <div className="font-bvp">
-                                            <h6 className="font-semibold leading-loose text-base text-[#3f4343] mb-1">Save the homeless people at Ikeja underbridge</h6>
-                                            <p className="text-[#899192] text-sm">Please help the people living here find a new home or realive some of their suffering</p>
-                                            <div className="mb-2 mt-4 h-4 w-full bg-appGrey rounded"></div>
+                                            <h6 className="font-semibold md:leading-loose text-base text-[#3f4343] mb-1">Save the homeless people at Ikeja underbridge</h6>
+                                            <p className="text-[#899192] text-sm mb-3">Please help the people living here find a new home or realive some of their suffering</p>
+                                            <ProgressBar value={50} />
                                             <p className="font-medium space-x-1 leading-loose">
                                                 <span className="font-semibold text-[#3f4343]">&#8358;132,000</span>
                                                 <span className="text-[#899192]">has been donated so far</span>
@@ -188,17 +190,10 @@ const DashboardWrapper = () => {
                 </div>
                 <div className={`col-span-1 bg-white h-full rounded-md p-4 ${isEmpty && 'hidden'}`}>
                     <h6 className='font-medium mb-4 leading-loose'>Recent Activity</h6>
-                    <div className="flex items-start gap-2">
-                        <div className="">
-                            <span className="rounded-full flex items-center justify-center font-bold h-10 w-10 bg-zinc-300 p-2">OM</span>
-                        </div>
-                        <div className="space-y-2">
-                            <p className="text-[#899192] font-medium">
-                                <span className='text-[#20525C]'>Akintola</span> donated <span className='text-[#20525C]'>12,500</span> to the campaign
-                            </p>
-                            <p className="text-[#4591A1] font-medium">Reply with special message</p>
-                            <p className="text-[#899192]">10:34 | 2 April, 2024</p>
-                        </div>
+                    <div className="space-y-4">
+                        <RecentActivity />
+                        <RecentActivity type='savings' />
+                        <RecentActivity />
                     </div>
                 </div>
             </div>

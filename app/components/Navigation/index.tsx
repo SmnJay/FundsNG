@@ -9,7 +9,7 @@ const Navigation: React.FC = () => {
   const activePath = usePathname();
 
     return (
-        <nav className='space-y-4 w-4/5 mx-auto py-6 md:py-8 font-bvp'>
+        <nav className='space-y-4 w-4/5 mx-auto py-6 md:py-8'>
             {
                 data.map((item) => {
                     const { id, name, link, icon } = item;
