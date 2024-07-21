@@ -104,7 +104,7 @@ const CampaignWrapper = () => {
                                 <h6 className="text-[#3f4343]  font-semibold">Save the homeless people at Ikeja Underbridge</h6>
                                 <p className="text-[#888f87] text-xs">Created 24 April, 2024</p>
                             </div>
-                            <button className="w-full  bg-leafGreen-80 text-leafGreen-10 leading-loose py-1 px-2 font-semibold text-sm">Manage Campaign</button>
+                            <Link href='/dashboard/campaigns/1' className="w-full block text-center bg-leafGreen-80 text-leafGreen-10 leading-loose py-1 px-2 font-semibold text-sm">Manage Campaign</Link>
                         </div>
                         <div className="">
                             <div className="bg-white p-4 space-y-4 rounded-t-md">
@@ -112,7 +112,7 @@ const CampaignWrapper = () => {
                                 <h6 className="text-[#3f4343]  font-semibold">Save the homeless people at Ikeja Underbridge</h6>
                                 <p className="text-[#888f87] text-xs">Created 24 April, 2024</p>
                             </div>
-                            <button className="w-full  bg-leafGreen-80 text-leafGreen-10 leading-loose py-1 px-2 font-semibold text-sm">Manage Campaign</button>
+                            <Link href='/dashboard/campaigns/2' className="w-full block text-center bg-leafGreen-80 text-leafGreen-10 leading-loose py-1 px-2 font-semibold text-sm">Manage Campaign</Link>
                         </div>
                         <div className="grayscale hover:cursor-not-allowed">
                             <div className="bg-white p-4 space-y-4 rounded-t-md">
