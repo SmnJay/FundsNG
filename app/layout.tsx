@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { Inter, Be_Vietnam_Pro } from "next/font/google";
 import "./globals.css";
+import "react-toastify/dist/ReactToastify.css"
 import NextTopLoader from "nextjs-toploader";
 import StoreProvider from "./redux/Provider";
 import MenucontextProvider from "./context/Menucontext";
+import { Slide, ToastContainer } from "react-toastify";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -30,6 +32,18 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.variable} ${be_vietnam_pro.variable}`}>
         <NextTopLoader color='#20525C' showSpinner={false} />
+        <ToastContainer
+          position="top-right"
+          autoClose={2500}
+          hideProgressBar={false}
+          transition={Slide}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
         <MenucontextProvider>
           {children}
         </MenucontextProvider>

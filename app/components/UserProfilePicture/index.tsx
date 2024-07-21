@@ -8,7 +8,7 @@ const Avatar = () => {
                 className='rounded-full'
                 src={'/images/passport.jpg'}
                 fill
-                sizes={undefined}
+                sizes={'30px'}
                 style={{ objectPosition: 'center' }}
                 alt={'Authenticated user avatar'}
             />

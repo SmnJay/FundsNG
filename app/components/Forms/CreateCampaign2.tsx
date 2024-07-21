@@ -12,7 +12,7 @@ interface CreateCampaign2Props {
         state: string
         country: string
     },
-    handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void,
+    handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
     // handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
@@ -23,8 +23,10 @@ const CreateCampaign2: React.FC<CreateCampaign2Props> = ({ data, handleChange })
     });
 
     const handleValueChange = (newValue: DateValueType) => {
-        console.log("newValue:", newValue);
+        console.log(newValue);
         setValue(newValue);
+        handleChange(newValue?.startDate as any)
+        
     }
 
 
