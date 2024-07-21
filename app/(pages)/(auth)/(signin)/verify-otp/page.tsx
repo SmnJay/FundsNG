@@ -1,10 +1,10 @@
 'use client';
 
-import Button, { ButtonLink } from '@/app/components/Button/Button'
+import { ButtonLink } from '@/app/components/Button/Button'
 import OTPInput from '@/app/components/Forms/OTPInput';
-import Logo, { WhiteLogo } from '@/app/components/Logo/Logo';
+import { WhiteLogo } from '@/app/components/Logo/Logo';
 import React from 'react'
-import toast from 'react-hot-toast';
+import { toast } from 'react-toastify';
 
 const page = () => {
   const handleSubmit = (pin: string) => {

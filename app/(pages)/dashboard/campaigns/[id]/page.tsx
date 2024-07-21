@@ -27,8 +27,8 @@ const SingleCampaign = () => {
     <Fragment>
       <Breadcrumb items={items} />
       <div className='grid grid-cols-3 gap-4 mt-6'>
-        <div className="col-span-2">
-          <div className="grid grid-cols-2 gap-4">
+        <div className="col-span-3 md:col-span-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Cards
               title='Total donations made'
               titleColor='text-white'
@@ -52,7 +52,7 @@ const SingleCampaign = () => {
           </div>
         </div>
 
-        <div className="col-span-1">
+        <div className="col-span-3 md:col-span-1">
           <div className="bg-white rounded-lg p-3">
             <div className="">
               <Image src={'/images/underbridge.png'} className='rounded-lg' width={300} height={120} style={{ width: '100%' }} alt='' />

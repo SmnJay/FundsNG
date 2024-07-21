@@ -15,7 +15,7 @@ const Breadcrumb: FC<BreadcrumbProps> = ({ items }) => {
         <nav aria-label="Breadcrumb">
             <ol className="breadcrumb-list" style={{ listStyle: 'none', padding: 0, display: 'flex', alignItems: 'center' }}>
                 {items.map((item, index) => (
-                    <li key={index} className='flex items-center'>
+                    <li key={index} className='flex items-center text-sm'>
                         {item.path ? (
                             <a href={item.path} style={{ color: '#888F87', textDecoration: 'none' }}>
                                 {item.label}
