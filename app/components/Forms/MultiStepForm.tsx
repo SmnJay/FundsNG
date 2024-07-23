@@ -114,16 +114,16 @@ const MultiStepForm = () => {
                     </div>
 
                     <div className="max-w-lg mx-auto flex justify-center gap-4 pt-8 items-center">
-                        <button onClick={prevStep} disabled={currentStep === 1} className="bg-gray-300 text-sm hover:bg-gray-400 text-black font-medium py-2 px-6 rounded">
+                        <button onClick={prevStep} disabled={currentStep === 1} className="bg-white border text-sm hover:bg-gray-100 text-black font-medium py-2 px-12 rounded">
                             Back
                         </button>
                         {currentStep < 3
                             ?
-                            <button onClick={nextStep} className="bg-leafGreen-20 hover:bg-leafGreen-30 text-sm text-white font-medium py-2 px-6 rounded">
+                            <button onClick={nextStep} className="bg-leafGreen-20 hover:bg-leafGreen-30 text-sm text-white font-medium py-2 px-12 rounded">
                                 Next
                             </button>
                             :
-                            <button onClick={handleSubmit} className="bg-leafGreen-20 hover:bg-leafGreen-30 text-sm text-white font-medium py-2 px-6 rounded">
+                            <button onClick={handleSubmit} className="bg-leafGreen-20 hover:bg-leafGreen-30 text-sm text-white font-medium py-2 px-12 rounded">
                                 Submit
                             </button>
                         }
