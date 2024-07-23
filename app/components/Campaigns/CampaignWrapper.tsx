@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { IoFilterOutline } from "react-icons/io5";
 import { BiPlus } from 'react-icons/bi';
 import Link from 'next/link';
+import CampaignCard from './CampaignCard';
 
 const CampaignWrapper = () => {
     const [isEmpty, setIsEmpty] = useState(true);
@@ -15,7 +16,7 @@ const CampaignWrapper = () => {
         <>
             <button onClick={handleIsEmpty} className="p-2 bg-leafGreen-30 mb-4 text-white  text-sm">{isEmpty ? 'Check Not-Empty State' : 'Check empty State'}</button>
             {isEmpty ?
-                <div className='flex flex-col items-center justify-center h-full'>
+                <div className='flex flex-col items-center justify-centers h-full'>
                     <svg width="229" height="229" viewBox="0 0 229 229" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clipPath="url(#clip0_3882_14263)">
                             <mask id="mask0_3882_14263" style={{ maskType: "luminance" }} maskUnits="userSpaceOnUse" x="0" y="0" width="229" height="229">
@@ -89,41 +90,38 @@ const CampaignWrapper = () => {
                         <div className="flex items-center gap-2">
                             <button className="flex items-center gap-1 rounded-lg md:leading-4 border-2 px-2 py-2 font-medium">
                                 <IoFilterOutline />
-                                <span className="max-md:hidden">Filter</span>                                
+                                <span className="max-md:hidden">Filter</span>
                             </button>
                             <Link href={'/dashboard/campaigns/create'} className="flex items-center gap-1 rounded-lg md:leading-4 border-2 border-leafGreen-20 text-white bg-leafGreen-20 px-2 py-2 font-medium">
-                                <BiPlus color='white'/>
-                                <span className="max-md:hidden">Create Campaign</span>                                
+                                <BiPlus color='white' />
+                                <span className="max-md:hidden">Create Campaign</span>
                             </Link>
                         </div>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-4">
-                        <div className="">
-                            <div className="bg-white p-4 space-y-4 rounded-t-md">
-                                <Image src={'/images/underbridge.png'} width={300} height={120} style={{ width: '100%' }} alt='' />
-                                <h6 className="text-[#3f4343]  font-semibold">Save the homeless people at Ikeja Underbridge</h6>
-                                <p className="text-[#888f87] text-xs">Created 24 April, 2024</p>
-                            </div>
-                            <Link href='/dashboard/campaigns/1' className="w-full block text-center bg-leafGreen-80 text-leafGreen-10 leading-loose py-1 px-2 font-semibold text-sm">Manage Campaign</Link>
-                        </div>
-                        <div className="">
-                            <div className="bg-white p-4 space-y-4 rounded-t-md">
-                                <Image src={'/images/underbridge.png'} width={300} height={120} style={{ width: '100%' }} alt='' />
-                                <h6 className="text-[#3f4343]  font-semibold">Save the homeless people at Ikeja Underbridge</h6>
-                                <p className="text-[#888f87] text-xs">Created 24 April, 2024</p>
-                            </div>
-                            <Link href='/dashboard/campaigns/2' className="w-full block text-center bg-leafGreen-80 text-leafGreen-10 leading-loose py-1 px-2 font-semibold text-sm">Manage Campaign</Link>
-                        </div>
-                        <div className="grayscale hover:cursor-not-allowed">
-                            <div className="bg-white p-4 space-y-4 rounded-t-md">
-                                <Image src={'/images/underbridge.png'} width={300} height={120} style={{ width: '100%' }} alt='' />
-                                <h6 className="text-[#3f4343]  font-semibold">Save the homeless people at Ikeja Underbridge</h6>
-                                <p className="text-[#888f87] text-xs">Created 24 April, 2024</p>
-                            </div>
-                            <button disabled className="w-full  bg-leafGreen-80 text-leafGreen-10 leading-loose py-1 px-2 font-semibold text-sm">This Campaign is no longer active</button>
-                        </div>
-                    </div>
-                </div>
+                        <CampaignCard
+                            status='active'
+                            link='/dashboard/campaigns/1'
+                            title='Get Nyanya a new motor park'
+                            dateCreated='24 April, 2024'
+                            imageSrc='/images/underbridge.png'
+                        />
+                        <CampaignCard
+                            status='active'
+                            link='/dashboard/campaigns/2'
+                            title='Urgent Surgery for Musa'
+                            dateCreated='24 April, 2024'
+                            imageSrc='/images/underbridge.png'
+                        />
+                        <CampaignCard
+                            status='disabled'
+                            link='/dashboard/campaigns/3'
+                            title='Save the homeless people at Ikeja Underbridge'
+                            dateCreated='24 April, 2024'
+                            imageSrc='/images/underbridge.png'
+                        />
+                    </div >
+                </div >
             }
         </>
     )

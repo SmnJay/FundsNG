@@ -99,7 +99,7 @@ const DashboardWrapper = () => {
                             {
                                 isEmpty ?
                                     <div className="grid place-items-center space-y-6">
-                                        <p className="text-center max-w-[400px] mx-auto text-gray-600">You currently do not have any ongoing campaign. <br />Create one to see them here</p>
+                                        <p className="text-center max-w-[400px] mx-auto text-sm text-gray-600">You currently do not have any ongoing campaign. <br />Create one to see them here</p>
                                         <ButtonLink
                                             href='/dashboard/campaigns/create'
                                             name='Start a Campaign'
@@ -110,9 +110,9 @@ const DashboardWrapper = () => {
                                     :
                                     <div className='flex flex-col md:flex-row items-center gap-6'>
                                         <div className="">
-                                            <Image src={'/images/underbridge.png'} width={300} height={350} alt='' />
+                                            <Image src={'/images/underbridge.png'} width={300} style={{borderRadius: '0.5rem'}} height={350} alt='' />
                                         </div>
-                                        <div className="font-bvp">
+                                        <div className="font-inter">
                                             <h6 className="font-semibold md:leading-loose text-base text-[#3f4343] mb-1">Save the homeless people at Ikeja underbridge</h6>
                                             <p className="text-[#899192] text-sm mb-3">Please help the people living here find a new home or realive some of their suffering</p>
                                             <ProgressBar value={50} />
@@ -138,37 +138,37 @@ const DashboardWrapper = () => {
                                 <span className="bg-leafGreen-80 mx-auto grid place-items-center h-14 sm:h-20 w-14 sm:w-20 rounded-full">
                                     <FaBriefcaseMedical className='text-[#618F19] h-6 w-6 sm:h-10 sm:w-10' />
                                 </span>
-                                <span className="text-gray-600 block">Medical</span>
+                                <span className="text-gray-600 block text-sm">Medical</span>
                             </div>
                             <div className="sm:space-y-2 text-center">
                                 <span className="bg-leafGreen-80 mx-auto grid place-items-center h-14 sm:h-20 w-14 sm:w-20 rounded-full">
                                     <GrEmergency className='text-[#618F19] h-6 w-6 sm:h-10 sm:w-10' />
                                 </span>
-                                <span className="text-gray-600 block">Emergency</span>
+                                <span className="text-gray-600 block text-sm">Emergency</span>
                             </div>
                             <div className="sm:space-y-2 text-center">
                                 <span className="bg-leafGreen-80 mx-auto grid place-items-center h-14 sm:h-20 w-14 sm:w-20 rounded-full">
                                     <FaHome className='text-[#618F19] h-6 w-6 sm:h-10 sm:w-10' />
                                 </span>
-                                <span className="text-gray-600 block">Housing</span>
+                                <span className="text-gray-600 block text-sm">Housing</span>
                             </div>
                             <div className="sm:space-y-2 text-center">
                                 <span className="bg-leafGreen-80 mx-auto grid place-items-center h-14 sm:h-20 w-14 sm:w-20 rounded-full">
                                     <FaHandHoldingHeart className='text-[#618F19] h-6 w-6 sm:h-10 sm:w-10' />
                                 </span>
-                                <span className="text-gray-600 block">Charity</span>
+                                <span className="text-gray-600 block text-sm">Charity</span>
                             </div>
                             <div className="sm:space-y-2 text-center">
                                 <span className="bg-leafGreen-80 mx-auto grid place-items-center h-14 sm:h-20 w-14 sm:w-20 rounded-full">
                                     <MdBusinessCenter className='text-[#618F19] h-6 w-6 sm:h-10 sm:w-10' />
                                 </span>
-                                <span className="text-gray-600 block">Business</span>
+                                <span className="text-gray-600 block text-sm">Business</span>
                             </div>
                             <div className="sm:space-y-2 text-center">
                                 <span className="bg-leafGreen-80 mx-auto grid place-items-center h-14 sm:h-20 w-14 sm:w-20 rounded-full">
                                     <FaPlaneDeparture className='text-[#618F19] h-6 w-6 sm:h-10 sm:w-10' />
                                 </span>
-                                <span className="text-gray-600 block">Travel</span>
+                                <span className="text-gray-600 block text-sm">Travel</span>
                             </div>
                         </div>
                     </div>
@@ -176,11 +176,11 @@ const DashboardWrapper = () => {
                     <div className="bg-white rounded-md mt-4">
                         <div className="border-b px-4 sm:px-8 py-2 sm:py-4 flex items-center justify-between">
                             <p className="font-medium text-[#899192]">Your Savings</p>
-                            <Link href='/dashboard/savings' className='text-sm hover:underline'>View All</Link>
+                            <Link href='/dashboard/savings' className='text-sm hover:underline ease-linear duration-200'>View All</Link>
                         </div>
                         <div className="flex items-center justify-center p-4 sm:p-8">
                             <div className="grid place-items-center space-y-6">
-                                <p className="text-center max-w-[400px] mx-auto text-gray-600">You currently do not have any ongoing savings. <br />Create one to see them here</p>
+                                <p className="text-center max-w-[400px] mx-auto text-sm text-gray-600">You currently do not have any ongoing savings. <br />Create one to see them here</p>
                                 <ButtonLink
                                     href='/dashboard/savings'
                                     name='Start Saving'
