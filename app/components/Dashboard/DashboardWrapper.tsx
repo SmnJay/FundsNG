@@ -68,7 +68,10 @@ const DashboardWrapper = () => {
                         <p className="font-thin max-md:text-sm">
                             Create your own unique fundraiser ad make a difference today. <br className="" />Whether it&apos;s for a personal cause, charity, or a community project.
                         </p>
-                        <ButtonLink href='/dashboard/campaigns/create' name='Start a Campaign' color='white' ariaLabel='A button to start a campaign' />
+                        <div className="md:grid md:grid-cols-3">
+
+                            <ButtonLink href='/dashboard/campaigns/create' name='Start a Campaign' color='white' ariaLabel='A button to start a campaign' />
+                        </div>
                     </div>
 
                     <div className="hidden sm:block">
