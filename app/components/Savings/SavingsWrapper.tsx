@@ -5,6 +5,7 @@ import Button, { ButtonLink } from '@/app/components/Button/Button'
 import Cards from '@/app/components/Cards'
 import Image from 'next/image'
 import Link from 'next/link'
+import { IoFilterOutline } from 'react-icons/io5';
 
 const SavingsWrapper = () => {
     const [isEmpty, setIsEmpty] = useState(false);
@@ -12,7 +13,7 @@ const SavingsWrapper = () => {
 
     return (
         <Fragment>
-            <button type="button" className='bg-primary-10 text-white px-4 py-2 mt-4 rounded text-sm' onClick={() => (setIsEmpty(!isEmpty))}>Show Empty State</button>
+            <button type="button" className='bg-primary-10 text-white px-4 py-2 mt-4 rounded text-sm' onClick={() => (setIsEmpty(!isEmpty))}>{isEmpty ? 'Show non-empty State' : 'Show Empty State'}</button>
             {
                 isEmpty ?
                     <>
@@ -46,7 +47,7 @@ const SavingsWrapper = () => {
                         </div>
                     </> :
                     <>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 mt-4 md:mt-8">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 mt-4 md:mt-8">
                             <Cards
                                 bgColor='bg-primary'
                                 title={'Total Savings'}
@@ -62,22 +63,41 @@ const SavingsWrapper = () => {
                                     <path d="M11.1164 14.1663L14.0032 15.833" stroke="white" strokeWidth="1.5" strokeLinecap="round" stroke-linejoin="round" />
                                 </svg>}
                             />
-                            <Cards
-                                title='Create New Target Savings'
-                                icon={<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M19.9999 13.333V26.6663M26.6666 19.9997H13.3333M19.9999 36.6663C29.2047 36.6663 36.6666 29.2044 36.6666 19.9997C36.6666 10.7949 29.2047 3.33301 19.9999 3.33301C10.7952 3.33301 3.33325 10.7949 3.33325 19.9997C3.33325 29.2044 10.7952 36.6663 19.9999 36.6663Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" stroke-linejoin="round" />
-                                </svg>}
-                                bgColor='bg-leafGreen-5'
-                                titleColor='text-white'
-                            />
+                            <div className={`rounded-md flex items-center gap-4 cursor-pointer bg-white group`}>
+                                <div className="">
+                                    <Image src={'/images/savings.png'} alt='' width={150} height={50} />
+                                </div>
+                                <div className="font-bvps pr-2">
+                                    <h5 className={`text-sm md:text-base font-medium text-primary`}>Create new target savings</h5>
+                                    <span className="py-2s block group-hover:translate-x-2 ease-linear duration-150">
+                                        <svg width="50" height="16" viewBox="0 0 50 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M49.7071 8.70711C50.0976 8.31658 50.0976 7.68342 49.7071 7.29289L43.3431 0.928932C42.9526 0.538408 42.3195 0.538408 41.9289 0.928932C41.5384 1.31946 41.5384 1.95262 41.9289 2.34315L47.5858 8L41.9289 13.6569C41.5384 14.0474 41.5384 14.6805 41.9289 15.0711C42.3195 15.4616 42.9526 15.4616 43.3431 15.0711L49.7071 8.70711ZM0 9H49V7H0L0 9Z" fill="#4591A1" />
+                                        </svg>
+                                    </span>
+                                </div>
+
+                            </div>
                         </div>
 
-                        <div className="mt-4 md:mt-8">
-                            <button className="text-sm md:text-base font-semibold bg-primary text-white leading-loose py-2 px-4 md:py-3 md:px-6 rounded-l-lg">Ongoing Targets</button>
-                            <button className="text-sm md:text-base font-semibold bg-white leading-loose py-2 px-4 md:py-3 md:px-6 rounded-r-lg">Completed Targets</button>
+                        <div className='md:mt-8 mt-4 flex items-center justify-between '>
+                            <div className=" bg-white w-fit py-1 px-2 rounded-md flex items-center gap-2">
+                                <div className="py-2">
+                                    <input type="radio" defaultChecked className="hidden peer/active" name='tabs' id='active' />
+                                    <label htmlFor="active" className="ease-out duration-200 bg-transparent peer-checked/active:bg-leafGreen-50 rounded-md font-medium px-4 py-2 text-sm cursor-pointer peer-checked/active:text-leafGreen-5">Active <span className="max-md:hidden">Savings</span></label>
+                                </div>
+                                <div className="">
+                                    <input type="radio" className="hidden peer/completed" name='tabs' id='completed' />
+                                    <label htmlFor="completed" className="ease-out duration-200 bg-transparent peer-checked/completed:bg-leafGreen-50 rounded-md font-medium px-4 py-2 text-sm cursor-pointer peer-checked/completed:text-leafGreen-5">Completed <span className="max-md:hidden">Savings</span></label>
+                                </div>
+                            </div>
+
+                            <button className="flex items-center gap-2 bg-white rounded-lg md:leading-4 border-2 px-2 py-2 font-medium text-sm">
+                                <IoFilterOutline />
+                                <span className="max-md:hidden font-bvp">Filter</span>
+                            </button>
                         </div>
 
-                        <div className="bg-white rounded-lg md:rounded-xl p-8 space-y-4 mt-4 md:mt-8">
+                        <div className="bg-white rounded-lg md:rounded-xl p-8 space-y-4 mt-2">
                             <div className="flex items-center justify-center">
                                 <Image
                                     src={'/icons/empty-savings.png'}
