@@ -13,8 +13,8 @@ const Header = () => {
     const { isOpen, handleIsOpen } = useMenu();
 
     return (
-        <header className='bg-white h-[4rem] flex md:justify-end justify-between gap-2 items-center sticky top-0 left-0 p-4 md:p-8 border-b-2'>
-            <button className={`md:hidden ${isOpen ? 'ml-16' : 'ml-0'} bg-appGrey  rounded-lg ease-linear duration-150`} onClick={handleIsOpen}>
+        <header className='bg-white h-[4rem] flex md:justify-end justify-between gap-2 items-center z-50 sticky top-0 left-0 p-4 md:p-8 border-b-2'>
+            <button className={`md:hidden ${isOpen ? 'ml-16' : 'ml-0'} bg-appGrey rounded-lg ease-linear duration-150`} onClick={handleIsOpen}>
                 <RiMenu2Line size={35} className='text-primary mx-auto p-2'/>
             </button>
 

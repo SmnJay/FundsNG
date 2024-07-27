@@ -17,11 +17,11 @@ const Breadcrumb: FC<BreadcrumbProps> = ({ items }) => {
                 {items.map((item, index) => (
                     <li key={index} className='flex items-center text-sm'>
                         {item.path ? (
-                            <a href={item.path} style={{ color: '#888F87', textDecoration: 'none' }}>
+                            <a href={item.path} style={{ color: '#0C0C0C', textDecoration: 'none' }}>
                                 {item.label}
                             </a>
                         ) : (
-                            <span style={{ color: '#0C0C0C' }}>{item.label}</span>
+                            <span style={{ color: '#888F87' }}>{item.label}</span>
                         )}
                         {index < items.length - 1 && <span style={{ margin: '0 6px', color: '#888F87' }}><HiChevronRight /></span>}
                     </li>

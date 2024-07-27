@@ -17,7 +17,10 @@ const config: Config = {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-          "signUp-pattern": "url('/images/bg-pattern.png')"
+          "signUp-pattern": "url('/images/bg-pattern.png')",
+          "welcome-savings": "url('/images/savings-main-bg.png')",
+          "start-savings": "url('/images/start-savings-bg.png')",
+          "view-savings": "url('/images/savings-progress-bg.png')",
       },
       colors: {
         primary: {
