@@ -17,4 +17,19 @@ const Avatar = () => {
     )
 }
 
+export const MemberAvatar = () => {
+    return (
+        <div className='relative rounded-full h-[50px] w-[50px] overflow-hiddens grid place-items-center'>
+            <Image
+                className='rounded-full'
+                src={'/images/passport.jpg'}
+                fill
+                sizes={'50px'}
+                style={{ objectPosition: 'center' }}
+                alt={'Member user avatar'}
+            />
+        </div>
+    )
+}
+
 export default Avatar

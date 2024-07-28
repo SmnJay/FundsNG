@@ -92,6 +92,16 @@ const MultiStepForm = () => {
         }
     }
 
+    const handleCopyClick = async () => {
+        alert('copy link pressed')
+        try {
+            await navigator.clipboard.writeText('https://funds-ng.vercel.app');
+            toast.success('Text copied to clipboard!');
+        } catch (err) {
+            toast.error('Failed to copy text: ' + err);
+        }
+    };
+
     const steps = [
         <CreateCampaign1 key={1} data={formData} handleChange={handleChange} handleFileChange={handleFileChange} />,
         <CreateCampaign2 key={2} data={formData} handleChange={handleChange} />,
@@ -138,7 +148,7 @@ const MultiStepForm = () => {
                                 <span className="text-FBlack/50 block text-xs">Copy the link to your campaign</span>
                                 <span className="text-FBlack text-sm font-medium block leading-loose">https://fundsng.com/my-campaign</span>
                             </div>
-                            <button className="!font-bvp flex items-center gap-1 text-sm">
+                            <button className="!font-bvp flex items-center gap-1 text-sm" onClick={handleCopyClick}>
                                 <span className="max-md:hidden">Copy Link</span><IoCopyOutline />
                             </button>
                         </div>
