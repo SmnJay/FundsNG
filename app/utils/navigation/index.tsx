@@ -31,12 +31,12 @@ const nav_data: NavData[] = [
     }, {
         id: 4,
         name: 'wallet',
-        link: '/',
+        link: '/dashboard/wallet',
         icon: <BsFileEarmarkText />
     }, {
         id: 5,
         name: 'settings',
-        link: '/',
+        link: '/dashboard/settings/profile',
         icon: <HiOutlineCog6Tooth />
     }
 ];

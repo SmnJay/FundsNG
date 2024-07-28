@@ -16,14 +16,15 @@
   }
 }
 
-body {
-  /* color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb)); */
+input[type=number] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  margin: 0;
+  -webkit-appearance: textfield;
 }
 
 @layer utilities {

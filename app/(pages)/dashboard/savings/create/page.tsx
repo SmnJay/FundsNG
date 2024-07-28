@@ -1,4 +1,5 @@
 import Breadcrumb from '@/app/components/Breadcrumb'
+import CreateSavings from '@/app/components/Forms/CreateSavings'
 import React from 'react'
 
 const CreateTargetSavings = () => {
@@ -10,6 +11,7 @@ const CreateTargetSavings = () => {
   return (
     <>
     <Breadcrumb items={breadcrumbs} />
+    <CreateSavings />
     </>
   )
 }
