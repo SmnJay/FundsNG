@@ -14,18 +14,19 @@ const ProgressBar: FC<ProgressBarProps> = ({ value, showPercentage = false }) =>
             aria-valuemin={0}
             aria-valuemax={100}
             aria-valuetext={`${normalizedValue}%`}
-            style={{ width: '100%', backgroundColor: '#e0e0de', borderRadius: '6px', overflow: 'hidden' }}>
+            style={{ width: '100%', backgroundColor: '#e0e0de', borderRadius: '4px', overflow: 'hidden' }}>
             <div style={{
-                height: '15px',
+                height: '10px',
                 width: `${normalizedValue}%`,
                 backgroundColor: '#42650B',  
-                // backgroundColor: normalizedValue > 50 ? 'green' : 'red',  
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 color: 'white',
                 fontWeight: 'bold',
-                transition: 'width 0.3s ease-in-out'
+                transition: 'width 0.3s ease-in-out',
+                fontSize: 9,
+                padding: 5
             }}>
                 {showPercentage && `${normalizedValue}%`}
             </div>
