@@ -6,7 +6,7 @@ import Cards from '@/app/components/Cards'
 import Image from 'next/image'
 import Link from 'next/link'
 import { IoFilterOutline } from 'react-icons/io5';
-import { BiSolidCalendarEvent } from 'react-icons/bi';
+import { BiPlus, BiSolidCalendarEvent } from 'react-icons/bi';
 import ProgressBar from '../ProgressBar';
 
 const SavingsWrapper = () => {
@@ -15,7 +15,17 @@ const SavingsWrapper = () => {
 
     return (
         <Fragment>
-            <button type="button" className='bg-primary-10 text-white px-4 py-2 mt-4 rounded text-sm' onClick={() => (setIsEmpty(!isEmpty))}>{isEmpty ? 'Show non-empty State' : 'Show Empty State'}</button>
+            <div className='flex items-center justify-between mt-4'>
+                <button type="button" className='bg-primary-10 text-white px-4 py-2 rounded text-sm' onClick={() => (setIsEmpty(!isEmpty))}>{isEmpty ? 'Show non-empty State' : 'Show Empty State'}</button>
+                <Link href={'savings/create'} className='h-full md:hidden block'>
+                    <div className={`rounded flex items-center gap-1 text-white bg-primary-10 px-4 py-2 h-full `}>
+                        <BiPlus />
+                        <span className="text-sm">
+                            Add Savings
+                        </span>
+                    </div>
+                </Link>
+            </div>
             {
                 isEmpty ?
                     <>
@@ -77,8 +87,8 @@ const SavingsWrapper = () => {
                                     <path d="M11.1164 14.1663L14.0032 15.833" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>}
                             />
-                            <Link href={'savings/create'} className='h-full'>
-                                <div className={`rounded-md flex items-center gap-4 bg-white group h-full`}>
+                            <Link href={'savings/create'} className='h-full hidden md:block'>
+                                <div className={`rounded-md hidden md:flex items-center gap-4 bg-white group h-full `}>
                                     <div className="">
                                         <Image src={'/images/savings.png'} alt='' width={150} height={50} />
                                     </div>
@@ -113,46 +123,50 @@ const SavingsWrapper = () => {
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
-                            <div className="flex flex-col sitems-center justify-center bg-white p-4 rounded-md">
-                                <h3 className="text-[#323232] font-medium text-base">Savings Title</h3>
-                                <h4 className="text-primary font-bvps font-semibold text-lg md:text-xl pt-4 pb-2">&#8358;12,500</h4>
-                                <ProgressBar showPercentage value={90} />
-                                <div className='grid grid-cols-2 gap-1 mt-2'>
-                                    <div className='flex items-center text-sm gap-1 font-bvp'>
-                                        <BiSolidCalendarEvent className='' />
-                                        Deadline
-                                    </div>
-                                    <div className="text-sm text-[#626262] font-bvp">Sept 20, 2024</div>
+                            <Link href={'savings/1'}>
+                                <div className="flex flex-col sitems-center justify-center bg-white p-4 rounded-md">
+                                    <h3 className="text-[#323232] font-medium text-base">Savings Title</h3>
+                                    <h4 className="text-primary font-bvps font-semibold text-lg md:text-xl pt-4 pb-2">&#8358;12,500</h4>
+                                    <ProgressBar showPercentage value={90} />
+                                    <div className='grid grid-cols-2 gap-1 mt-2'>
+                                        <div className='flex items-center text-sm gap-1 font-bvp'>
+                                            <BiSolidCalendarEvent className='' />
+                                            Deadline
+                                        </div>
+                                        <div className="text-sm text-[#626262] font-bvp">Sept 20, 2024</div>
 
-                                </div>
-                            </div>
-                            <div className="flex flex-col sitems-center justify-center bg-white p-4 rounded-md">
-                                <h3 className="text-[#323232] font-medium text-base">Savings Title</h3>
-                                <h4 className="text-primary font-bvps font-semibold text-lg md:text-xl pt-4 pb-2">&#8358;12,500</h4>
-                                <ProgressBar value={50} />
-                                <div className='grid grid-cols-2 gap-1 mt-2'>
-                                    <div className='flex items-center text-sm gap-1 font-bvp'>
-                                        <BiSolidCalendarEvent className='' />
-                                        Deadline
                                     </div>
-                                    <div className="text-sm text-[#626262] font-bvp">Sept 20, 2024</div>
                                 </div>
-                            </div>
-                            <div className="flex flex-col sitems-center justify-center bg-white p-4 rounded-md">
-                                <h3 className="text-[#323232] font-medium text-base">Savings Title</h3>
-                                <h4 className="text-primary font-bvps font-semibold text-lg md:text-xl pt-4 pb-3">&#8358;12,500</h4>
-                                <ProgressBar value={50} />
-                                <div className='grid grid-cols-2 gap-1 mt-4'>
-                                    <div className='flex items-center text-sm gap-1 font-bvp'>
-                                        <BiSolidCalendarEvent className='' />
-                                        Deadline
+                            </Link>
+                            <Link href={'savings/2'}>
+                                <div className="flex flex-col sitems-center justify-center bg-white p-4 rounded-md">
+                                    <h3 className="text-[#323232] font-medium text-base">Savings Title</h3>
+                                    <h4 className="text-primary font-bvps font-semibold text-lg md:text-xl pt-4 pb-2">&#8358;0</h4>
+                                    <ProgressBar value={0} />
+                                    <div className='grid grid-cols-2 gap-1 mt-2'>
+                                        <div className='flex items-center text-sm gap-1 font-bvp'>
+                                            <BiSolidCalendarEvent className='' />
+                                            Deadline
+                                        </div>
+                                        <div className="text-sm text-[#626262] font-bvp">Sept 20, 2024</div>
                                     </div>
-                                    <div className="text-sm text-[#626262] font-bvp">Sept 20, 2024</div>
                                 </div>
-                            </div>
+                            </Link>
+                            <Link href={'savings/3'}>
+                                <div className="flex flex-col sitems-center justify-center bg-white p-4 rounded-md">
+                                    <h3 className="text-[#323232] font-medium text-base">Savings Title</h3>
+                                    <h4 className="text-primary font-bvps font-semibold text-lg md:text-xl pt-4 pb-3">&#8358;35</h4>
+                                    <ProgressBar value={35} />
+                                    <div className='grid grid-cols-2 gap-1 mt-4'>
+                                        <div className='flex items-center text-sm gap-1 font-bvp'>
+                                            <BiSolidCalendarEvent className='' />
+                                            Deadline
+                                        </div>
+                                        <div className="text-sm text-[#626262] font-bvp">Sept 20, 2024</div>
+                                    </div>
+                                </div>
+                            </Link>
                         </div>
-
-
                     </>
             }
 
