@@ -21,6 +21,7 @@ const config: Config = {
           "welcome-savings": "url('/images/savings-main-bg.png')",
           "start-savings": "url('/images/start-savings-bg.png')",
           "view-savings": "url('/images/savings-progress-bg.png')",
+          "single-savings": "url('/images/savings-single-bg.png')",
       },
       colors: {
         primary: {
