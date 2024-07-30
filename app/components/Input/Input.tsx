@@ -18,7 +18,7 @@ interface TextArea extends React.InputHTMLAttributes<HTMLTextAreaElement> {
     autoComplete?: 'on' | 'off'
     placeholder: string
     name: string
-    type: string
+    type?: string
     accept?: string
     where?: 'auth' | 'app'
 }
@@ -54,7 +54,7 @@ export const InputTextArea = forwardRef<HTMLTextAreaElement, TextArea>(
     ({ label, error, name, where = 'auth', autoComplete, placeholder, type, ...props }, ref) => {
         return (
             <div className='relative'>
-                <div className={`form-group rounded-lg ${where === 'auth' ? 'bg-primary-30' : 'bg-white'} border px-3 py-2 ${where === 'auth' ? style.container : style.containerApp}`}>
+                <div className={`form-group  rounded-lg ${where === 'auth' ? 'bg-primary-30' : 'bg-white'} border px-3 py-2 ${where === 'auth' ? style.container : style.containerApp}`}>
                     <label htmlFor={name} className={`block text-sm ${where === 'auth' ? 'text-primary-20' : 'text-[#979FA0]'}`}>{label}</label>
                     <textarea
                         {...props}

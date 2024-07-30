@@ -30,6 +30,22 @@ export const MemberAvatar = () => {
             />
         </div>
     )
+
 }
+
+export const ProfileAvatar = () => {
+    return (
+        <div className='relative rounded-full h-[150px] w-[150px] overflow-hiddens grid place-items-center'>
+            <Image
+                className='rounded-full'
+                src={'/images/passport.jpg'}
+                fill
+                sizes={'150px'}
+                style={{ objectPosition: 'center' }}
+                alt={'Profile Picture Avatar'}
+            />
+        </div>
+    );
+};
 
 export default Avatar
