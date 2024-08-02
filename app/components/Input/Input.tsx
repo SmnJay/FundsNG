@@ -1,5 +1,6 @@
 import React, { forwardRef } from 'react';
 import style from './InputField.module.css';
+import { FieldError } from 'react-hook-form';
 
 interface IInput extends React.InputHTMLAttributes<HTMLInputElement> {
     label: string
@@ -28,7 +29,7 @@ const Input = forwardRef<HTMLInputElement, IInput>(
         return (
 
             <div className='relative'>
-                <div className={`form-group rounded-lg ${where === 'auth' ? 'bg-primary-30' : 'bg-white'} border px-3 py-2 ${where === 'auth' ? style.container : style.containerApp}`}>
+                <div className={`form-group rounded-lg ${where === 'auth' ? 'bg-primary-30' : 'bg-white'} border ${error ? '!border-red-400 border-2' : ''} px-3 py-2 ${where === 'auth' ? style.container : style.containerApp}`}>
                     <label htmlFor={name} className={`block text-sm ${where === 'auth' ? 'text-primary-20' : 'text-[#979FA0]'}`}>{label}</label>
                     <input
                         {...props}
@@ -41,7 +42,7 @@ const Input = forwardRef<HTMLInputElement, IInput>(
                         placeholder={placeholder}
                     />
                 </div>
-                <span className="text-red-500">{error}</span>
+                {error && <span className="text-red-400 text-sm px-1">{error}</span>}
             </div>
 
         )
@@ -54,7 +55,7 @@ export const InputTextArea = forwardRef<HTMLTextAreaElement, TextArea>(
     ({ label, error, name, where = 'auth', autoComplete, placeholder, type, ...props }, ref) => {
         return (
             <div className='relative'>
-                <div className={`form-group  rounded-lg ${where === 'auth' ? 'bg-primary-30' : 'bg-white'} border px-3 py-2 ${where === 'auth' ? style.container : style.containerApp}`}>
+                <div className={`form-group  rounded-lg ${where === 'auth' ? 'bg-primary-30' : 'bg-white'} border ${error ? '!border-red-400 border-2' : ''} px-3 py-2 ${where === 'auth' ? style.container : style.containerApp}`}>
                     <label htmlFor={name} className={`block text-sm ${where === 'auth' ? 'text-primary-20' : 'text-[#979FA0]'}`}>{label}</label>
                     <textarea
                         {...props}
@@ -66,7 +67,7 @@ export const InputTextArea = forwardRef<HTMLTextAreaElement, TextArea>(
                         placeholder={placeholder}
                     />
                 </div>
-                <span className="text-red-500">{error}</span>
+                {error && <span className="text-red-500">{error}</span>}
             </div>
         )
     }

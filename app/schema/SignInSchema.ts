@@ -1,10 +1,17 @@
-import { z } from "zod";
+import { z, ZodType } from "zod";
+import { ISignInForm } from "../utils/models/Model";
 
-const SignInSchema = z.object({
-    email: z.string().email({ message: "Invalid email address" }),
-    password: z.string().min(6, { message: "Password must be at least 6 characters long" }),
+const signInSchema: ZodType<ISignInForm> = z.object({
+    email: z
+        .string()
+        .min(5, 'Email must be at least 5 characters long')
+        .max(100, 'Email cannot be longer than 100 characters')
+        .email('Invalid email address'),
+    password: z
+        .string()
+        .min(8, 'Email must be at least 8 charcters long')
 });
 
-export default SignInSchema;
+export default signInSchema;
 
-export type SignInSchema = z.infer<typeof SignInSchema>;
+export type SignInSchema = z.infer<typeof signInSchema>;

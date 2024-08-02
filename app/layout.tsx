@@ -3,7 +3,6 @@ import { Inter, Be_Vietnam_Pro } from "next/font/google";
 import "./globals.css";
 import "react-toastify/dist/ReactToastify.css"
 import NextTopLoader from "nextjs-toploader";
-import StoreProvider from "./redux/Provider";
 import MenucontextProvider from "./context/Menucontext";
 import { Slide, ToastContainer } from "react-toastify";
 
@@ -44,9 +43,9 @@ export default function RootLayout({
           draggable
           pauseOnHover
         />
-        <MenucontextProvider>
-          {children}
-        </MenucontextProvider>
+          <MenucontextProvider>
+            {children}
+          </MenucontextProvider>
       </body>
     </html>
   );
