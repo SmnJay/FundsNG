@@ -9,7 +9,7 @@ import { WhiteLogo } from '../Logo/Logo'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import signUpSchema, { SignUpSchema } from '@/app/schema/signUpSchema';
+import signUpSchema, { SignUpSchema } from '@/app/schemaa/signUpSchema';
 
 const SignUpForm = () => {
     const router = useRouter();

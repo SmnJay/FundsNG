@@ -1,5 +1,5 @@
+import { ISignInForm } from "@/app/utils/models/Model";
 import { z, ZodType } from "zod";
-import { ISignInForm } from "../utils/models/Model";
 
 const signInSchema: ZodType<ISignInForm> = z.object({
     email: z

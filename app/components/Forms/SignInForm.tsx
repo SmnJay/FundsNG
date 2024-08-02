@@ -10,7 +10,7 @@ import { FcGoogle } from 'react-icons/fc'
 import { useForm } from 'react-hook-form'
 import { signIn } from 'next-auth/react'
 import { zodResolver } from '@hookform/resolvers/zod'
-import signInSchema, { SignInSchema } from '@/app/schema/signInSchema';
+import signInSchema, { SignInSchema } from '@/app/schemaa/signInSchema';
 
 
 const SignInForm = () => {
