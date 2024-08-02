@@ -59,7 +59,7 @@ const SignInForm = () => {
             <div className="flex flex-col gap-4 py-10">
                 
                 <Button type='submit' name="Continue" ariaLabel="Continue button" color="white" />
-                <ButtonLink href='/dashboard' name="Continue" ariaLabel="Continue button" color="white" />
+                {/* <ButtonLink href='/dashboard' name="Continue" ariaLabel="Continue button" color="white" /> */}
                 <ButtonLink href='/' name="Sign in with Google" icon={<FcGoogle />} ariaLabel="Continue button" color="white" />
             </div>
             <p className="text-center">

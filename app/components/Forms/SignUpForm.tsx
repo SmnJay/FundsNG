@@ -5,14 +5,24 @@ import PasswordInput from '../Input/PasswordInput'
 import Button from '../Button/Button'
 import Links from '../Links/Index'
 import Input from '../Input/Input'
-import Logo, { WhiteLogo } from '../Logo/Logo'
+import { WhiteLogo } from '../Logo/Logo'
 import { useRouter } from 'next/navigation'
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import signUpSchema, { SignUpSchema } from '@/app/schema/signUpSchema';
 
 const SignUpForm = () => {
     const router = useRouter();
+    const { handleSubmit, register, formState: { errors } } = useForm<SignUpSchema>({
+        resolver: zodResolver(signUpSchema),
+        mode: 'onTouched'
+    });
+    const onSubmit = (data: SignUpSchema) => {
+        console.log(data)
+    }
 
     return (
-        <form className="mx-auto max-w-[500px] px-4 py-8 md:p-8" autoComplete="off">
+        <form onSubmit={handleSubmit(onSubmit)} className="mx-auto max-w-[500px] px-4 py-8 md:p-8" autoComplete="off">
             <div className="pb-4 md:py-6">
                 <WhiteLogo />
             </div>
@@ -20,45 +30,29 @@ const SignUpForm = () => {
             <p className="text-sm md:text-base text-white/80 font-extralight">Sign up with your email to access the platform</p>
 
             <div className="space-y-4 pt-6">
-
-                <Input
-                    label='Username'
-                    name='username'
-                    type='text'
-                    placeholder='(eg @babablue)'
-                    error=''
-                />
-
                 <Input
                     label='Email'
-                    name='email'
                     type='email'
                     placeholder='Enter your Email Address'
                     autoComplete='off'
-                    error=''
+                    error={errors.email && errors.email.message}
+                    {...register("email")}
                 />
 
                 <PasswordInput
                     label='Password'
-                    name='passworrd'
                     type='password'
                     placeholder='Enter your password'
                     autoComplete='off'
-                    error=''
-                />
-
-                <PasswordInput
-                    label='Confirm Password'
-                    name='passworrd'
-                    type='password'
-                    placeholder='Enter your password again'
-                    autoComplete='off'
-                    error=''
+                    error={errors.password && errors.password.message}
+                    {...register("password")}
                 />
             </div>
 
             <div className="flex flex-col gap-4 py-10 ">
-                <Button name="Continue" ariaLabel="Continue button" color="white" onClick={() => router.push('/verify-email')}/>
+                <Button name="Continue" type='submit' ariaLabel="Continue button" color="white"
+                // onClick={() => router.push('/verify-email')} 
+                />
             </div>
             <p className="text-center">
                 <span className="text-white">Already have an account?</span>

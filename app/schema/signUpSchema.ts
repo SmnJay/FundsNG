@@ -16,6 +16,6 @@ const signUpSchema = z.object({
         .regex(/[@$!%*?&]/, 'Password must contain at least one special character')
 })
 
-export default SignUpSchema;
+export default signUpSchema;
 
 export type SignUpSchema = z.infer<typeof signUpSchema>;
