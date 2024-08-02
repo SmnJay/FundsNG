@@ -7,11 +7,10 @@ import Links from '../Links/Index'
 import { WhiteLogo } from '../Logo/Logo'
 import Input from '../Input/Input'
 import { FcGoogle } from 'react-icons/fc'
-import signInSchema, { SignInSchema } from '@/app/schema/signInSchema'
 import { useForm } from 'react-hook-form'
 import { signIn } from 'next-auth/react'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { ISignInForm } from '@/app/utils/models/Model'
+import signInSchema, { SignInSchema } from '@/app/schema/signInSchema';
 
 
 const SignInForm = () => {
