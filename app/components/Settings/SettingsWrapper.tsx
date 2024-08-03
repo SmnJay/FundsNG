@@ -42,7 +42,7 @@ const SettingsWrapper = () => {
             </div>
 
             {getPathname('setting') !== 'change-password' ? (
-                <div className="bg-white mt-3 rounded-md p-4">
+                <div className="bg-white mt-3 rounded-md p-4 w-fit">
                     <h3 className="mt-3 text-sm">Set your notification preference</h3>
                     <ul className="space-y-2 text-sm my-4">
                         <li>
@@ -58,7 +58,7 @@ const SettingsWrapper = () => {
                     <Button name='Save' ariaLabel='Button to save the notifications settings' color='leafGreen' />
                 </div>
             ) : getPathname('setting') === 'change-password' ? (
-                <div className="bg-white mt-3 rounded-md p-4">
+                <div className="bg-white mt-3 rounded-md p-4 w-fit">
                     <h3 className="mt-3 text-sm">Change your password</h3>
                     {/* Password change form goes here */}
                 </div>
