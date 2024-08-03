@@ -41,7 +41,7 @@ const SettingsWrapper = () => {
                 </div>
             </div>
 
-            {getPathname('setting') === 'notification' ? (
+            {getPathname('setting') !== 'change-password' ? (
                 <div className="bg-white mt-3 rounded-md p-4">
                     <h3 className="mt-3 text-sm">Set your notification preference</h3>
                     <ul className="space-y-2 text-sm my-4">
