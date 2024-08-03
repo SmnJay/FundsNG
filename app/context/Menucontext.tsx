@@ -2,6 +2,11 @@
 
 import React, { createContext, useState } from 'react';
 
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
+
 interface MenuContextType {
     isOpen: boolean;
     handleIsOpen: () => void;
@@ -17,9 +22,12 @@ const MenucontextProvider = ({ children }: { children: React.ReactNode }) => {
     };
 
     return (
-        <Menucontext.Provider value={{ isOpen, handleIsOpen }}>
-            {children}
-        </Menucontext.Provider>
+        <QueryClientProvider client={queryClient}>
+            <ReactQueryDevtools initialIsOpen={false} buttonPosition='bottom-left'/>
+            <Menucontext.Provider value={{ isOpen, handleIsOpen }}>
+                {children}
+            </Menucontext.Provider>
+        </QueryClientProvider>
     )
 }
 

@@ -31,6 +31,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.variable} ${be_vietnam_pro.variable}`}>
         <NextTopLoader color='#20525C' showSpinner={false} />
+
         <ToastContainer
           position="top-right"
           autoClose={2500}
@@ -43,9 +44,9 @@ export default function RootLayout({
           draggable
           pauseOnHover
         />
-          <MenucontextProvider>
-            {children}
-          </MenucontextProvider>
+        <MenucontextProvider>
+          {children}
+        </MenucontextProvider>
       </body>
     </html>
   );
