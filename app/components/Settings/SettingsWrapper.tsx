@@ -43,8 +43,8 @@ const SettingsWrapper = () => {
 
             {getPathname('setting') !== 'change-password' ? (
                 <div className="bg-white mt-3 rounded-md p-4 w-fit">
-                    <h3 className="mt-3 text-sm">Set your notification preference</h3>
-                    <ul className="space-y-2 text-sm my-4">
+                    <h3 className="mt-3 font-medium text-[#484848] text-sm">Set your notification preference</h3>
+                    <ul className="space-y-2 text-sm my-4 font-light text-[#484848]">
                         <li>
                             <input type="checkbox" name="email" id="email" className='mr-2 accent-leafGreen-5' /> Email Notifications
                         </li>
@@ -60,7 +60,7 @@ const SettingsWrapper = () => {
             ) : getPathname('setting') === 'change-password' ? (
                 <div className="bg-white mt-3 rounded-md p-4 w-fit">
                     <h3 className="mt-3 text-sm">Change your password</h3>
-                    {/* Password change form goes here */}
+                   
                 </div>
             ) : null}
         </div>
