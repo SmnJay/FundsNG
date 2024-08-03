@@ -8,6 +8,7 @@ import Link from 'next/link'
 import { IoFilterOutline } from 'react-icons/io5';
 import { BiPlus, BiSolidCalendarEvent } from 'react-icons/bi';
 import ProgressBar from '../ProgressBar';
+import Tabs from '../Tabs/Tabs';
 
 const SavingsWrapper = () => {
     const [isEmpty, setIsEmpty] = useState(false);
@@ -105,16 +106,7 @@ const SavingsWrapper = () => {
                         </div>
 
                         <div className='md:mt-8 mt-4 flex items-center justify-between'>
-                            <div className=" bg-white w-fit py-1 px-2 rounded-md flex items-center gap-2">
-                                <div className="py-2">
-                                    <input type="radio" defaultChecked className="hidden peer/active" name='tabs' id='active' />
-                                    <label htmlFor="active" className="ease-out duration-200 bg-transparent peer-checked/active:bg-leafGreen-50/50 rounded-md font-medium px-4 py-2 text-sm cursor-pointer peer-checked/active:text-leafGreen-5">Active <span className="max-md:hidden">Savings</span></label>
-                                </div>
-                                <div className="">
-                                    <input type="radio" className="hidden peer/completed" name='tabs' id='completed' />
-                                    <label htmlFor="completed" className="ease-out duration-200 bg-transparent peer-checked/completed:bg-leafGreen-50/50 rounded-md font-medium px-4 py-2 text-sm cursor-pointer peer-checked/completed:text-leafGreen-5">Completed <span className="max-md:hidden">Savings</span></label>
-                                </div>
-                            </div>
+                           <Tabs />
 
                             <button className="flex items-center gap-2 bg-white rounded-lg md:leading-4 border-2 px-2 py-2 font-medium text-sm">
                                 <IoFilterOutline />
@@ -152,12 +144,12 @@ const SavingsWrapper = () => {
                                     </div>
                                 </div>
                             </Link>
-                            <Link href={'savings/3'}>
+                            <Link href={'savings/2'}>
                                 <div className="flex flex-col sitems-center justify-center bg-white p-4 rounded-md">
                                     <h3 className="text-[#323232] font-medium text-base">Savings Title</h3>
-                                    <h4 className="text-primary font-bvps font-semibold text-lg md:text-xl pt-4 pb-3">&#8358;35</h4>
+                                    <h4 className="text-primary font-bvps font-semibold text-lg md:text-xl pt-4 pb-2">&#8358;35</h4>
                                     <ProgressBar value={35} />
-                                    <div className='grid grid-cols-2 gap-1 mt-4'>
+                                    <div className='grid grid-cols-2 gap-1 mt-2'>
                                         <div className='flex items-center text-sm gap-1 font-bvp'>
                                             <BiSolidCalendarEvent className='' />
                                             Deadline
@@ -166,6 +158,7 @@ const SavingsWrapper = () => {
                                     </div>
                                 </div>
                             </Link>
+                            
                         </div>
                     </>
             }

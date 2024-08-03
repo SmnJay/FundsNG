@@ -36,7 +36,7 @@ const nav_data: NavData[] = [
     }, {
         id: 5,
         name: 'settings',
-        link: '/dashboard/settings/profile',
+        link: '/dashboard/settings',
         icon: <HiOutlineCog6Tooth />
     }
 ];

@@ -10,6 +10,9 @@ import { GrEmergency } from 'react-icons/gr';
 import { MdBusinessCenter } from 'react-icons/md';
 import ProgressBar from '../ProgressBar';
 import RecentActivity from '../Activity';
+import { CgChevronRight } from 'react-icons/cg';
+import { IoWalletOutline } from 'react-icons/io5';
+import { TfiShine } from 'react-icons/tfi';
 
 const DashboardWrapper = () => {
     const [isEmpty, setIsEmpty] = useState(true);
@@ -20,7 +23,7 @@ const DashboardWrapper = () => {
             <button onClick={handleIsEmpty} className="p-2 bg-leafGreen-30 mb-4 text-white font-bvp text-sm">{isEmpty ? 'Check Not-Empty State' : 'Check empty State'}</button>
 
             {
-                isEmpty ? <div className="flex max-sm:flex-col sm:items-center gap-2 sm:justify-between items-start rounded-md px-4 md:px-8 py-2 bg-[#EBF7DF] md:w-2/3">
+                isEmpty ? <div className="flex max-sm:flex-col sm:items-center gap-2 sm:justify-between items-start rounded-md px-4 md:px-8 py-2 bg-[#EBF7DF] md:w-2/3  md:mx-auto ">
                     <p className="font-medium max-md:text-sm text-leafGreen-20">Before you continue, complete your profile</p>
                     <Link href='/settings/profile' className='text-sm text-leafGreen-30 font-medium bg-white rounded-lg py-2 leading-loose px-4'>
                         Complete Profile
@@ -31,38 +34,29 @@ const DashboardWrapper = () => {
                         <Cards
                             title='Total Donations made'
                             amount={'1500387'}
-                            icon={<FaHandHoldingHeart className='text-white h-10 w-10 sm:h-30 sm:w-30' />}
-                            bgColor='bg-leafGreen-5'
+                            icon={<FaHandHoldingHeart className='text-[#4591a1] text-2xl ' />}
+                            bgColor='bg-[#E0FAFF]'
                             titleColor='text-white'
                         />
                         <Cards
-                            bgColor='bg-primary'
+                            bgColor='bg-[#2acd0f10]'
                             title={'Total Savings'}
                             amount={'12500'}
-                            icon={<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="3.33325" y="3.33301" width="33.3333" height="33.3333" rx="4" stroke="white" strokeWidth="1.5" />
-                                <circle cx="6.66667" cy="6.66667" r="6.66667" transform="matrix(1 0 0 -1 13.3333 26.667)" stroke="white" strokeWidth="1.5" />
-                                <path d="M20 13.3333V10" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M20 30.0003V26.667" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M25.9968 15.8337L28.8835 14.167" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M11.1164 25.8337L14.0032 24.167" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M25.9968 24.1663L28.8835 25.833" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M11.1164 14.1663L14.0032 15.833" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>}
+                            icon={<span className='border block rounded-md border-[#7fb42d]'><TfiShine className='text-2xl p-1 text-[#7fb42d]' /></span>}
                         />
                         <Cards
                             titleColor='text-black'
-                            bgColor='bg-white'
-                            title={'Total Wallet Balance'}
+                            bgColor='bg-[#FFB0B030]'
+                            title={'Wallet Balance'}
                             amount={'28955'}
                             amountColor={'text-black'}
-                            icon={<FaWallet className='text-black h-10 w-10 sm:h-30 sm:w-30' />}
+                            icon={<IoWalletOutline className='text-2xl text-[#FF1414]' />}
                         />
                     </div>
             }
 
             {
-                isEmpty ? <div className="md:w-2/3 mt-4 flex items-center justify-center sm:justify-between rounded-md bg-signUp-pattern bg-leafGreen-20 text-white p-4 sm:p-8">
+                isEmpty ? <div className="md:w-2/3 md:mx-auto mt-4 flex items-center justify-center sm:justify-between rounded-md bg-signUp-pattern bg-leafGreen-20 text-white p-4 sm:p-8">
                     <div className='space-y-3'>
                         <h1 className="font-semibold text-xl">Welcome to FundsNg</h1>
                         <p className="font-thin max-md:text-sm">
@@ -89,11 +83,11 @@ const DashboardWrapper = () => {
 
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-                <div className="col-span-2">
+                <div className={`${isEmpty ? 'col-span-3 md:w-2/3 md:mx-auto' : 'col-span-2'} `}>
                     <div className="bg-white rounded-md">
                         <div className="border-b px-4 sm:px-8 py-2 sm:py-4 flex items-center justify-between">
-                            <p className="font-medium text-[#899192]">Your Fundraiser</p>
-                            <Link href='/dashboard/campaigns' className='text-sm hover:underline'>View All</Link>
+                            <p className="font-medium text-sm sm:text-base text-[#899192]">Your Fundraiser</p>
+                            <Link href='/dashboard/campaigns' className='flex items-center text-sm group'>View All <span className="group-hover:translate-x-[2px] duration-200 ease-out"><CgChevronRight /></span></Link>
                         </div>
                         <div className="flex items-center justify-center p-4 sm:p-8">
                             {
@@ -110,7 +104,7 @@ const DashboardWrapper = () => {
                                     :
                                     <div className='flex flex-col md:flex-row items-center gap-6'>
                                         <div className="">
-                                            <Image src={'/images/underbridge.png'} width={300} style={{borderRadius: '0.5rem'}} height={350} alt='' />
+                                            <Image src={'/images/underbridge.png'} width={300} style={{ borderRadius: '0.5rem' }} height={350} alt='' />
                                         </div>
                                         <div className="font-inter">
                                             <h6 className="font-semibold md:leading-loose text-base text-[#3f4343] mb-1">Save the homeless people at Ikeja underbridge</h6>
@@ -130,53 +124,53 @@ const DashboardWrapper = () => {
 
                     <div className="bg-white rounded-md mt-4">
                         <div className="border-b px-4 sm:px-8 py-2 sm:py-4 flex items-center justify-between">
-                            <p className="font-medium text-[#899192]">Trending Fundraiser Categories</p>
-                            <Link href='' className='text-sm hover:underline'>View All</Link>
+                            <p className="font-medium text-sm sm:text-base text-[#899192]">Trending Fundraiser Categories</p>
+                            <Link href='' className='text-sm group flex items-center'>View All <span className="group-hover:translate-x-[2px] duration-200 ease-out"><CgChevronRight /></span></Link>
                         </div>
                         <div className="flex items-center justify-evenly gap-4 flex-wrap p-4 sm:p-8">
                             <div className="sm:space-y-2 text-center">
-                                <span className="bg-leafGreen-80 mx-auto grid place-items-center h-14 sm:h-20 w-14 sm:w-20 rounded-full">
-                                    <FaBriefcaseMedical className='text-[#618F19] h-6 w-6 sm:h-10 sm:w-10' />
+                                <span className="bg-[#dff7f7c7] mx-auto grid place-items-center h-12 w-12 sm:h-16 sm:w-16 rounded-full">
+                                    <FaBriefcaseMedical className='text-[#5D94D6] h-4 w-4 sm:h-6 sm:w-6' />
                                 </span>
-                                <span className="text-gray-600 block text-sm">Medical</span>
+                                <span className="text-gray-600 block text-xs sm:text-sm max-sm:leading-loose">Medical</span>
                             </div>
                             <div className="sm:space-y-2 text-center">
-                                <span className="bg-leafGreen-80 mx-auto grid place-items-center h-14 sm:h-20 w-14 sm:w-20 rounded-full">
-                                    <GrEmergency className='text-[#618F19] h-6 w-6 sm:h-10 sm:w-10' />
+                                <span className="bg-[#ebdff78a] mx-auto grid place-items-center h-12 w-12 sm:h-16 sm:w-16 rounded-full">
+                                    <GrEmergency className='text-[#9E55D7] h-4 w-4 sm:h-6 sm:w-6' />
                                 </span>
-                                <span className="text-gray-600 block text-sm">Emergency</span>
+                                <span className="text-gray-600 block text-xs sm:text-sm  max-sm:leading-loose">Emergency</span>
                             </div>
                             <div className="sm:space-y-2 text-center">
-                                <span className="bg-leafGreen-80 mx-auto grid place-items-center h-14 sm:h-20 w-14 sm:w-20 rounded-full">
-                                    <FaHome className='text-[#618F19] h-6 w-6 sm:h-10 sm:w-10' />
+                                <span className="bg-[#f7dfefbf] mx-auto grid place-items-center h-12 w-12 sm:h-16 sm:w-16 rounded-full">
+                                    <FaHome className='text-[#aa2c43da] h-4 w-4 sm:h-6 sm:w-6' />
                                 </span>
-                                <span className="text-gray-600 block text-sm">Housing</span>
+                                <span className="text-gray-600 block text-xs sm:text-sm  max-sm:leading-loose">Housing</span>
                             </div>
                             <div className="sm:space-y-2 text-center">
-                                <span className="bg-leafGreen-80 mx-auto grid place-items-center h-14 sm:h-20 w-14 sm:w-20 rounded-full">
-                                    <FaHandHoldingHeart className='text-[#618F19] h-6 w-6 sm:h-10 sm:w-10' />
+                                <span className="bg-[#fdf3dac9] mx-auto grid place-items-center h-12 w-12 sm:h-16 sm:w-16 rounded-full">
+                                    <FaHandHoldingHeart className='text-[#F7A145] h-4 w-4 sm:h-6 sm:w-6' />
                                 </span>
-                                <span className="text-gray-600 block text-sm">Charity</span>
+                                <span className="text-gray-600 block text-xs sm:text-sm  max-sm:leading-loose">Charity</span>
                             </div>
                             <div className="sm:space-y-2 text-center">
-                                <span className="bg-leafGreen-80 mx-auto grid place-items-center h-14 sm:h-20 w-14 sm:w-20 rounded-full">
-                                    <MdBusinessCenter className='text-[#618F19] h-6 w-6 sm:h-10 sm:w-10' />
+                                <span className="bg-[#dff7f09b] mx-auto grid place-items-center h-12 w-12 sm:h-16 sm:w-16 rounded-full">
+                                    <MdBusinessCenter className='text-[#198F8F] h-4 w-4 sm:h-6 sm:w-6' />
                                 </span>
-                                <span className="text-gray-600 block text-sm">Business</span>
+                                <span className="text-gray-600 block text-xs sm:text-sm  max-sm:leading-loose">Business</span>
                             </div>
                             <div className="sm:space-y-2 text-center">
-                                <span className="bg-leafGreen-80 mx-auto grid place-items-center h-14 sm:h-20 w-14 sm:w-20 rounded-full">
-                                    <FaPlaneDeparture className='text-[#618F19] h-6 w-6 sm:h-10 sm:w-10' />
+                                <span className="bg-leafGreen-80 mx-auto grid place-items-center h-12 w-12 sm:h-16 sm:w-16 rounded-full">
+                                    <FaPlaneDeparture className='text-[#618F19] h-4 w-4 sm:h-6 sm:w-6' />
                                 </span>
-                                <span className="text-gray-600 block text-sm">Travel</span>
+                                <span className="text-gray-600 block text-xs sm:text-sm  max-sm:leading-loose">Travel</span>
                             </div>
                         </div>
                     </div>
 
                     <div className="bg-white rounded-md mt-4">
                         <div className="border-b px-4 sm:px-8 py-2 sm:py-4 flex items-center justify-between">
-                            <p className="font-medium text-[#899192]">Your Savings</p>
-                            <Link href='/dashboard/savings' className='text-sm hover:underline ease-linear duration-200'>View All</Link>
+                            <p className="font-medium text-sm sm:text-base text-[#899192]">Your Savings</p>
+                            <Link href='/dashboard/savings' className='text-sm group flex items-center'>View All <span className="group-hover:translate-x-[2px] duration-200 ease-out"><CgChevronRight /></span></Link>
                         </div>
                         <div className="flex items-center justify-center p-4 sm:p-8">
                             <div className="grid place-items-center space-y-6">

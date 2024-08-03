@@ -110,10 +110,8 @@ const MultiStepForm = () => {
 
     return (
         <>
-            <button onClick={togglePreview} className="block bg-leafGreen-20 hover:bg-leafGreen-30 text-white font-bold text-sm py-2 px-4 rounded ml-auto my-4">
-                <span className='flex items-center gap-1 md:gap-2'><TfiShine /> Preview</span>
-            </button>
-            <div className="container mx-auto bg-white rounded-md">
+
+            <div className="container mx-auto bg-white rounded-md mt-4">
                 <div className='pb-8'>
                     <StepIndicator currentStep={currentStep} steps={steps.length} />
 
