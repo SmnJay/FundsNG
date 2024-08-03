@@ -116,7 +116,7 @@ const CampaignWrapper = () => {
                         <CampaignCard
                             status='disabled'
                             link='/dashboard/campaigns/3'
-                            title='Save the homeless people at Ikeja Underbridge'
+                            title='Save the homeless people at Ikeja'
                             dateCreated='24 April, 2024'
                             imageSrc='/images/underbridge.png'
                         />

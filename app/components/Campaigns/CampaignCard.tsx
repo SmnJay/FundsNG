@@ -13,7 +13,7 @@ type CampaignCardProps = {
 
 const CampaignCard: React.FC<CampaignCardProps> = ({ status, link, imageSrc, dateCreated, title }) => {
     return (
-        <Link href={link} className="hover:shadow-md ease-linear duration-200 hover:-translate-y-1 hover:-translate-x-1">
+        <Link href={link} className="hover:shadow ease-linear duration-200">
             <div className="bg-white p-4 space-y-2 rounded-md">
                 <Image src={imageSrc} width={300} height={120} style={{ width: '100%' }} alt='' />
                 <h6 className="text-[#3f4343] font-semibold">{title}</h6>
