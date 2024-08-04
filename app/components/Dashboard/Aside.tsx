@@ -15,7 +15,7 @@ const Aside = () => {
   const handleLogout = async () => {
     setIsLoading(true);
     await signOut({
-      callbackUrl: "/",
+      callbackUrl: "/signin",
     });
   };
 
