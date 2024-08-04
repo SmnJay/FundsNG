@@ -24,8 +24,6 @@ const SignInForm = () => {
             password: data.password,
             callbackUrl: '/dashboard'
         })
-
-        console.log(data);
     }
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="relative mx-auto max-w-[500px] px-4 py-8 md:p-8" autoComplete="off">

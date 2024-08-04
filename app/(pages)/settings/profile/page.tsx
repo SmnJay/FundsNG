@@ -1,14 +1,25 @@
+'use client';
 import Breadcrumb from '@/app/components/Breadcrumb'
 import Input, { InputTextArea } from '@/app/components/Input/Input'
 import { ProfileAvatar } from '@/app/components/UserProfilePicture'
+import { getProfileApiService } from '@/app/utils/services/profile/profileApiService'
+import { useQuery } from '@tanstack/react-query'
 import React from 'react'
 
 const Profile = () => {
+  const query = useQuery({
+    queryKey: ['profile'],
+    queryFn: getProfileApiService,
+  })
+
+  console.log(query)
+
   const items = [
     { label: 'Dashboard', path: '/dashboard' },
     { label: 'Settings' },
     { label: 'Profile' },
-  ]
+  ];
+
   return (
     <>
       <Breadcrumb items={items} />

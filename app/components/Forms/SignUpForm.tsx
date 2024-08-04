@@ -28,7 +28,6 @@ const SignUpForm = () => {
                 toast.success(data.message);
                 router.push('/signin')
             }
-            console.log(data);
         },
     });
 
