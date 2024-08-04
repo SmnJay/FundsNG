@@ -14,15 +14,16 @@ import signInSchema, { SignInSchema } from '@/app/schemaa/signInSchema';
 
 
 const SignInForm = () => {
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
     const { control, register, handleSubmit, formState: { errors } } = useForm<SignInSchema>({ resolver: zodResolver(signInSchema), mode: 'onTouched' })
 
     const onSubmit = async (data: SignInSchema) => {
-        // await signIn("credentials", {
-        //     email: data.email,
-        //     password: data.password,
-        //     redirect: false,
-        //     callbackUrl: '/dashboard'
-        // })
+        setIsLoading(true)
+        await signIn("credentials", {
+            email: data.email,
+            password: data.password,
+            callbackUrl: '/dashboard'
+        })
 
         console.log(data);
     }
@@ -56,9 +57,8 @@ const SignInForm = () => {
                 <Links color='white' cls='text-sm text-white' href='/forgot-password' ariaLabel='Link to visit the forgot password page.' name='Forgot Password?' />
             </div>
             <div className="flex flex-col gap-4 py-10">
-                
-                <Button type='submit' name="Continue" ariaLabel="Continue button" color="white" />
-                {/* <ButtonLink href='/dashboard' name="Continue" ariaLabel="Continue button" color="white" /> */}
+
+                <Button type='submit' name="Continue" ariaLabel="Continue button" color="white" processing={isLoading}/>
                 <ButtonLink href='/' name="Sign in with Google" icon={<FcGoogle />} ariaLabel="Continue button" color="white" />
             </div>
             <p className="text-center">
