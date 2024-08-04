@@ -9,7 +9,7 @@ const signInSchema: ZodType<ISignInForm> = z.object({
         .email('Invalid email address'),
     password: z
         .string()
-        .min(8, 'Email must be at least 8 charcters long')
+        .min(8, 'Password must be at least 8 charcters long')
 });
 
 export default signInSchema;

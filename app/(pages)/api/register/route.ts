@@ -3,7 +3,8 @@ import { headers } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest, res: NextResponse) {
-    const body = await req.json()
+    const body = await req.json();
+    
     try {
         const url = `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/Auth/Register`
 
