@@ -13,8 +13,9 @@ export const authOptions: NextAuthOptions = {
             async authorize(credentials, req) {
                 try {
                     const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/Auth/Login`, credentials);
-                    const user = response.data.data;
-                    return response;
+                    const user = response.data.data;                    
+                    
+                    return user;
                 } catch (error: any) {
                     throw new Error(
                         JSON.stringify({ error: error.response.data, status: 400 })

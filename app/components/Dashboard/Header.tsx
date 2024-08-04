@@ -2,18 +2,18 @@
 
 import React, { useState } from 'react';
 import { BsBellFill } from "react-icons/bs";
-import Links from '../Links/Index';
-import Avatar from '../UserProfilePicture';
-import Link from 'next/link';
 import { RiMenu2Line } from "react-icons/ri";
 import { useMenu } from '@/app/utils/hooks/contexts';
 import Logo from '../Logo/Logo';
 import { signOut } from 'next-auth/react';
 import { CgSpinnerTwo } from 'react-icons/cg';
+import UserProfile from '../Profile/UserProfile';
+import SessionWrapper from '../SessionProvider/SessionProvider';
 
 const Header = () => {
     const [isLoading, setIsLoading] = useState(false)
     const { isOpen, handleIsOpen } = useMenu();
+
 
     const handleLogout = async () => {
         setIsLoading(true);
@@ -42,12 +42,9 @@ const Header = () => {
                             </svg>
                     }
                 </button>
-                <Link href='/settings/profile'>
-                    <div className="flex justify-center items-center ml-2 gap-2">
-                        <Avatar />
-                        <h3 className="hidden md:block font-semibold">Tosin Akerele</h3>
-                    </div>
-                </Link>
+                <SessionWrapper>
+                    <UserProfile />
+                </SessionWrapper>
             </div>
         </header>
     )

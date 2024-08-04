@@ -1,17 +1,19 @@
 import Image from 'next/image'
 import React from 'react'
+import { FaUser } from 'react-icons/fa'
 
 const Avatar = () => {
     return (
-        <div className='ring-1 ring-white relative rounded-full h-[30px] w-[30px] overflow-hiddens grid place-items-center'>
-            <Image
+        <div className='ring-1 ring-primary relative rounded-full h-[30px] w-[30px] overflow-hiddens grid place-items-center'>
+            {/* <Image
                 className='rounded-full'
                 src={'/images/passport.jpg'}
                 fill
                 sizes={'30px'}
                 style={{ objectPosition: 'center' }}
                 alt={'Authenticated user avatar'}
-            />
+            /> */}
+            <FaUser className='text-primary'/>
             <div className="bg-green-700 h-3 w-3 rounded-full ring-2 ring-white absolute z-50 right-0 bottom-0 border"></div>
         </div>
     )
