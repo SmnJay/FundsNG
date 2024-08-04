@@ -22,7 +22,7 @@ interface ButtonLinkProps extends ButtonProps {
 
 const Button: React.FC<ButtonProps> = ({ type = 'button', onClick, color, outline, cls, ariaLabel, processing, name, ...props }) => {
     const buttonClassNames = clsx(
-        `${cls ? cls : ''} border-2 md:leading-4 font-medium px-8 max-md:text-sm group rounded-lg`,
+        `${cls ? cls : ''} border-2 md:leading-4 font-medium px-8 max-md:text-sm group rounded-lg ${processing && 'cursor-not-allowed'}`,
         {
             'bg-primary text-white border-primary': color === 'primary' && !outline,
             'bg-transparent text-primary border-primary': color === 'primary' && outline,
@@ -49,7 +49,7 @@ const Button: React.FC<ButtonProps> = ({ type = 'button', onClick, color, outlin
         >
             {
                 processing ?
-                    <span className='block py-3 animate-pulse'>...sending</span>
+                    <span className='block py-3 animate-pulse curs'>...sending</span>
                     :
                     <span className="block py-3 duration-300 ease-in-out">{name}</span>
             }

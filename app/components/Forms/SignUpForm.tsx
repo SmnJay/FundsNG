@@ -10,15 +10,39 @@ import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import signUpSchema, { SignUpSchema } from '@/app/schemaa/signUpSchema';
+import { useMutation } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
+import { registerApiService } from '@/app/utils/services/register/registerApiService';
 
 const SignUpForm = () => {
+    const mutation = useMutation({
+        mutationFn: registerApiService,
+        mutationKey: ['register'],
+        onError: (error) => {
+            toast.error(error.message)
+        },
+        onSuccess(data) {
+            if (data.success === false) {
+                toast.error(data.message)
+            } else {
+                toast.success(data.message);
+                router.push('/signin')
+            }
+            console.log(data);
+        },
+    });
+
     const router = useRouter();
+
     const { handleSubmit, register, formState: { errors } } = useForm<SignUpSchema>({
         resolver: zodResolver(signUpSchema),
         mode: 'onTouched'
     });
-    const onSubmit = (data: SignUpSchema) => {
-        console.log(data)
+
+
+
+    const onSubmit = (formData: SignUpSchema) => {
+        mutation.mutate(formData)
     }
 
     return (
@@ -50,9 +74,7 @@ const SignUpForm = () => {
             </div>
 
             <div className="flex flex-col gap-4 py-10 ">
-                <Button name="Continue" type='submit' ariaLabel="Continue button" color="white"
-                // onClick={() => router.push('/verify-email')} 
-                />
+                <Button processing={mutation.isPending} name="Continue" type='submit' ariaLabel="Continue button" color="white" />
             </div>
             <p className="text-center">
                 <span className="text-white">Already have an account?</span>
