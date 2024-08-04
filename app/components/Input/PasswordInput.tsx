@@ -22,7 +22,7 @@ const PasswordInput = forwardRef<HTMLInputElement, IPasswordInput>(
 
         return (
             <div className='relative'>
-                <div className={`form-group rounded-lg bg-primary-30 border px-3 py-2 ${style.container}`}>
+                <div className={`form-group rounded-lg bg-primary-30 border ${error ? 'border-2 !border-red-400' : ''} px-3 py-2 ${style.container}`}>
                     <label htmlFor={name} className="block text-sm text-primary-20">{label}</label>
                     <input
                         {...props}
@@ -58,7 +58,7 @@ const PasswordInput = forwardRef<HTMLInputElement, IPasswordInput>(
 
                     )}
                 </span>
-                <span className="text-red-500">{error}</span>
+                {error && <span className="text-red-500 text-sm px-1">{error}</span>}
             </div>
         )
     })
