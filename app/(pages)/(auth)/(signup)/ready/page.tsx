@@ -13,8 +13,9 @@ const Ready = () => {
             <p className="text-sm md:text-base text-center text-white">Welcome to the online platform for fundraising and efficient saving towards goals</p>
 
 
-            <div className="flex flex-col gap-4 py-10">
-                <ButtonLink href='/dashboard' name="Continue" ariaLabel="Continue button" color="white" />
+            <div className="flex gap-4 py-10">
+                <ButtonLink cls='basis-1/2' href='/complete-profile' name="Setup Profile" ariaLabel="Setup Profile" color="white" />
+                <ButtonLink cls='basis-1/2' href='/signin' name="Go to Sign in" ariaLabel="Continue button" color="white" />
             </div>
 
         </div>

@@ -14,3 +14,13 @@ export interface IProfileSettings {
     dob: string,
     isActive: boolean
 }
+
+export interface ICompleteRegistration {
+    userId?: string,
+    firstName: string,
+    lastName: string,
+    bvn: string,
+    gender: string,
+    mobile: string,
+    dob: string
+}

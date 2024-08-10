@@ -23,10 +23,12 @@ const SignUpForm = () => {
         },
         onSuccess(data) {
             if (data.success === false) {
-                toast.error(data.message)
+                toast.error(data.message);
+                console.log(data);
+                
             } else {
                 toast.success(data.message);
-                router.push('/signin')
+                router.push('/verify-email')
             }
         },
     });

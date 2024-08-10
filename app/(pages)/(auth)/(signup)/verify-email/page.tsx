@@ -18,7 +18,7 @@ const VerifyEmail = () => {
             </div>
 
             <div className="flex flex-col gap-4 py-10">
-                <ButtonLink href='/complete-profile' name="Continue" ariaLabel="Continue button" color="white" />
+                <ButtonLink href='/verify-otp' name="Continue" ariaLabel="Continue button" color="white" />
             </div>
 
         </div>

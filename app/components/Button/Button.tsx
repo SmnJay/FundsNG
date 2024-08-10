@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import Link from 'next/link';
 import React, { ReactNode } from 'react'
+import { CgSpinnerTwo } from "react-icons/cg";
 
 interface ButtonProps {
     processing?: boolean;
@@ -49,7 +50,7 @@ const Button: React.FC<ButtonProps> = ({ type = 'button', onClick, color, outlin
         >
             {
                 processing ?
-                    <span className='block py-3 animate-pulse curs'>...sending</span>
+                    <span className='py-3 animate-spin text-center flex items-center justify-center'><CgSpinnerTwo /></span>
                     :
                     <span className="block py-3 duration-300 ease-in-out">{name}</span>
             }

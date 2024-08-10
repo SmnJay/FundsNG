@@ -58,7 +58,7 @@ const PasswordInput = forwardRef<HTMLInputElement, IPasswordInput>(
 
                     )}
                 </span>
-                {error && <span className="text-red-500 text-sm px-1">{error}</span>}
+                {error && <span className="text-red-400 text-sm px-1">{error}</span>}
             </div>
         )
     })

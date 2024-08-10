@@ -15,9 +15,9 @@ export default withAuth(function middleware(reg) { }, {
                 return false;
             }
             
-            if (req.nextUrl.pathname.startsWith("/complete-profile") && token === null) {
-                return false;
-            }
+            // if (req.nextUrl.pathname.startsWith("/complete-profile") && token === null) {
+            //     return false;
+            // }
             
             if (req.nextUrl.pathname.startsWith("/ready") && token === null) {
                 return false;
@@ -33,5 +33,5 @@ export default withAuth(function middleware(reg) { }, {
 });
 
 export const config = {
-    matcher: ["/dashboard", "/settings", "/verify-otp", "/complete-profile", "/ready", "/verify-email"],
+    matcher: ["/dashboard", "/settings", "/verify-otp", "/ready", "/verify-email"],
 };
