@@ -11,10 +11,10 @@ const ProfilePictureGenerator: React.FC<IProfilePictureGenerator> = ({ firstName
         return (
             <div className="flex items-center justify-center font-bvp h-[100px] w-[100px] text-FBlack text-5xl bg-leafGreen-50 rounded-full p-2">
                 <span className="">
-                    {firstName?.slice(0, 1)}
+                    {firstName?.slice(0, 1).toUpperCase()}
                 </span>
                 <span className="">
-                    {lastName.slice(0, 1)}
+                    {lastName.slice(0, 1).toUpperCase()}
                 </span>
             </div>
         )
@@ -24,7 +24,7 @@ const ProfilePictureGenerator: React.FC<IProfilePictureGenerator> = ({ firstName
         return (
             <div className="flex items-center justify-center font-bvp h-[100px] w-[100px] text-FBlack text-5xl bg-leafGreen-50 rounded-full p-2">
                 <span className="">
-                    {email?.slice(0, 2)}
+                    {email?.slice(0, 2).toUpperCase()}
                 </span>
             </div>
         )

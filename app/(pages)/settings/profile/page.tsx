@@ -36,7 +36,7 @@ const Profile = () => {
             <div className="md:flex gap-1 items-start justify-between">
               <div className="text-sm w-full font-medium">Profile</div>
               <div className="max-md:mt-2 flex-shrink-0 md:w-[74%] grid grid-cols-2 items-center gap-2">
-                <ProfilePictureGenerator firstName={profileQuery?.data?.firstName} lastName={profileQuery?.data?.lastName} email={''} />
+                <ProfilePictureGenerator firstName={profileQuery?.data?.firstName} lastName={profileQuery?.data?.lastName} email={profileQuery?.data?.email} />
               </div>
             </div>
             <div className="md:flex items-start justify-between">
