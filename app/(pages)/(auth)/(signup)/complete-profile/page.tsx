@@ -3,12 +3,14 @@ import CompleteProfile from '@/app/components/Forms/CompleteProfile'
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 import React from 'react'
+import { toast } from 'react-toastify';
 
 const page = async () => {
   const session = await getServerSession(authOptions);
 
   if (!session?.user.emailConfirmed) {
-    redirect('/verify-otp')
+    toast.error('Your Email has not been verified, please sign in with the same account and verify the email using the otp.')
+    redirect('/signin')
   }
 
   return (

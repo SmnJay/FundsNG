@@ -36,5 +36,5 @@ export default withAuth(
     });
 
 export const config = {
-    matcher: ["/dashboard", "/settings", "/verify-otp", "/verify-email", "/complete-profile"],
+    matcher: ["/dashboard", "/settings", "/verify-otp", "/verify-email", "/ready", "/complete-profile"],
 };

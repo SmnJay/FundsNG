@@ -15,6 +15,7 @@ import { toast } from 'react-toastify';
 import { registerApiService } from '@/app/utils/services/register/registerApiService';
 import Modal from '../Modal/Modal';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const SignUpForm = () => {
     const [showSuccessModal, setShowSuccessModal] = useState(false);
@@ -51,9 +52,9 @@ const SignUpForm = () => {
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)} className="mx-auto max-w-[500px] px-4 py-8 md:p-8" autoComplete="off">
-                <div className="pb-4 md:py-6">
+                <Link href ='/' className="pb-4 md:py-6">
                     <WhiteLogo />
-                </div>
+                </Link> 
                 <h6 className="text-white font-semibold text-left text-xl md:text-3xl font-bvp leading-loose">Good Day, Welcome!</h6>
                 <p className="text-sm md:text-base text-white/80 font-extralight">Sign up with your email to access the platform</p>
 
@@ -93,11 +94,9 @@ const SignUpForm = () => {
                     setShowSuccessModal(false);
                     router.push('/signin')
                 }}
-
                 bgColor='bg-white'
             >
-                <div className="mx-auto max-w-[500px] px-4 py-8 md:p-8 relative">
-
+                <div className="px-4 py-8 md:p-8 relative">
                     <h6 className="font-semibold text-left text-xl md:text-3xl leading-loose font-bvp text-primary">Check your email</h6>
                     <p className="text-sm md:text-base text-left">We sent you an OTP to your email. Kindly check to verify your acount.</p>
 

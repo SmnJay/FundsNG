@@ -10,6 +10,7 @@ import Button from '../Button/Button';
 import schema, { ResetPasswordSchema } from '@/app/schemaa/resetPasswordSchema';
 import useFormValidation from '@/app/utils/hooks/useFormValidation';
 import PasswordInput from '../Input/PasswordInput';
+import Link from 'next/link';
 
 interface Props {
     email: string
@@ -53,9 +54,9 @@ const ResetPasswordForm: React.FC<Props> = ({ email }) => {
 
     return (
         <form onSubmit={handleSubmit(submit)} className="relative mx-auto max-w-[500px] px-4 py-8 md:p-8" autoComplete="off">
-            <div className="pb-4 md:py-6">
+            <Link href='/' className="pb-4 md:py-6">
                 <WhiteLogo />
-            </div>
+            </Link>
             <h6 className="text-white font-semibold text-left text-xl md:text-3xl font-bvp leading-loose">Reset Password</h6>
             <p className="text-sm md:text-base text-left text-white/80 font-extralight">Oh snap! Let&apos;s recover your account.</p>
             <div className="space-y-4 pt-6">

@@ -8,6 +8,7 @@ import { useMutation } from '@tanstack/react-query'
 import { forgotPasswordApiService } from '@/app/utils/services/forgotPassword/forgotPasswordApiService'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link';
 
 interface Props {
     email: string
@@ -44,9 +45,9 @@ const ForgotPasswordForm: React.FC<Props> = ({ email }) => {
 
     return (
         <form onSubmit={handleSubmit} className="relative mx-auto max-w-[500px] px-4 py-8 md:p-8" autoComplete="off">
-            <div className="pb-4 md:py-6">
+            <Link href='/' className="pb-4 md:py-6">
                 <WhiteLogo />
-            </div>
+            </Link>
             <h6 className="text-white font-semibold text-left text-xl md:text-3xl font-bvp leading-loose">Forgot Password</h6>
             <p className="text-sm md:text-base text-left text-white/80 font-extralight">Oh snap! Let&apos;s recover your account.</p>
             <div className="space-y-4 pt-6">

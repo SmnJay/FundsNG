@@ -7,6 +7,7 @@ import { WhiteLogo } from '@/app/components/Logo/Logo';
 import { resendOtpApiService } from '@/app/utils/services/resendOtp/resendOtpApiService';
 import { verifyOtpApiService } from '@/app/utils/services/verifyOtp/verifyOtpApiService';
 import { useMutation } from '@tanstack/react-query';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 import { toast } from 'react-toastify';
@@ -68,9 +69,9 @@ const VerifyOtpForm: React.FC<Props> = ({ email, userId }) => {
 
     return (
         <form onSubmit={submit} className="mx-auto max-w-[500px] px-4 py-8 md:p-8 relative" autoComplete="off">
-            <div className="pb-4 md:py-6">
+            <Link href='/' className="pb-4 md:py-6">
                 <WhiteLogo />
-            </div>
+            </Link>
             <h6 className="text-white font-semibold text-left text-xl md:text-3xl leading-loose font-bvp">Check your email</h6>
             <p className="text-sm md:text-base text-left text-white lg:w-5/6 ">We sent an OTP to email. Please check to recover your account</p>
 

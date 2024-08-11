@@ -11,6 +11,7 @@ import { useForm } from 'react-hook-form'
 import { signIn } from 'next-auth/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import signInSchema, { SignInSchema } from '@/app/schemaa/signInSchema';
+import Link from 'next/link';
 
 
 const SignInForm = () => {
@@ -27,9 +28,9 @@ const SignInForm = () => {
     }
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="relative mx-auto max-w-[500px] px-4 py-8 md:p-8" autoComplete="off">
-            <div className="pb-4 md:py-6">
+            <Link href='/' className="pb-4 md:py-6">
                 <WhiteLogo />
-            </div>
+            </Link>
             <h6 className="text-white font-semibold text-left text-xl md:text-3xl font-bvp leading-loose">Welcome Back!</h6>
             <p className="text-sm md:text-base text-left text-white/80 font-extralight">Glad to have you back. Your account details</p>
             <div className="space-y-4 pt-6">

@@ -12,7 +12,7 @@ import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify';
 import style from '../Input/InputField.module.css';
-import { useSession } from 'next-auth/react';
+import Link from 'next/link';
 
 interface Props {
     userId: string
@@ -42,7 +42,7 @@ const CompleteProfile: React.FC<Props> = ({ userId }) => {
     });
 
     const pushToSignInPage = () => {
-        router.push('/signin')
+        router.push('/dashboard')
     }
 
     const submit = (formData: CompleteRegistrationSchema) => {
@@ -52,9 +52,9 @@ const CompleteProfile: React.FC<Props> = ({ userId }) => {
 
     return (
         <form onSubmit={handleSubmit(submit)} className="relative mx-auto max-w-[500px] px-4 py-8 md:p-8" autoComplete="off">
-            <div className="pb-4 md:py-6">
+            <Link href='/' className="pb-4 md:py-6">
                 <WhiteLogo />
-            </div>
+            </Link>
             <h6 className="text-white font-semibold text-left text-xl md:text-3xl leading-loose font-bvp">Complete your profile</h6>
             <p className="text-sm md:text-base text-left text-white ">It&apos;s a good day to create ideas that will change the world</p>
             <div className="pt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
