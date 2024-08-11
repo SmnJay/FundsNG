@@ -6,9 +6,9 @@ import { headers } from 'next/headers';
 export async function POST(req: NextRequest, res: NextResponse) {
     let { jwt, id } = await getJwt(req);
     const body = await req.json();
-    
+
     try {
-        const url = `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/Auth/ResendOTP`
+        const url = `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/Auth/ResetPassword`
 
         const { data } = await axios.post(url, body, {
             headers: {

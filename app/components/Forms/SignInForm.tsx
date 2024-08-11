@@ -14,8 +14,8 @@ import signInSchema, { SignInSchema } from '@/app/schemaa/signInSchema';
 
 
 const SignInForm = () => {
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
-    const { control, register, handleSubmit, formState: { errors } } = useForm<SignInSchema>({ resolver: zodResolver(signInSchema), mode: 'onTouched' })
+    const [isLoading, setIsLoading] = React.useState<boolean>(false);
+    const { register, handleSubmit, formState: { errors } } = useForm<SignInSchema>({ resolver: zodResolver(signInSchema), mode: 'onTouched' })
 
     const onSubmit = async (data: SignInSchema) => {
         setIsLoading(true)
@@ -56,7 +56,7 @@ const SignInForm = () => {
             </div>
             <div className="flex flex-col gap-4 py-10">
 
-                <Button type='submit' name="Continue" ariaLabel="Continue button" color="white" processing={isLoading}/>
+                <Button type='submit' name="Continue" ariaLabel="Continue button" color="white" processing={isLoading} />
                 <ButtonLink href='/' name="Sign in with Google" icon={<FcGoogle />} ariaLabel="Continue button" color="white" />
             </div>
             <p className="text-center">

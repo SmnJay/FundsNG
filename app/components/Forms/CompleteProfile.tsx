@@ -14,9 +14,10 @@ import { toast } from 'react-toastify';
 import style from '../Input/InputField.module.css';
 import { useSession } from 'next-auth/react';
 
-const CompleteProfile = () => {
-    const { data } = useSession();
-    const [userId, setUserId] = useState('');
+interface Props {
+    userId: string
+}
+const CompleteProfile: React.FC<Props> = ({ userId }) => {
     const router = useRouter()
     const { handleSubmit, register, formState: { errors } } = useForm<CompleteRegistrationSchema>({
         resolver: zodResolver(completeRegistrationSchema),
@@ -50,16 +51,6 @@ const CompleteProfile = () => {
         const fullData = { ...formData, userId }
         mutation.mutate(fullData)
     }
-
-    useEffect(() => {
-        console.log("Session data:", data);  // Check what the session data contains
-        if (data && data.user && data.user.userId) {
-            console.log("Setting userId:", data.user.userId);
-            setUserId(data.user.userId);
-        } else {
-            console.log("No userId found in session data");
-        }
-    }, [data]);
 
     return (
         <form onSubmit={handleSubmit(submit)} className="relative mx-auto max-w-[500px] px-4 py-8 md:p-8" autoComplete="off">

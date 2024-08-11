@@ -1,14 +1,18 @@
-'use client';
-
+import { authOptions } from '@/app/(pages)/api/auth/[...nextauth]/options';
 import CompleteProfile from '@/app/components/Forms/CompleteProfile'
-import SessionWrapper from '@/app/components/SessionProvider/SessionProvider'
+import { getServerSession } from 'next-auth';
+import { redirect } from 'next/navigation';
 import React from 'react'
 
-const page = () => {
+const page = async () => {
+  const session = await getServerSession(authOptions);
+
+  if (!session?.user.emailConfirmed) {
+    redirect('/verify-otp')
+  }
+
   return (
-    <SessionWrapper>
-      <CompleteProfile />
-    </SessionWrapper>
+    <CompleteProfile userId={session?.user?.userId as string} />
   )
 }
 

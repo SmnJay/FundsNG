@@ -1,14 +1,14 @@
 import { authOptions } from '@/app/(pages)/api/auth/[...nextauth]/options'
-import ForgotPasswordForm from '@/app/components/Forms/ForgotPasswordForm'
+import ResetPasswordForm from '@/app/components/Forms/ResetPasswordForm';
 import { getServerSession } from 'next-auth'
 import React from 'react'
 
-const ForgotPassword = async () => {
+const ResetPassword = async () => {
   const session = await getServerSession(authOptions);
 
   return (
-    <ForgotPasswordForm email={session?.user?.username as string} />
+    <ResetPasswordForm email={session?.user?.username as string} />
   )
 }
 
-export default ForgotPassword
+export default ResetPassword

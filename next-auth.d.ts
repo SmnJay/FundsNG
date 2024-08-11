@@ -8,7 +8,7 @@ declare module "next-auth" {
             fullname: string;
             userId: string;
             photoUrl: string | null;
-            email: string
+            emailConfirmed: boolean
         } & DefaultSession["user"];
     }
 
@@ -18,7 +18,7 @@ declare module "next-auth" {
         fullname: string;
         userId: string;
         photoUrl: string | null;
-        email: string
+        emailConfirmed: boolean
     }
 }
 
@@ -30,7 +30,7 @@ declare module "next-auth/jwt" {
             fullname: string;
             userId: string;
             photoUrl: string | null;
-            email: string
+            emailConfirmed: boolean
         };
     }
 }

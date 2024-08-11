@@ -4,6 +4,7 @@ import Button from '@/app/components/Button/Button'
 import OTPInput from '@/app/components/Forms/OTPInput';
 import Input from '@/app/components/Input/Input';
 import { WhiteLogo } from '@/app/components/Logo/Logo';
+import { resendOtpApiService } from '@/app/utils/services/resendOtp/resendOtpApiService';
 import { verifyOtpApiService } from '@/app/utils/services/verifyOtp/verifyOtpApiService';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
@@ -11,9 +12,12 @@ import React, { useState } from 'react'
 import { toast } from 'react-toastify';
 
 
-const VerifyOtpForm = () => {
+interface Props {
+    email: string
+    userId: string
+}
+const VerifyOtpForm: React.FC<Props> = ({ email, userId }) => {
     const [otpPin, setOtpPin] = useState<string | null>(null);
-    const [email, setEmail] = useState('')
 
     const router = useRouter();
 
@@ -38,6 +42,24 @@ const VerifyOtpForm = () => {
             }
         }
     });
+
+    const resendMutation = useMutation({
+        mutationKey: ['resend-otp'],
+        mutationFn: resendOtpApiService,
+        onError: (error) => {
+            toast.error(error.message);
+        },
+        onSuccess: (data) => {
+            console.log(data);
+
+            if (data.success === false) {
+                toast.error(data.message)
+            } else {
+                toast.success(data.message);
+            }
+        }
+    })
+
     const submit = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
 
@@ -55,18 +77,14 @@ const VerifyOtpForm = () => {
             <p className="text-sm md:text-base text-left text-white lg:w-5/6 ">We sent an OTP to email. Please check to recover your account</p>
 
             <section className='mx-auto flex flex-col justify-center mt-6'>
-                <Input
-                    error=''
-                    label='Enter your email to be verified'
-                    placeholder='xyz@mail.com'
-                    name='email'
-                    type='email'
-                    onChange={(e) => setEmail(e.target.value)}
-                />
                 <OTPInput length={6} onComplete={completeEnteringOtp} />
             </section>
 
-            <div className="flex flex-col gap-4 pt-10 pb-10 ">
+            <div className='flex items-center justify-end'>
+                <button className="text-sm text-white leading-loose pb-2 pt-6" type='button' onClick={() => resendMutation.mutate({ userId: userId as unknown as string })}>{resendMutation.isPending ? 'sending' : 'Resend OTP'}</button>
+            </div>
+
+            <div className="flex flex-col gap-4 pb-10 ">
                 <Button type='submit' processing={mutation.isPending} name="Continue" ariaLabel="button to continue" color="white" />
             </div>
         </form>

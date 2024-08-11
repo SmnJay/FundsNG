@@ -1,10 +1,20 @@
 import Aside from '@/app/components/Dashboard/Aside';
 import Header from '@/app/components/Dashboard/Header';
+import { getServerSession } from 'next-auth';
 import React from 'react'
+import { authOptions } from '../api/auth/[...nextauth]/options';
+import { redirect } from 'next/navigation';
 
-const AppLayout = ({ children }: Readonly<{
+const AppLayout = async ({ children }: Readonly<{
   children: React.ReactNode;
 }>) => {
+  const session = await getServerSession(authOptions);
+  console.log({ session });
+
+  if (!session?.user.emailConfirmed) {
+    redirect('/verify-otp')
+  }
+
   return (
     <div className='bg-appGrey/50 min-h-screen'>
       <Header />
