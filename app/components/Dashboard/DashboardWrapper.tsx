@@ -14,19 +14,20 @@ import { CgChevronRight } from 'react-icons/cg';
 import { IoWalletOutline } from 'react-icons/io5';
 import { TfiShine } from 'react-icons/tfi';
 
-const DashboardWrapper = () => {
+type DashboardWrapperProps = {
+    isProfileSetUp: boolean
+}
+
+const DashboardWrapper: React.FC<DashboardWrapperProps> = ({ isProfileSetUp }) => {
     const [isEmpty, setIsEmpty] = useState(true);
-    const handleIsEmpty = () => setIsEmpty(!isEmpty);
 
     return (
         <div>
-            <button onClick={handleIsEmpty} className="p-2 bg-leafGreen-30 mb-4 text-white font-bvp text-sm">{isEmpty ? 'Check Not-Empty State' : 'Check empty State'}</button>
-
             {
-                isEmpty ? <div className="flex max-sm:flex-col sm:items-center gap-2 sm:justify-between items-start rounded-md px-4 md:px-8 py-2 bg-[#EBF7DF] lg:w-3/4 xl:2/3 lg:mx-auto ">
-                    <p className="font-medium max-md:text-sm text-leafGreen-20">Before you continue, complete your profile</p>
-                    <Link href='/settings/profile' className='text-sm text-leafGreen-30 font-medium bg-white rounded-lg py-2 leading-loose px-4'>
-                        Complete Profile
+                !isProfileSetUp ? <div className="flex max-sm:flex-col sm:items-center gap-2 sm:justify-between items-start rounded-md px-4 md:px-8 py-2 bg-[#FFEDD2] lg:w-3/4 2xl:w-2/3 lg:mx-auto  border-2 border-[#D16A0C] text-[#D16A0C]">
+                    <p className="max-md:text-sm ">Before you continue, please complete your profile</p>
+                    <Link href='/settings/profile' className='text-sm group flex items-center'>
+                        Complete Profile <span className="group-hover:translate-x-[2px] duration-200 ease-out"><CgChevronRight /></span>
                     </Link>
                 </div>
                     :
@@ -56,7 +57,7 @@ const DashboardWrapper = () => {
             }
 
             {
-                isEmpty ? <div className="lg:w-3/4 xl:w-2/3 lg:mx-auto mt-4 flex items-center justify-center sm:justify-between rounded-md bg-signUp-pattern bg-leafGreen-20 text-white p-4 sm:p-8">
+                isEmpty ? <div className="lg:w-3/4 2xl:w-2/3 lg:mx-auto mt-4 flex items-center justify-center sm:justify-between rounded-md bg-signUp-pattern bg-leafGreen-20 text-white p-4 sm:p-8">
                     <div className='space-y-3'>
                         <h1 className="font-semibold text-xl">Welcome to FundsNg</h1>
                         <p className="font-thin max-md:text-sm">
@@ -82,7 +83,7 @@ const DashboardWrapper = () => {
 
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-                <div className={`${isEmpty ? 'col-span-3 lg:w-3/4 xl:w-2/3 lg:mx-auto' : 'col-span-2'} `}>
+                <div className={`${isEmpty ? 'col-span-3 lg:w-3/4 2xl:w-2/3 lg:mx-auto ' : 'col-span-2'} `}>
                     <div className="bg-white rounded-md">
                         <div className="border-b px-4 sm:px-8 py-2 sm:py-4 flex items-center justify-between">
                             <p className="font-medium text-sm sm:text-base text-[#899192]">Your Fundraiser</p>
@@ -126,7 +127,7 @@ const DashboardWrapper = () => {
                             <p className="font-medium text-sm sm:text-base text-[#899192]">Trending Fundraiser Categories</p>
                             <Link href='' className='text-sm group flex items-center'>View All <span className="group-hover:translate-x-[2px] duration-200 ease-out"><CgChevronRight /></span></Link>
                         </div>
-                        <div className="flex items-center justify-evenly gap-4 flex-wrap p-4 sm:p-8">
+                        <div className="grid grid-cols-3 md:flex items-center justify-evenly gap-4 flex-wrap p-4 sm:p-8">
                             <div className="sm:space-y-2 text-center">
                                 <span className="bg-[#dff7f7c7] mx-auto grid place-items-center h-12 w-12 sm:h-16 sm:w-16 rounded-full">
                                     <FaBriefcaseMedical className='text-[#5D94D6] h-4 w-4 sm:h-6 sm:w-6' />
