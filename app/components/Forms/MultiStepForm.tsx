@@ -77,7 +77,6 @@ const MultiStepForm = () => {
 
     const handleSubmit = (e: any) => {
         e.preventDefault;
-        console.log(formData);
         handleToggleModal();
         toast.success('Congratulations')
 

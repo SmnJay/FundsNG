@@ -7,8 +7,6 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     const headers = { Authorization: `Bearer ${jwt}` };
 
-    console.log({ res });
-
     try {
         const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/Profile`, { headers });
         return NextResponse.json(response.data.data, { status: 200 })

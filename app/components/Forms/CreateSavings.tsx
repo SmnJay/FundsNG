@@ -24,12 +24,10 @@ const CreateSavings = () => {
     }
 
     const handleValueChange = (newValue: DateValueType) => {
-        console.log(newValue);
         setValue(newValue);
     }
 
     const handleValue2Change = (newValue: DateValueType) => {
-        console.log(newValue);
         setValue2(newValue);
     }
 

@@ -9,7 +9,6 @@ const AppLayout = async ({ children }: Readonly<{
   children: React.ReactNode;
 }>) => {
   const session = await getServerSession(authOptions);
-  console.log({ session });
 
   if (!session?.user.emailConfirmed) {
     redirect('/verify-otp')

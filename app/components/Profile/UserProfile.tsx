@@ -6,7 +6,6 @@ import Link from 'next/link';
 
 const UserProfile = () => {
     const session = useSession();
-    console.log(session);
 
     return (
         <Link href='/settings/profile'>

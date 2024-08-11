@@ -23,7 +23,6 @@ const CreateCampaign2: React.FC<CreateCampaign2Props> = ({ data, handleChange })
     });
 
     const handleValueChange = (newValue: DateValueType) => {
-        console.log(newValue);
         setValue(newValue);
         handleChange(newValue?.startDate as any)
         

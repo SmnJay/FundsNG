@@ -12,8 +12,6 @@ const Profile = () => {
     queryFn: getProfileApiService,
   })
 
-  console.log(query)
-
   const items = [
     { label: 'Dashboard', path: '/dashboard' },
     { label: 'Settings' },

@@ -32,7 +32,6 @@ const VerifyOtpForm: React.FC<Props> = ({ email, userId }) => {
             toast.error(error.message);
         },
         onSuccess: (data) => {
-            console.log(data);
 
             if (data.success === false) {
                 toast.error(data.message)
@@ -50,7 +49,6 @@ const VerifyOtpForm: React.FC<Props> = ({ email, userId }) => {
             toast.error(error.message);
         },
         onSuccess: (data) => {
-            console.log(data);
 
             if (data.success === false) {
                 toast.error(data.message)
