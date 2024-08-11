@@ -21,12 +21,14 @@ type DashboardWrapperProps = {
 const DashboardWrapper: React.FC<DashboardWrapperProps> = ({ isProfileSetUp }) => {
     const [isEmpty, setIsEmpty] = useState(true);
 
+    console.log(isProfileSetUp);    
+
     return (
         <div>
             {
-                !isProfileSetUp ? <div className="flex max-sm:flex-col sm:items-center gap-2 sm:justify-between items-start rounded-md px-4 md:px-8 py-2 bg-[#FFEDD2] lg:w-3/4 2xl:w-2/3 lg:mx-auto  border-2 border-[#D16A0C] text-[#D16A0C]">
-                    <p className="max-md:text-sm ">Before you continue, please complete your profile</p>
-                    <Link href='/settings/profile' className='text-sm group flex items-center'>
+                !isProfileSetUp ? <div className="flex max-sm:flex-col sm:items-center gap-2 sm:justify-between items-start rounded-md px-4 md:px-8 py-2 bg-[#FFEDD2] lg:w-3/4 2xl:w-2/3 lg:mx-auto  border border-[#D16A0C] text-[#D16A0C]">
+                    <p className="max-md:text-sm font-light">Before you continue, please complete your profile</p>
+                    <Link href='/settings/profile' className='text-sm group flex items-center font-medium'>
                         Complete Profile <span className="group-hover:translate-x-[2px] duration-200 ease-out"><CgChevronRight /></span>
                     </Link>
                 </div>

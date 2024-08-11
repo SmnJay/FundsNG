@@ -1,20 +1,25 @@
 import DashboardWrapper from '@/app/components/Dashboard/DashboardWrapper';
 import { getServerSession } from 'next-auth';
-import React, { use } from 'react'
+import React, { Suspense } from 'react'
 import { authOptions } from '../api/auth/[...nextauth]/options';
 
 const DashboardPage = async () => {
   const session = await getServerSession(authOptions);
 
   const isProfileSetUp = (): boolean => {
-    if (!session?.user?.fullname || !session?.user?.email) {
-      return false
+    const fullname = session?.user?.fullname?.trim();
+    const email = session?.user?.email;
+
+    if (!fullname || fullname.length === 0 || !email) {
+      return false;
     }
-    return true
-  }
+    return true;
+  };
 
   return (
-    <DashboardWrapper isProfileSetUp={isProfileSetUp()} />
+    <Suspense fallback={<span>Loading...</span>}>
+      <DashboardWrapper isProfileSetUp={isProfileSetUp()} />
+    </Suspense>
   )
 };
 

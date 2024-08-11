@@ -10,7 +10,7 @@ const page = () => {
     return (
         <div>
             <Breadcrumb items={breadcrumbItems} />
-            <Suspense>
+            <Suspense fallback={<span>Loading...</span>}>
                 <SettingsWrapper />
             </Suspense>
         </div>
