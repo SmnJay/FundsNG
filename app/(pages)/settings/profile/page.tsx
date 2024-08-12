@@ -1,16 +1,39 @@
 'use client';
+
 import Breadcrumb from '@/app/components/Breadcrumb'
+import Button from '@/app/components/Button/Button';
 import Input, { InputSelect, InputTextArea } from '@/app/components/Input/Input'
 import ProfileLoader from '@/app/components/Loader/Loader';
+import completeRegistrationSchema, { CompleteRegistrationSchema } from '@/app/schemaa/completeRegistrationSchema';
+import updateProfileSchema, { UpdateProfileSchema } from '@/app/schemaa/updateProfileSchema';
 import ProfilePictureGenerator from '@/app/utils/helper/ProfilePictureGenerator';
-import { getProfileApiService } from '@/app/utils/services/profile/profileApiService'
-import { useQuery } from '@tanstack/react-query'
+import useFormValidation from '@/app/utils/hooks/useFormValidation';
+import { ICompleteProfile, ICompleteRegistration } from '@/app/utils/models/Model';
+import { getProfileApiService, updateProfileApiService } from '@/app/utils/services/profile/profileApiService'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import React from 'react'
+import { toast } from 'react-toastify';
 
 const Profile = () => {
   const profileQuery = useQuery({
     queryKey: ['profile'],
     queryFn: getProfileApiService,
+  })
+
+  const profileMutation = useMutation({
+    mutationKey: ['update-profile'],
+    mutationFn: updateProfileApiService,
+    onError: (error) => {
+      toast.error(error.message)
+    },
+    onSuccess(data) {
+      if (data.success === false) {
+        toast.error(data.message);
+
+      } else {
+        toast.success(data.message);
+      }
+    },
   })
 
   const items = [
@@ -25,6 +48,18 @@ const Profile = () => {
     { label: 'Others', value: 'others' },
   ]
 
+  const { handleSubmit, errors, register } = useFormValidation<UpdateProfileSchema>(updateProfileSchema, 'onBlur');
+
+  const submit = async (data: ICompleteProfile) => {
+    console.log(data);
+    const formData = {
+      ...data, 
+      profilePictureUrl: "string",
+      dob: "2000-08-11T19:04:52.205Z"
+    }
+    profileMutation.mutate(formData)
+  }
+
   return (
     <>
       <Breadcrumb items={items} />
@@ -32,7 +67,7 @@ const Profile = () => {
         profileQuery?.isFetching ?
           <ProfileLoader />
           :
-          <div className="mt-4 max-w-screen-md mr-auto space-y-6 bg-white rounded-lg p-6 border">
+          <form onSubmit={handleSubmit(submit)} className="mt-4 max-w-screen-md mr-auto space-y-6 bg-white rounded-lg p-6 border">
             <div className="md:flex gap-1 items-start justify-between">
               <div className="text-sm w-full font-medium">Profile</div>
               <div className="max-md:mt-2 flex-shrink-0 md:w-[74%] grid grid-cols-2 items-center gap-2">
@@ -42,16 +77,16 @@ const Profile = () => {
             <div className="md:flex items-start justify-between">
               <span className="text-sm font-medium">Personal Details</span>
               <div className="md:w-[74%] max-md:mt-2 flex-shrink-0 grid grid-cols-2 items-center gap-2">
-                <Input where='app' label='First Name' placeholder='' error='' name='firstName' defaultValue={profileQuery?.data?.firstName} type='text' />
-                <Input where='app' label='Last Name' placeholder='' error='' name='lastName' defaultValue={profileQuery?.data?.lastName} type='text' />
-                <InputSelect where='app' label='Gender' placeholder='Select Gender' error='' name='gender' defaultValue={profileQuery?.data?.gender} options={GenderOptions} />
+                <Input where='app' label='First Name' placeholder='' error={errors?.firstName?.message} {...register('firstName')} defaultValue={profileQuery?.data?.firstName} type='text' />
+                <Input where='app' label='Last Name' placeholder='' error={errors?.lastName?.message} {...register('lastName')} defaultValue={profileQuery?.data?.lastName} type='text' />
+                <InputSelect where='app' label='Gender' placeholder='Select Gender' error={errors?.gender?.message} {...register('gender')} defaultValue={profileQuery?.data?.gender} options={GenderOptions} />
               </div>
             </div>
             <div className="md:flex items-start justify-between">
               <span className="text-sm font-medium">Contact Information</span>
               <div className="md:w-[74%] max-md:mt-2 flex-shrink-0 grid grid-cols-2 items-center gap-2">
-                <Input where='app' label='Email' placeholder='' error='' name='email' type='email' defaultValue={profileQuery?.data?.email} />
-                <Input where='app' label='Phone Number' placeholder='' error='' name='phone' type='tel' defaultValue={profileQuery?.data?.mobile} />
+                <Input where='app' label='Email' placeholder='' error='' name='email' readOnly type='email' defaultValue={profileQuery?.data?.email} />
+                <Input where='app' label='Phone Number' placeholder='' error={errors?.mobile?.message} {...register('mobile')} type='tel' defaultValue={profileQuery?.data?.mobile} />
               </div>
             </div>
             <div className="md:flex items-start justify-between">
@@ -73,7 +108,10 @@ const Profile = () => {
           <Input where='app' label='Last Name' placeholder='Laye' error='' name='' type='' />
           </div>
           </div> */}
-          </div>
+            <div className="flex justify-end mt-6">
+              <Button cls='' type='submit' processing={profileMutation.isPending} ariaLabel='Button to update your profile information' name='Update' color='primary' />
+            </div>
+          </form>
       }
     </>
   )

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { IProfileSettings } from '../../models/Model';
+import { ICompleteProfile } from '../../models/Model';
 
 export const getProfileApiService = async () => {
     try {
@@ -10,9 +10,9 @@ export const getProfileApiService = async () => {
     }
 }
 
-export const updateProfileApiService = async (data: IProfileSettings) => {
+export const updateProfileApiService = async (data: ICompleteProfile) => {
     try {
-        const response = await axios.post('/api/profile', data);
+        const response = await axios.put('/api/profile/edit', data);
         return response.data;
     } catch (error: any) {
         throw new Error(error.response?.data?.message || 'Failed to register. Please try again.');

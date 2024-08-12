@@ -2,7 +2,6 @@ import { ICompleteRegistration } from "@/app/utils/models/Model";
 import { z, ZodType } from "zod";
 
 const completeRegistrationSchema: ZodType<ICompleteRegistration> = z.object({
-    // userId: z.string(),
     firstName: z.string().min(3, 'First Name is required'),
     lastName: z.string().min(3, 'Last Name is required'),
     bvn: z.string().length(11, 'BVN can only be 11 digits').regex(/^\d{11}$/, 'BVN must contain only digits'),

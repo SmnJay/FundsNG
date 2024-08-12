@@ -24,3 +24,10 @@ export interface ICompleteRegistration {
     mobile: string,
     dob: string
 }
+
+export interface ICompleteProfile {
+    firstName: string,
+    lastName: string,
+    gender: string,
+    mobile: string,
+}

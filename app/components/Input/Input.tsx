@@ -30,11 +30,11 @@ interface ISelect extends React.SelectHTMLAttributes<HTMLSelectElement> {
     where?: 'auth' | 'app'
     placeholder?: string
     label: string
-    error: string
+    error?: string
 }
 
 const Input = forwardRef<HTMLInputElement, IInput>(
-    ({ label, error, name, where = 'auth', accept, autoComplete, placeholder, type, readonly, ...props }, ref) => {
+    ({ label, error, name, where = 'auth', accept, autoComplete, placeholder, type, ...props }, ref) => {
         return (
 
             <div className={`relative ${type === 'hidden' && 'hidden'}`}>
@@ -47,7 +47,6 @@ const Input = forwardRef<HTMLInputElement, IInput>(
                         name={name}
                         type={type}
                         autoComplete={autoComplete || 'off'}
-                        readOnly={readonly}
                         className={`peer w-full ${where === 'auth' ? 'text-white placeholder:text-white/70' : 'text-[#6B7172] placeholder:text-[#6b7172]'} bg-transparent focus:border-none focus:ring-none focus:outline-none`}
                         placeholder={placeholder}
                     />
