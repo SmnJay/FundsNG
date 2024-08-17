@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react'
+import React from 'react'
 import { getCampaignApiService } from '@/app/utils/services/campaign/campaignApiService';
 import { useQuery } from '@tanstack/react-query';
 import EmptyCampaignView from './EmptyCampaignView';
@@ -18,7 +18,7 @@ const CampaignWrapper = () => {
             {
                 campaignQuery?.isLoading ?
                     <CampaignLoader /> :
-                    campaignQuery?.data?.length < 1 ? <EmptyCampaignView /> : <CampaignDashboard />
+                    campaignQuery?.data?.length < 1 ? <EmptyCampaignView /> : <CampaignDashboard data={campaignQuery?.data} />
             }
         </>
     )

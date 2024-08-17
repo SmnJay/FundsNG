@@ -28,8 +28,9 @@ const CreateCampaign2: React.FC<CreateCampaign2Props> = ({ data, handleChange, h
     });
 
     const handleValueChange = (newValue: DateValueType) => {
+        console.log(newValue?.startDate, value)
         setValue(newValue);
-        handleDateChange(value?.startDate ?? new Date())
+        handleDateChange(newValue?.startDate ?? new Date())
     }
 
     const campaignCategory = useQuery({

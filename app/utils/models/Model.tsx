@@ -31,3 +31,20 @@ export interface ICompleteProfile {
     gender: string,
     mobile: string,
 }
+
+export interface ICampaign {
+    agreementSigned: boolean
+    campaignCategoryId: string
+    category: null | []
+    country: string
+    state: string
+    mobile: string
+    name: string
+    targetAmount: number
+    description: string
+    id: string
+    userId: string
+    mediaUrl: string
+    endDate: string
+
+}

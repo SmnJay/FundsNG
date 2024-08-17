@@ -16,6 +16,7 @@ import { DateType } from 'react-tailwindcss-datepicker';
 import { useMutation } from '@tanstack/react-query';
 import { createCampaignApiService } from '@/app/utils/services/campaign/campaignApiService';
 import Spinner from '../Spinner/Spinner';
+import { useRouter } from 'next/navigation';
 
 interface FormData {
     name: string;
@@ -47,7 +48,7 @@ const MultiStepForm = () => {
 
         // About the campaign
         targetAmount: 0,
-        endDate: new Date(),
+        endDate: '',
         campaignCategoryId: '',
         mobile: '',
         state: '',
@@ -58,6 +59,8 @@ const MultiStepForm = () => {
         // account_number: null,
         // bvn: null
     });
+
+    const router = useRouter();
 
     const nextStep = () => {
         setCurrentStep(prev => prev + 1)
@@ -73,11 +76,22 @@ const MultiStepForm = () => {
     };
 
     const handleDateChange = (date: DateType) => {
-        console.log(date)
-        setFormData({
-            ...formData,
-            endDate: date
-        })
+        if (date) {
+            const dateObject = new Date(date);
+            dateObject.setHours(0, 0, 0, 0);
+
+            const isoDateString = dateObject.toISOString();
+
+            setFormData({
+                ...formData,
+                endDate: isoDateString
+            });
+        } else {
+            setFormData({
+                ...formData,
+                endDate: ''
+            })
+        }
     };
 
     const handleCheckChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -95,25 +109,25 @@ const MultiStepForm = () => {
         mutationKey: ['create-campaign'],
         mutationFn: createCampaignApiService,
         onError: (error) => {
+            console.log(error);
             toast.error(error.message)
         },
         onSuccess(data) {
-            console.log(data);
-
-            if (data.success === false) {
-                toast.error(data.message);
-
-            } else {
-                toast.success(data.message);
-            }
+            toast.success(data);
+            handleToggleModal();
         },
     })
 
     const handleSubmit = (e: any) => {
         e.preventDefault;
+        if ('binaryString' in formData && formData['binaryString'] === '') {
+            delete formData['binaryString']
+        }
+
+
         console.log(formData)
         createCampaign.mutate(formData as any)
-        // handleToggleModal();
+
         // toast.success('Congratulations')
     }
 
@@ -256,7 +270,10 @@ const MultiStepForm = () => {
                             </div>
                         </div>
                         <div className="flex items-center text-sm justify-center">
-                            <button onClick={handleToggleModal} className="bg-white rounded-lg py-2 px-6 border border-[#7d847c]">Maybe Later</button>
+                            <button onClick={() => {
+                                router.push('/dashboard/campaigns')
+                                handleToggleModal()
+                            }} className="bg-white rounded-lg py-2 px-6 border border-[#7d847c]">Maybe Later</button>
                         </div>
                     </Modal>
                 </div>

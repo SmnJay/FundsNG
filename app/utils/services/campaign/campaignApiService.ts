@@ -20,9 +20,9 @@ export const getCampaignCategoriesApiService = async () => {
     }
 }
 
-export const createCampaignApiService = async () => {
+export const createCampaignApiService = async (data: any) => {
     try {
-        const response = await axios.post('/api/campaign/create');   
+        const response = await axios.post('/api/campaign/create', data);   
         console.log({response})     
         return response.data
     } catch (error: any) {
