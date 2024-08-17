@@ -1,22 +1,27 @@
 import React, { useState } from 'react';
-import Input from '../Input/Input';
-import Datepicker, { DateValueType } from 'react-tailwindcss-datepicker';
+import Input, { InputSelect } from '../Input/Input';
+import Datepicker, { DateType, DateValueType } from 'react-tailwindcss-datepicker';
 import style from '../Input/InputField.module.css'
+import { useQuery } from '@tanstack/react-query';
+import { getCampaignCategoriesApiService } from '@/app/utils/services/campaign/campaignApiService';
 
 interface CreateCampaign2Props {
     data: {
-        goal: string,
-        campaign_end_date: string,
-        category: string,
-        phone: string,
+        targetAmount: number,
+        endDate: DateType,
+        campaignCategoryId: string,
+        mobile: string,
         state: string
         country: string
+        agreementSigned: boolean
     },
-    handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+    handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void
+    handleDateChange: (elem: DateType) => void
+    handleCheckChange: (e: React.ChangeEvent<HTMLInputElement>) => void
     // handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-const CreateCampaign2: React.FC<CreateCampaign2Props> = ({ data, handleChange }) => {
+const CreateCampaign2: React.FC<CreateCampaign2Props> = ({ data, handleChange, handleDateChange, handleCheckChange }) => {
     const [value, setValue] = useState<DateValueType>({
         startDate: new Date(),
         endDate: new Date()
@@ -24,9 +29,21 @@ const CreateCampaign2: React.FC<CreateCampaign2Props> = ({ data, handleChange })
 
     const handleValueChange = (newValue: DateValueType) => {
         setValue(newValue);
-        handleChange(newValue?.startDate as any)
-        
+        handleDateChange(value?.startDate ?? new Date())
     }
+
+    const campaignCategory = useQuery({
+        queryKey: ['campaign-category'],
+        queryFn: getCampaignCategoriesApiService
+    });
+
+    const campaingCategoriesOptions = campaignCategory?.data?.map((item: { id: string, name: string }) => {
+        const { id, name } = item;
+        return ({
+            value: id,
+            label: name
+        })
+    })
 
 
     return (
@@ -44,35 +61,33 @@ const CreateCampaign2: React.FC<CreateCampaign2Props> = ({ data, handleChange })
                     placeholder='i.e. NGN 1,000,000'
                     autoComplete='off'
                     type='number'
-                    name='goal'
-                    value={data.goal}
+                    name='targetAmount'
+                    value={data.targetAmount}
                     onChange={handleChange}
                 />
                 <div className='relative'>
                     <div className={`form-group rounded-lg bg-white border px-3 py-2 ${style.containerApp}`}>
-                        <label htmlFor={'campaign_end_date'} className={`block text-sm text-[#979FA0]`}>Select a date to end the campaign</label>
+                        <label htmlFor={'endDate'} className={`block text-sm text-[#979FA0]`}>Select a date to end the campaign</label>
                         <Datepicker
-                        value={value}
-                        onChange={handleValueChange}
-                        useRange={false}
-                        asSingle
-                        minDate={new Date()}
-                        inputClassName={'bg-white peer w-full ring-0 !focus:ring-none !border-none !focus:border-none !outline-none !focus:outline-none'}
-                        containerClassName={`${style.dateInput}`}
-                    />
+                            value={value}
+                            onChange={handleValueChange}
+                            useRange={false}
+                            asSingle
+                            minDate={new Date()}
+                            inputClassName={'bg-white peer w-full ring-0 !focus:ring-none !border-none !focus:border-none !outline-none !focus:outline-none'}
+                            containerClassName={`${style.dateInput}`}
+                        />
                     </div>
                     <span className="text-red-500">{''}</span>
                 </div>
-                <Input
+
+                <InputSelect
                     error=''
-                    where='app'
-                    label='Add a category'
+                    name='campaignCategoryId'
                     placeholder='eg Medical Bills'
-                    autoComplete='off'
-                    type='text'
-                    value={data.category}
+                    options={campaingCategoriesOptions}
+                    label='Add a Category'
                     onChange={handleChange}
-                    name='category'
                 />
                 <Input
                     error=''
@@ -81,9 +96,9 @@ const CreateCampaign2: React.FC<CreateCampaign2Props> = ({ data, handleChange })
                     placeholder='+234 | 08012345678'
                     autoComplete='off'
                     type='tel'
-                    value={data.phone}
+                    value={data.mobile}
                     onChange={handleChange}
-                    name='phone'
+                    name='mobile'
                 />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 relative items-center justify-between">
                     <Input
@@ -109,6 +124,10 @@ const CreateCampaign2: React.FC<CreateCampaign2Props> = ({ data, handleChange })
                         value={data.state}
                         onChange={handleChange}
                     />
+                </div>
+                <div className="text-sm space-x-1">
+                    <input onChange={handleCheckChange} type="checkbox" className='accent-leafGreen-30' name="agreementSigned" id="agreementSigned" />
+                    <label htmlFor="agreementSigned" className="">Agreement Signed</label>
                 </div>
             </form>
         </div>

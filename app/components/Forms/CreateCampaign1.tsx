@@ -3,11 +3,10 @@ import Input, { InputTextArea } from '../Input/Input'
 
 interface CreateCampaign1Props {
     data: {
-        campaign_for: string,
-        fundraiser: string,
+        name: string,
         description: string,
-        videoFile?: File,
-        videoLink: string
+        mediaUrl: string,
+        binaryString?: File | string
     },
     handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void,
     handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void
@@ -25,23 +24,12 @@ const CreateCampaign1: React.FC<CreateCampaign1Props> = ({ data, handleChange, h
                 <Input
                     error=''
                     where='app'
-                    label='Who is the campaign for?'
-                    placeholder='Myself'
+                    label='Campaign Name?'
+                    placeholder='Emergency for IDP camp'
                     autoComplete='off'
                     type='text'
-                    name='campaign_for'
-                    value={data.campaign_for}
-                    onChange={handleChange}
-                />
-                <Input
-                    error=''
-                    where='app'
-                    label='Your Fundraiser name?'
-                    placeholder='eg; Food for the hungry'
-                    autoComplete='off'
-                    type='text'
-                    name='fundraiser'
-                    value={data.fundraiser}
+                    name='name'
+                    value={data.name}
                     onChange={handleChange}
                 />
                 <InputTextArea
@@ -63,8 +51,8 @@ const CreateCampaign1: React.FC<CreateCampaign1Props> = ({ data, handleChange, h
                         placeholder='Insert a youtube or vimeo link'
                         autoComplete='off'
                         type='text'
-                        name='videoLink'
-                        value={data.videoLink}
+                        name='mediaUrl'
+                        value={data.mediaUrl}
                         onChange={handleChange}
                     />
                     <span className="text-center text-sm leading-loose block absolute left-1/2 -translate-x-1/2">Or</span>
@@ -76,7 +64,7 @@ const CreateCampaign1: React.FC<CreateCampaign1Props> = ({ data, handleChange, h
                         placeholder='Upload from device'
                         autoComplete='off'
                         type='file'
-                        name='videoFile'
+                        name='binaryString'
                         onChange={handleFileChange}
                     />
                 </div>

@@ -12,81 +12,117 @@ import { IoCopyOutline } from 'react-icons/io5';
 import { RiInstagramFill, RiTwitterXFill } from 'react-icons/ri';
 import { ImFacebook2 } from 'react-icons/im';
 import { MdWhatsapp } from 'react-icons/md';
+import { DateType } from 'react-tailwindcss-datepicker';
+import { useMutation } from '@tanstack/react-query';
+import { createCampaignApiService } from '@/app/utils/services/campaign/campaignApiService';
+import Spinner from '../Spinner/Spinner';
 
 interface FormData {
-    campaign_for: string;
-    fundraiser: string;
+    name: string;
     description: string;
-    videoFile?: File;  // Indicate that it can be a File or undefined
-    videoLink: string;
-    goal: string;
-    campaign_end_date: string;
-    category: string;
-    phone: string;
+    binaryString?: File | string;  // Indicates that it can be a File or undefined
+    mediaUrl: string;
+    targetAmount: number;
+    endDate: DateType;
+    campaignCategoryId: string;
+    mobile: string;
     state: string;
     country: string;
-    bank_name: string;
-    account_number: number | null;
-    bvn: number | null;
+    agreementSigned: boolean
+    // bank_name: string;
+    // account_number: number | null;
+    // bvn: number | null;
 }
 
 const MultiStepForm = () => {
     const [currentStep, setCurrentStep] = useState(1);
-    const [showPreview, setShowPreview] = useState(false);
     const [showSubmitModal, setShowSubmitModal] = useState(false);
     const [formData, setFormData] = useState<FormData>({
         // basic info
-        campaign_for: '',
-        fundraiser: '',
+        name: '',
         description: '',
-        videoFile: undefined,
-        videoLink: '',
+        mediaUrl: '',
+        binaryString: '',
+        agreementSigned: false,
 
         // About the campaign
-        goal: '',
-        campaign_end_date: '',
-        category: '',
-        phone: '',
+        targetAmount: 0,
+        endDate: new Date(),
+        campaignCategoryId: '',
+        mobile: '',
         state: '',
         country: '',
 
         // link account
-        bank_name: '',
-        account_number: null,
-        bvn: null
+        // bank_name: '',
+        // account_number: null,
+        // bvn: null
     });
 
     const nextStep = () => {
         setCurrentStep(prev => prev + 1)
     };
     const prevStep = () => setCurrentStep(prev => prev - 1);
-    const togglePreview = () => setShowPreview(!showPreview);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target as HTMLInputElement | HTMLTextAreaElement;
         setFormData({
             ...formData,
             [name]: value
         });
-
     };
+
+    const handleDateChange = (date: DateType) => {
+        console.log(date)
+        setFormData({
+            ...formData,
+            endDate: date
+        })
+    };
+
+    const handleCheckChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setFormData({
+            ...formData,
+            agreementSigned: e.target.checked
+        })
+    }
 
     const handleToggleModal = () => {
         setShowSubmitModal(!showSubmitModal)
     }
 
+    const createCampaign = useMutation({
+        mutationKey: ['create-campaign'],
+        mutationFn: createCampaignApiService,
+        onError: (error) => {
+            toast.error(error.message)
+        },
+        onSuccess(data) {
+            console.log(data);
+
+            if (data.success === false) {
+                toast.error(data.message);
+
+            } else {
+                toast.success(data.message);
+            }
+        },
+    })
+
     const handleSubmit = (e: any) => {
         e.preventDefault;
-        handleToggleModal();
-        toast.success('Congratulations')
-
+        console.log(formData)
+        createCampaign.mutate(formData as any)
+        // handleToggleModal();
+        // toast.success('Congratulations')
     }
+
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
             setFormData({
                 ...formData,
-                videoFile: e.target.files[0],
-                videoLink: ''
+                binaryString: e.target.files[0],
+                mediaUrl: ''
             })
         }
     }
@@ -103,8 +139,8 @@ const MultiStepForm = () => {
 
     const steps = [
         <CreateCampaign1 key={1} data={formData} handleChange={handleChange} handleFileChange={handleFileChange} />,
-        <CreateCampaign2 key={2} data={formData} handleChange={handleChange} />,
-        <CreateCampaign3 key={3} data={formData} handleChange={handleChange} />
+        <CreateCampaign2 key={2} data={formData} handleChange={handleChange} handleDateChange={handleDateChange} handleCheckChange={handleCheckChange} />,
+        // <CreateCampaign3 key={3} data={formData} handleChange={handleChange} />
     ];
 
     return (
@@ -124,14 +160,14 @@ const MultiStepForm = () => {
                         <button onClick={prevStep} disabled={currentStep === 1} className="bg-white border text-sm hover:bg-gray-100 text-black font-medium py-2 px-12 rounded">
                             Back
                         </button>
-                        {currentStep < 3
+                        {currentStep < 2
                             ?
                             <button onClick={nextStep} className="bg-leafGreen-20 hover:bg-leafGreen-30 text-sm text-white font-medium py-2 px-12 rounded">
                                 Next
                             </button>
                             :
-                            <button onClick={handleSubmit} className="bg-leafGreen-20 hover:bg-leafGreen-30 text-sm text-white font-medium py-2 px-12 rounded">
-                                Submit
+                            <button onClick={handleSubmit} disabled={createCampaign.isPending} className="bg-leafGreen-20 hover:bg-leafGreen-30 text-sm text-white font-medium py-2 px-12 rounded">
+                                {createCampaign.isPending ? <Spinner /> : 'Submit'}
                             </button>
                         }
 
@@ -169,7 +205,7 @@ const MultiStepForm = () => {
                                             <radialGradient id="paint1_radial_3911_7652" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(-4.02009 1.72884) rotate(78.681) scale(10.6324 43.827)">
                                                 <stop stopColor="#3771C8" />
                                                 <stop offset="0.128" stopColor="#3771C8" />
-                                                <stop offset="1" stopColor="#6600FF" stop-opacity="0" />
+                                                <stop offset="1" stopColor="#6600FF" stopOpacity="0" />
                                             </radialGradient>
                                             <clipPath id="clip0_3911_7652">
                                                 <rect width="24" height="24" fill="white" />

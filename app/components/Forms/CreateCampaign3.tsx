@@ -52,7 +52,6 @@ const CreateCampaign3:React.FC<CreateCampaign3Props> = ({data, handleChange}) =>
                     onChange={handleChange}
                 />
             </form>
-            
         </div>
     )
 }
