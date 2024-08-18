@@ -24,7 +24,7 @@ const CreateCampaign1: React.FC<CreateCampaign1Props> = ({ data, handleChange, h
                 <Input
                     error=''
                     where='app'
-                    label='Campaign Name?'
+                    label='Campaign Name'
                     placeholder='Emergency for IDP camp'
                     autoComplete='off'
                     type='text'
