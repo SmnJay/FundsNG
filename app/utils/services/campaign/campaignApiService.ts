@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { ICompleteProfile } from '../../models/Model';
 
 export const getCampaignApiService = async () => {
     try {
@@ -22,7 +21,7 @@ export const getCampaignCategoriesApiService = async () => {
 
 export const createCampaignApiService = async (data: any) => {
     try {
-        const response = await axios.post('/api/campaign/create', data);   
+        const response = await axios.post('/api/campaign/create', data);
         return response.data
     } catch (error: any) {
         throw new Error(error.response?.data?.message || 'Failed to create campaign. Please try again.');
@@ -32,10 +31,20 @@ export const createCampaignApiService = async (data: any) => {
 export const getSingleCampaign = async (id: string) => {
     try {
         const response = await axios.get(`/api/campaign/${id}`);
-        console.log(response)
         return response.data;
     } catch (error: any) {
         throw new Error(error.response?.data?.message || 'Failed to fetch single campaign details. Please try again.');
-        
+
     }
+}
+
+export const getSingleCampaignDetail = async (id: string) => {
+    try {
+        const response = await axios.get(`/api/campaign/${id}/details`);
+        return response.data;
+    } catch (error: any) {
+        throw new Error(error.response?.data?.message || 'Failed to fetch single campaign details. Please try again.');
+
+    }
+
 }

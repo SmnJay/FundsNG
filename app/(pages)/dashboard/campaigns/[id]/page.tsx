@@ -6,8 +6,8 @@ import ProgressBar from '@/app/components/ProgressBar';
 import calculateDaysLeft from '@/app/utils/helper/deadlineCalculator';
 import moneyFormatter from '@/app/utils/helper/moneyFormatter';
 import useUpdateParams from '@/app/utils/hooks/useUpdateParams';
-import { ICampaign } from '@/app/utils/models/Model';
-import { getSingleCampaign } from '@/app/utils/services/campaign/campaignApiService';
+import { ICampaign, ICampaignDetails } from '@/app/utils/models/Model';
+import { getSingleCampaign, getSingleCampaignDetail } from '@/app/utils/services/campaign/campaignApiService';
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation'
@@ -32,6 +32,14 @@ const SingleCampaign = () => {
     queryFn: () => getSingleCampaign(campaignId),
     enabled: !!campaignId
   });
+
+  const { data: CampaignDetail, isError: isCampaignDetailError } = useQuery<ICampaignDetails>({
+    queryKey: ['campaign-detail', id],
+    queryFn: () => getSingleCampaignDetail(campaignId),
+    enabled: !!campaignId
+  });
+
+  console.log(data, { CampaignDetail })
 
   const items = [
     { label: 'Dashboard', path: '/dashboard' },
@@ -58,13 +66,13 @@ const SingleCampaign = () => {
             <Cards
               title='Total donations made'
               titleColor='text-white'
-              amount='12500'
+              amount={<>&#8358; {moneyFormatter(CampaignDetail?.donatedAmount as unknown as string)}</>}
               bgColor='bg-leafGreen-5'
               icon={<TbMoneybag className='text-white h-6 w-6 md:h-10 md:w-10' />}
             />
             <Cards
               title='Number of people who donate'
-              amount='12500'
+              amount={CampaignDetail?.numberOfDonations as unknown as string}
               icon={<HiOutlineUser className='text-white h-6 w-6 md:h-10 md:w-10' />}
             />
           </div>
@@ -135,7 +143,7 @@ const SingleCampaign = () => {
               </div>
             </div>
             <ProgressBar value={1} />
-            <span className="text-sm text-center block mt-2">No one has donated so far</span>
+            <span className="text-sm text-center block mt-2">{CampaignDetail && CampaignDetail?.numberOfDonors < 1 ? 'No one has donated so far' : `${CampaignDetail?.numberOfDonors} people have donated thus far`} </span>
           </div>
 
           <div className="grid grid-cols-2 gap-4 mt-4">
