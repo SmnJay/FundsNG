@@ -48,3 +48,11 @@ export interface ICampaign {
     endDate: string
 
 }
+
+export interface ICampaignDetails {
+    campaign: ICampaign
+    donatedAmount: number,
+    numberOfDonors: number,
+    numberOfDonations: number,
+    activities: any[]
+}
