@@ -3,6 +3,10 @@
 import Breadcrumb from '@/app/components/Breadcrumb';
 import Cards from '@/app/components/Cards';
 import ProgressBar from '@/app/components/ProgressBar';
+import calculateDaysLeft from '@/app/utils/helper/deadlineCalculator';
+import moneyFormatter from '@/app/utils/helper/moneyFormatter';
+import useUpdateParams from '@/app/utils/hooks/useUpdateParams';
+import { ICampaign } from '@/app/utils/models/Model';
 import { getSingleCampaign } from '@/app/utils/services/campaign/campaignApiService';
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
@@ -19,25 +23,31 @@ import { TbMoneybag } from 'react-icons/tb';
 const SingleCampaign = () => {
   const router = useRouter();
   const params = useParams();
-
   const { id } = params;
 
   const campaignId = Array.isArray(id) ? id[0] : id
 
-  const { data, isError, error, isFetching, isLoading } = useQuery({
+  const { data, isError, error, isFetching, isLoading } = useQuery<ICampaign>({
     queryKey: ['campaign', id],
     queryFn: () => getSingleCampaign(campaignId),
     enabled: !!campaignId
-  })
-
-  console.log(data);
-  
+  });
 
   const items = [
     { label: 'Dashboard', path: '/dashboard' },
     { label: 'Campaigns', path: '/dashboard/campaigns' },
     { label: 'Campaign Detail' },
-  ]
+  ];
+
+  const { handleCreateQueryParams, getPathname } = useUpdateParams();
+
+  const handleRecentActivityQueryParam = () => {
+    handleCreateQueryParams('campaign-det', 'recent-activity');
+  };
+
+  const handleDonationUpdateQueryParam = () => {
+    handleCreateQueryParams('campaign-det', 'donation-update');
+  };
 
   return (
     <Fragment>
@@ -59,12 +69,44 @@ const SingleCampaign = () => {
             />
           </div>
           <div className='mt-4 space-y-2'>
-            <div className="bg-white rounded-lg p-2">Tabs</div>
-            <div className="bg-white rounded-lg p-4">
-              <h3 className="font-semibold">Recent Activity</h3>
-              <Image src='/icons/empty-savings.png' width={300} className='mx-auto' height={300} alt='' />
-              <p className="text-center max-w-md mx-auto text-[#535758]">Looks like you do not have any ongoing campaigns. Try creating one to get started.</p>
+            <div className="bg-white w-fit py-1 px-2 rounded-md flex items-center gap-2">
+              <div className="py-2">
+                <input
+                  type="radio"
+                  defaultChecked
+                  className="hidden peer/active"
+                  name='tabs'
+                  id='active'
+                  onClick={handleRecentActivityQueryParam}
+                />
+                <label htmlFor="active" className="ease-out duration-200 bg-transparent peer-checked/active:bg-leafGreen-50/50 rounded-md font-medium px-4 py-2 text-sm cursor-pointer peer-checked/active:text-leafGreen-5">Recent Actvity</label>
+              </div>
+              <div className="">
+                <input
+                  type="radio"
+                  className="hidden peer/completed"
+                  name='tabs'
+                  id='donation-update'
+                  onClick={handleDonationUpdateQueryParam}
+                />
+                <label htmlFor="donation-update" className="ease-out duration-200 bg-transparent peer-checked/completed:bg-leafGreen-50/50 rounded-md font-medium px-4 py-2 text-sm cursor-pointer peer-checked/completed:text-leafGreen-5">Donation Update</label>
+              </div>
             </div>
+            {
+              getPathname('campaign-det') === 'recent-activity' ? (
+                <div className="bg-white rounded-lg p-4">
+                  <h3 className="font-semibold">Recent Activity</h3>
+                  <Image src='/images/no-notification.gif' width={300} className='mx-auto' height={300} alt='' />
+                  <p className="text-center max-w-md mx-auto text-[#535758]">Looks like you do not have any ongoing campaigns. Try creating one to get started.</p>
+                </div>
+              ) : getPathname('campaign-det') !== 'recent-activity' ? (
+                <div className="bg-white rounded-lg p-4">
+                  <h3 className="font-semibold">Donation Update</h3>
+                  <Image src='/images/no-notification.gif' width={300} className='mx-auto' height={300} alt='' />
+                  <p className="text-center max-w-md mx-auto text-[#535758]">Looks like you do not have any ongoing campaigns. Try creating one to get started.</p>
+                </div>
+              ) : null
+            }
           </div>
         </div>
 
@@ -73,23 +115,23 @@ const SingleCampaign = () => {
             <div className="">
               <Image src={'/images/underbridge.png'} className='rounded-lg' width={300} height={120} style={{ width: '100%' }} alt='' />
             </div>
-            <h3 className="text-leafGreen-20 mt-1 mb-2 text-base md:text-lg font-semibold">Get Mrs Olawora a new home</h3>
-            <p className="text-sm text-[#5F655E]">Mrs Olowora was part of the people who was wrongly removed from her home by the lagos state government. This campaign is help her find a new refurbished home so that she can start life again on a clean slate.</p>
+            <h3 className="text-leafGreen-20 mt-1 mb-2 text-base md:text-lg font-semibold">{data?.name}</h3>
+            <p className="text-sm text-[#5F655E]">{data?.description}</p>
           </div>
 
           <div className="bg-white text-[#5f6553] rounded-lg py-6 px-3 mt-3">
             <div className="grid text-sm grid-cols-3 gap-1 mb-8">
               <div className="space-y-2">
                 <div className="text-sm flex items-center gap-1"><GoGoal /> Our Goal</div>
-                <div className="text-base font-medium">&#8358; 600,000</div>
+                <div className="text-base font-medium">&#8358; {data?.targetAmount ? moneyFormatter(data?.targetAmount) : 0.00}</div>
               </div>
               <div className="space-y-2">
                 <div className="text-sm flex items-center gap-1"><BiSolidHourglass /> Duration</div>
-                <div className="text-base font-medium">184 Days left</div>
+                <div className="text-base font-medium">{data?.endDate ? `${calculateDaysLeft(data?.endDate)} Days left` : 'Now'}</div>
               </div>
               <div className="space-y-2">
                 <div className="text-sm flex items-center gap-1"><BiSolidStopwatch /> Ending Date</div>
-                <div className="text-base font-medium">2 June, 2024</div>
+                <div className="text-base font-medium">{data?.endDate.slice(0, 10)}</div>
               </div>
             </div>
             <ProgressBar value={1} />

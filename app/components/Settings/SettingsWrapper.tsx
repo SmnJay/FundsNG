@@ -45,14 +45,18 @@ const SettingsWrapper = () => {
                 <div className="bg-white mt-3 rounded-md p-4 w-fit">
                     <h3 className="mt-3 font-medium text-[#484848] text-sm">Set your notification preference</h3>
                     <ul className="space-y-2 text-sm my-4 font-light text-[#484848]">
-                        <li>
-                            <input type="checkbox" name="email" id="email" className='mr-2 accent-leafGreen-5' /> Email Notifications
+                        <li className=''>
+                            <input type="checkbox" name="email" id="email" className='mr-2 accent-leafGreen-5 cursor-pointer' />
+                            <label htmlFor="email" className="cursor-pointer"> Email Notifications</label>
+
                         </li>
                         <li>
-                            <input type="checkbox" name="sms" id="sms" className='mr-2 accent-leafGreen-5' /> SMS
+                            <input type="checkbox" name="sms" id="sms" className='mr-2 accent-leafGreen-5 cursor-pointer' /> 
+                            <label htmlFor="sms" className='cursor-pointer'>SMS</label>
                         </li>
                         <li>
-                            <input type="checkbox" name="in-app" id="in-app" className='mr-2 accent-leafGreen-5' /> In-app Notification
+                            <input type="checkbox" name="in-app" id="in-app" className='mr-2 accent-leafGreen-5 cursor-pointer' /> 
+                            <label htmlFor="in-app" className='cursor-pointer'>In-app Notification</label>
                         </li>
                     </ul>
                     <Button name='Save' ariaLabel='Button to save the notifications settings' color='leafGreen' />
@@ -60,7 +64,7 @@ const SettingsWrapper = () => {
             ) : getPathname('setting') === 'change-password' ? (
                 <div className="bg-white mt-3 rounded-md p-4 w-fit">
                     <h3 className="mt-3 text-sm">Change your password</h3>
-                   
+
                 </div>
             ) : null}
         </div>
