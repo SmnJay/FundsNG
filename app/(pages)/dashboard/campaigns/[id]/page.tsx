@@ -3,8 +3,10 @@
 import Breadcrumb from '@/app/components/Breadcrumb';
 import Cards from '@/app/components/Cards';
 import ProgressBar from '@/app/components/ProgressBar';
+import { getSingleCampaign } from '@/app/utils/services/campaign/campaignApiService';
+import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import React, { Fragment } from 'react'
 import { BiSolidHourglass, BiSolidStopwatch } from 'react-icons/bi';
 import { FiEdit } from 'react-icons/fi';
@@ -16,6 +18,20 @@ import { TbMoneybag } from 'react-icons/tb';
 
 const SingleCampaign = () => {
   const router = useRouter();
+  const params = useParams();
+
+  const { id } = params;
+
+  const campaignId = Array.isArray(id) ? id[0] : id
+
+  const { data, isError, error, isFetching, isLoading } = useQuery({
+    queryKey: ['campaign', id],
+    queryFn: () => getSingleCampaign(campaignId),
+    enabled: !!campaignId
+  })
+
+  console.log(data);
+  
 
   const items = [
     { label: 'Dashboard', path: '/dashboard' },

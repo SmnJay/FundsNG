@@ -21,8 +21,6 @@ type DashboardWrapperProps = {
 const DashboardWrapper: React.FC<DashboardWrapperProps> = ({ isProfileSetUp }) => {
     const [isEmpty, setIsEmpty] = useState(true);
 
-    console.log(isProfileSetUp);    
-
     return (
         <div>
             {

@@ -12,7 +12,7 @@ const CampaignDashboard: React.FC<CampaignDashboardProps> = ({ data }) => {
     return (
         <div className="space-y-4 mt-6">
             <div className="bg-white text-[#5f655e] flex items-center justify-between text-sm font-semibold rounded-lg p-3">
-                <span className="">Your Campaigns ({data.length})</span>
+                <span className="">Your Campaigns ({data?.length})</span>
                 <div className="flex items-center gap-2">
                     <button className="flex items-center gap-1 rounded-lg md:leading-4 border-2 px-2 py-2 font-medium">
                         <IoFilterOutline />
