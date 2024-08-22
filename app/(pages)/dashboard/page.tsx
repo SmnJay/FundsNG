@@ -8,7 +8,7 @@ const DashboardPage = async () => {
 
   const isProfileSetUp = (): boolean => {
     const fullname = session?.user?.fullname?.trim();
-    const email = session?.user?.email;
+    const email = session?.user?.username; //this should actually be .user.email but Godstar never run am yet.
 
     if (!fullname || fullname.length === 0 || !email) {
       return false;

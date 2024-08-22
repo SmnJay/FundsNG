@@ -6,12 +6,18 @@ import Link from 'next/link';
 
 const UserProfile = () => {
     const session = useSession();
+    const showUserInfo = () => {
+        if (session?.data?.user?.fullname) {
+            return session?.data?.user?.fullname
+        }
+        return session?.data?.user?.username
+    }
 
     return (
         <Link href='/settings/profile'>
             <div className="flex justify-center items-center ml-2 gap-2">
                 <Avatar />
-                <h3 className="hidden md:block font-semibold">{session?.data?.user?.username}</h3>
+                <h3 className="hidden md:block font-semibold">{showUserInfo()}</h3>
             </div>
         </Link>
     )
