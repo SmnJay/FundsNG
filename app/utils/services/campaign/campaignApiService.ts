@@ -46,5 +46,13 @@ export const getSingleCampaignDetail = async (id: string) => {
         throw new Error(error.response?.data?.message || 'Failed to fetch single campaign details. Please try again.');
 
     }
+}
 
+export const stopCampaignApi = async (id: string) => {
+    try {
+        const response = await axios.put(`/api/campaign/${id}/stop-campaign`);
+        return response.data
+    } catch (error: any) {
+        throw new Error(error.respomnse?.data?.message) || "Failed to stop campaign. Please, try again."
+    }
 }

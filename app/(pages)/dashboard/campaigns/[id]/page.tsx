@@ -3,12 +3,13 @@
 import Breadcrumb from '@/app/components/Breadcrumb';
 import Cards from '@/app/components/Cards';
 import ProgressBar from '@/app/components/ProgressBar';
+import Spinner from '@/app/components/Spinner/Spinner';
 import calculateDaysLeft from '@/app/utils/helper/deadlineCalculator';
 import moneyFormatter from '@/app/utils/helper/moneyFormatter';
 import useUpdateParams from '@/app/utils/hooks/useUpdateParams';
 import { ICampaign, ICampaignDetails } from '@/app/utils/models/Model';
-import { getSingleCampaign, getSingleCampaignDetail } from '@/app/utils/services/campaign/campaignApiService';
-import { useQuery } from '@tanstack/react-query';
+import { getSingleCampaign, getSingleCampaignDetail, stopCampaignApi } from '@/app/utils/services/campaign/campaignApiService';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation'
 import React, { Fragment } from 'react'
@@ -19,7 +20,13 @@ import { HiOutlineUser } from 'react-icons/hi2';
 import { IoMdShareAlt } from 'react-icons/io';
 import { LiaTimesSolid } from 'react-icons/lia';
 import { TbMoneybag } from 'react-icons/tb';
+import { toast } from 'react-toastify';
 
+const items = [
+  { label: 'Dashboard', path: '/dashboard' },
+  { label: 'Campaigns', path: '/dashboard/campaigns' },
+  { label: 'Campaign Detail' },
+];
 const SingleCampaign = () => {
   const router = useRouter();
   const params = useParams();
@@ -39,13 +46,19 @@ const SingleCampaign = () => {
     enabled: !!campaignId
   });
 
-  console.log(data, { CampaignDetail })
+  const { data: stopCampaign, isError: stopCampaignIsError, error: stopCampaignError, mutate, ...res } = useMutation({
+    mutationKey: ['stop-campaign', id],
+    mutationFn: stopCampaignApi,
+    onSuccess: (data) => {
+      console.log({data});
+      
+      if (data.success === false) {
+        toast.error(data.message)
+      }
+    }
+  })
 
-  const items = [
-    { label: 'Dashboard', path: '/dashboard' },
-    { label: 'Campaigns', path: '/dashboard/campaigns' },
-    { label: 'Campaign Detail' },
-  ];
+  console.log({ stopCampaign, stopCampaignError, res })
 
   const { handleCreateQueryParams, getPathname } = useUpdateParams();
 
@@ -56,6 +69,10 @@ const SingleCampaign = () => {
   const handleDonationUpdateQueryParam = () => {
     handleCreateQueryParams('campaign-det', 'donation-update');
   };
+
+  const handleStopCampaign = () => {
+    mutate(campaignId)
+  }
 
   return (
     <Fragment>
@@ -148,7 +165,7 @@ const SingleCampaign = () => {
 
           <div className="grid grid-cols-2 gap-4 mt-4">
             <button className="rounded-md py-2 font-medium text-sm px-4 flex items-center justify-center gap-2 bg-leafGreen-20 text-white"><FiEdit /> Edit Campaign</button>
-            <button className="rounded-md py-2 font-medium text-sm px-4 flex items-center justify-center gap-2 text-white bg-red-700"><LiaTimesSolid /> End Campaign</button>
+            <button className="rounded-md py-2 font-medium text-sm px-4 flex items-center justify-center gap-2 text-white bg-red-700" onClick={handleStopCampaign} disabled={res.isPending}> {res.isPending ? <Spinner /> : <><LiaTimesSolid /> End Campaign</>}</button>
             <button className="rounded-md py-2 font-medium text-sm px-4 flex items-center justify-center gap-2 col-span-2 text-leafGreen-5 bg-leafGreen-50"><IoMdShareAlt /> Share Campaign</button>
           </div>
         </div>
