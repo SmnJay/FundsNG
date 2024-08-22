@@ -49,9 +49,7 @@ const SingleCampaign = () => {
   const { data: stopCampaign, isError: stopCampaignIsError, error: stopCampaignError, mutate, ...res } = useMutation({
     mutationKey: ['stop-campaign', id],
     mutationFn: stopCampaignApi,
-    onSuccess: (data) => {
-      console.log({data});
-      
+    onSuccess: (data) => {      
       if (data.success === false) {
         toast.error(data.message)
       } else {
