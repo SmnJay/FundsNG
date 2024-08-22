@@ -13,9 +13,8 @@ const layout = ({ children }: Readonly<{
                 <Image
                     className=''
                     src={"/images/auth-main-bg.png"}
-                    layout='fill'
-                    objectFit='cover'
-                    objectPosition='center'
+                    fill
+                    style={{ objectFit: 'cover', objectPosition: 'center' }}
                     alt='Background image for the auth screens showing multiple people joining hands together to form a circle and a beam of light emananting into it.'
                 />
             </div>
