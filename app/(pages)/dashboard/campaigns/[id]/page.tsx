@@ -54,6 +54,8 @@ const SingleCampaign = () => {
       
       if (data.success === false) {
         toast.error(data.message)
+      } else {
+        toast.success(data.message)
       }
     }
   })
