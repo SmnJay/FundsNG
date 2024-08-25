@@ -53,7 +53,8 @@ const Button: React.FC<ButtonProps> = ({ type = 'button', onClick, color, icon, 
                     <span className='py-3 animate-spin text-center flex items-center justify-center'><CgSpinnerTwo /></span>
                     :
                     <span className="block  duration-300 ease-in-out">
-                        <span className="flex p-2 md:p-3 justify-center items-center gap-2">{icon} {name}</span>
+                        <span className="flex p-2 md:p-3 justify-center items-center flex-shrink-0 gap-2">
+                            <span className="flex-shrink-0">{icon}</span>{name}</span>
                     </span>
             }
 
