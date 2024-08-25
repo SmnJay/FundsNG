@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 
 import React, { useState } from 'react'
@@ -22,7 +23,7 @@ interface FormDataProps {
     deductionTime: string,
     paymentSource: string,
     frequency: string,
-    participants: string //array of string. guessing user id
+    // participants: string //array of string. guessing user id
 }
 const CreateSavings = () => {
     const [formData, setFormData] = useState<FormDataProps>({
@@ -37,10 +38,10 @@ const CreateSavings = () => {
         deductionTime: '',
         paymentSource: '',
         frequency: '',
-        participants: ''
+        // participants: ''
     });
 
-    const { handleSubmit, control, register, trigger, formState: { errors } } = useForm<CreateSavingsSchema>({
+    const { handleSubmit, control, register, trigger, watch, setValue, getValues, formState: { errors } } = useForm<CreateSavingsSchema>({
         resolver: zodResolver(createSavingsSchema),
         mode: 'onSubmit'
     });
@@ -52,7 +53,7 @@ const CreateSavings = () => {
 
     const [step, setStep] = useState(1);
 
-    const [value, setValue] = useState<DateValueType>({
+    const [value1, setValue1] = useState<DateValueType>({
         startDate: new Date(),
         endDate: new Date()
     });
@@ -62,8 +63,12 @@ const CreateSavings = () => {
         endDate: new Date()
     });
 
+    const [value3, setValue3] = useState<DateValueType>({
+        startDate: new Date(),
+        endDate: new Date()
+    });
+
     const handleNextStep = (val: number) => {
-        console.log(formData)
         return setStep(val)
     }
 
@@ -74,8 +79,14 @@ const CreateSavings = () => {
         }
         return setStep(2);
     }
+    const handleToStep3 = async () => {
+        let res = await trigger(['deductionDate', 'deductionTime', 'frequency', 'paymentSource']);
+        if (!res) {
+            return;
+        }
+        return setStep(3);
+    }
 
-    // utilitiy function to set new value from input fields.
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
         setFormData((prev) => ({
@@ -85,22 +96,59 @@ const CreateSavings = () => {
     }
 
     const handleValueChange = (newValue: DateValueType) => {
-        console.log(newValue)
-        setValue(newValue);
+        setValue1(newValue);
     }
 
     const handleValue2Change = (newValue: DateValueType) => {
-        console.log(newValue)
         setValue2(newValue);
     }
 
-    // const submit = async (data: CreateSavingsSchema) => {
-    //     console.log(data)
-    // }
+    const handleValue3Change = (newValue: DateValueType) => {
+        setValue3(newValue);
+    }
 
     const isSubmit = async (data: CreateSavingsSchema) => {
         console.log({ formData, data })
     }
+
+    const startDate = watch("startDate");
+    const endDate = watch("endDate");
+    const deductionDate = watch("deductionDate");
+
+    React.useEffect(() => {
+        if (startDate) {
+            setValue('startDate', (value1?.startDate as string))
+            let a = getValues();
+
+            const news = {
+                ...a,
+                startDate: new Date(value1?.startDate as string).toISOString()
+            }
+        }
+    }, [startDate]);
+
+    React.useEffect(() => {
+        if (endDate) {
+            setValue('endDate', value1?.endDate as string)
+            let a = getValues();
+            const newData = {
+                ...a,
+                endDate: new Date(value2?.startDate as string).toISOString()
+            }
+        }
+    }, [endDate]);
+
+    React.useEffect(() => {
+        if (deductionDate) {
+            setValue('deductionDate', value1?.startDate as string)
+            let a = getValues();
+            const newData = {
+                ...a,
+                deductionDate: new Date(value3?.startDate as string).toISOString()
+            }
+        }
+    }, [deductionDate]);
+
 
     const Savings1 = () => (
         <React.Fragment>
@@ -163,10 +211,10 @@ const CreateSavings = () => {
                                     let startDateValue = value as unknown as DateValueType
                                     return (
                                         <Datepicker
-                                            value={startDateValue} // value from react-hook-form
+                                            value={startDateValue}
                                             onChange={(newValue) => {
-                                                onChange(newValue); // Update form state
-                                                handleValueChange(newValue); // Update local state
+                                                onChange(newValue);
+                                                handleValueChange(newValue);
                                             }}
                                             useRange={false}
                                             asSingle
@@ -240,14 +288,27 @@ const CreateSavings = () => {
                     <div className='relative'>
                         <div className={`form-group rounded-lg bg-white border px-3 py-2 ${style.containerApp}`}>
                             <label htmlFor={'endDate'} className={`block text-sm text-[#979FA0]`}>Day of savings deduction</label>
-                            <Datepicker
-                                value={value}
-                                onChange={handleValueChange}
-                                useRange={false}
-                                asSingle
-                                minDate={new Date()}
-                                inputClassName={'bg-white peer w-full ring-0 !focus:ring-none !border-none !focus:border-none !outline-none !focus:outline-none'}
-                                containerClassName={`${style.dateInput}`}
+                            <Controller
+                                name='deductionDate'
+                                control={control}
+                                render={({ field: { onChange, value } }) => {
+                                    let deductionDateValue = value as unknown as DateValueType;
+                                    return (
+                                        <Datepicker
+                                            value={deductionDateValue}
+                                            onChange={(newValue) => {
+                                                onChange(newValue); // Update form state
+                                                handleValue3Change(newValue); // Update local state
+                                            }}
+                                            useRange={false}
+                                            asSingle
+                                            minDate={new Date()}
+                                            popoverDirection='down'
+                                            inputClassName={'bg-white peer w-full ring-0 !focus:ring-none !border-none !focus:border-none !outline-none !focus:outline-none'}
+                                            containerClassName={`${style.dateInput}`}
+                                        />
+                                    )
+                                }}
                             />
                         </div>
                         <span className="text-red-500">{errors?.deductionDate?.message}</span>
@@ -256,13 +317,13 @@ const CreateSavings = () => {
                         <Input where='app' label='Time of savings deduction' error={errors?.deductionTime?.message} placeholder='Select' {...register('deductionTime')} type='time' />
                     </div>
                     <div className="form-group">
-                        <Input where='app' label='Savings Source' error={errors?.paymentsource?.message} placeholder='Wallet' {...register('paymentsource')} type='text' />
+                        <Input where='app' label='Savings Source' error={errors?.paymentSource?.message} placeholder='Wallet' {...register('paymentSource')} type='text' />
                     </div>
                 </div>
 
                 <div className="flex items-center justify-center w-full mt-8 mb-2 gap-4">
                     <button type='button' className="rounded-md border text-sm px-6 py-2 border-[#0c424c] text-[#0C424C] hover:bg-appGrey ease-out duration-150" onClick={() => handleNextStep(1)}>Back</button>
-                    <button type='button' className="rounded-md border text-sm px-6 py-2 border-[#0c424c] bg-[#0C424C] hover:bg-primary text-white font-medium ease-out duration-150" onClick={() => handleNextStep(3)}>Next</button>
+                    <button type='button' className="rounded-md border text-sm px-6 py-2 border-[#0c424c] bg-[#0C424C] hover:bg-primary text-white font-medium ease-out duration-150" onClick={handleToStep3}>Next</button>
                 </div>
             </div>
         </React.Fragment>

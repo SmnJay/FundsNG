@@ -66,7 +66,7 @@ export interface ICreateSavings {
     endDate: string
     deductionDate: string
     deductionTime: string
-    paymentsource: string
+    paymentSource: string
     frequency: string
-    participants: string[]
+    // participants: string[]
 }

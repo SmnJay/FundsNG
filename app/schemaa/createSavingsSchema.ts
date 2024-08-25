@@ -17,9 +17,9 @@ const createSavingsSchema: ZodType<ICreateSavings> = z.object({
     // }),
     deductionDate: z.string(),
     deductionTime: z.string(),
-    paymentsource: z.string(),
+    paymentSource: z.string(),
     frequency: z.string(),
-    participants: z.array(z.string())
+    // participants: z.array(z.string())
 });
 
 export default createSavingsSchema;
