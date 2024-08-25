@@ -2,6 +2,7 @@ import { ButtonLink } from '@/app/components/Button/Button'
 import Logo, { WhiteLogo } from '@/app/components/Logo/Logo'
 import UserProfile from '@/app/components/Profile/UserProfile'
 import Avatar from '@/app/components/UserProfilePicture'
+import Image from 'next/image'
 import React from 'react'
 import { BsBellFill } from 'react-icons/bs'
 
@@ -28,10 +29,21 @@ const page = () => {
                 </section>
             </header>
 
-            <main className='app-width'>
-                <h1 className="font-semibold text-[#323232] text-lg lg:text-2xl py-6">Campaign Title goes here</h1>
-                <section className="grid grid-cols-3 gap-2">
-                    <section className="">
+            <main className='app-width py-6'>
+                <h1 className="font-semibold text-[#323232] text-lg lg:text-2xl pb-6">Campaign Title goes here</h1>
+                <section className="grid lg:grid-cols-3 gap-2">
+                    <section className="col-span-2 bg-white rounded-b-lg">
+                        <div className="relative w-full h-0 pb-[59.68%]">
+                            <Image
+                                alt="campaign-preview-image"
+                                src="/images/campaign-page-preview.png"
+                                objectFit="cover"
+                                fill
+                            />
+                        </div>
+                        <p className="text-[#7D847C] p-4 rounded-b-md text-sm leading-6 lg:leading-8">
+                            ECWA Goodnews Church Bukuru (EGNCB) is building a new Sunday school auditorium, with the capacity to hold about 300 children. The structure will host a general worship area on the ground floor and age appropriate Sunday school classes on the first floor. This project is long overdue as for around two decades, the children of EGNCB were housed in an old unconducive zinc building, which was relatively unsafe and made some children either uncooperative or uninterested in attending the Sunday school. This project will facilitate the seamless delivery of children services and motivate the participation of children as well. The funds raised by the Two Pennies project will go towards supporting the realization of the Sunday school rebuilding project in the shortest time possible.ECWA Goodnews Church Bukuru (EGNCB) is building a new Sunday school auditorium, with the capacity to hold about 300 children. The structure will host a general worship area on the ground floor and age appropriate Sunday school classes on the first floor. This project is long overdue as for around two decades, the children of EGNCB were housed in an old unconducive zinc building, which was relatively unsafe and made some children either uncooperative or uninterested in attending the Sunday school. This project will facilitate the seamless delivery of children services and motivate the participation of children as well. The funds raised by the Two Pennies project will go towards supporting the realization of the Sunday school rebuilding project in the shortest time possible.
+                        </p>
                     </section>
                     <aside className="">
 
