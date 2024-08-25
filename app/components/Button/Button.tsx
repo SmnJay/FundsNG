@@ -18,6 +18,7 @@ interface ButtonProps {
 
 interface ButtonLinkProps extends ButtonProps {
     href: string
+    iconPosition?: 'left' | 'right'
     fullWidth?: boolean
 }
 
@@ -63,7 +64,7 @@ const Button: React.FC<ButtonProps> = ({ type = 'button', onClick, color, icon, 
 }
 
 
-export const ButtonLink: React.FC<ButtonLinkProps> = ({ href, textColor, color, outline, ariaLabel, processing, name, cls, icon, fullWidth, ...props }) => {
+export const ButtonLink: React.FC<ButtonLinkProps> = ({ href, textColor, color, outline, ariaLabel, iconPosition, processing, name, cls, icon, fullWidth, ...props }) => {
     const buttonClassNames = clsx(
         `${cls ? cls : ''} border-2 md:leading-4 font-medium px-8 max-md:text-sm group rounded-lg`,
         {
@@ -92,7 +93,7 @@ export const ButtonLink: React.FC<ButtonLinkProps> = ({ href, textColor, color, 
                     processing ?
                         <span className='block py-3 animate-pulse'>...sending</span>
                         :
-                        <span className="py-3 duration-300 ease-in-out text-center flex items-center justify-center gap-1">{name}{icon}</span>
+                        <span className={`py-3 duration-300 ease-in-out text-center flex items-center justify-center gap-1 ${iconPosition === 'left' && 'flex-row-reverse'}`}>{name}{icon}</span>
                 }
             </Link>
         </div>
