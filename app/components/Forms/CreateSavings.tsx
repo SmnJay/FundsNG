@@ -137,6 +137,7 @@ const CreateSavings = () => {
                             label='Target amount'
                             error={errors?.targetAmount?.message}
                             placeholder='500,000'
+                            inputMode='numeric'
                             {...register('targetAmount')} type='number'
                         />
                     </div>
@@ -151,9 +152,9 @@ const CreateSavings = () => {
                         />
                     </div>
                     <div className='relative'>
-                        <div className={`form-group rounded-lg bg-white border px-3 py-2 ${style.containerApp}`}>
-                            <label htmlFor={'campaign_start_date'} className={`block text-sm text-[#979FA0]`}>
-                                Select a date to start the Campaign
+                        <div className={`form-group rounded-lg bg-white border px-3 py-2 ${style.containerApp} ${errors?.startDate && 'border-2 !border-red-400'} `}>
+                            <label htmlFor={'campaign_start_date'} className={`block text-sm !text-[#979FA0]'}`}>
+                                Select a date to start the Savings
                             </label>
                             <Controller
                                 name='startDate'
@@ -178,11 +179,11 @@ const CreateSavings = () => {
                                 }}
                             />
                         </div>
-                        <span className="text-red-500">{errors?.startDate?.message}</span>
+                        <span className="text-red-400 text-sm">{errors?.startDate?.message}</span>
                     </div>
                     <div className='relative'>
-                        <div className={`form-group rounded-lg bg-white border px-3 py-2 ${style.containerApp}`}>
-                            <label htmlFor={'campaign_end_date'} className={`block text-sm text-[#979FA0]`}>Select a date to end the Campaign</label>
+                        <div className={`form-group rounded-lg bg-white border px-3 py-2 ${style.containerApp} ${errors?.endDate && 'border-2 !border-red-400'}`}>
+                            <label htmlFor={'campaign_end_date'} className={`block text-sm text-[#979FA0]`}>Select a date to end the Savings</label>
                             <Controller
                                 name='endDate'
                                 control={control}
@@ -206,7 +207,7 @@ const CreateSavings = () => {
                                 }}
                             />
                         </div>
-                        <span className="text-red-500">{errors?.endDate?.message}</span>
+                        <span className="text-red-400 text-sm">{errors?.endDate?.message}</span>
                     </div>
                 </div>
 

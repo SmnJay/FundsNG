@@ -4,9 +4,9 @@ import { ICreateSavings } from "../utils/models/Model";
 const createSavingsSchema: ZodType<ICreateSavings> = z.object({
     title: z.string().min(3, { message: 'Title must be greater than 3 characters' }),
     reason: z.string().min(3, { message: 'Reason must be greater than 3 characters' }),
-    targetAmount: z.string(),
-    amountPerSave: z.string(),
-    type: z.string(),
+    targetAmount: z.string().min(4, { message: 'Required' }),
+    amountPerSave: z.string().min(1),
+    type: z.enum(['0', '1'], {message: "Select one of the options"}),
     startDate: z.string(),
     endDate: z.string(),
     // .refine((endDate, { siblingData }) => {

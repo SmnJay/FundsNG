@@ -17,3 +17,13 @@
 .dateInput button svg {
     display: none;
 }
+
+.noSpinners {
+    -moz-appearance: textfield;
+}
+
+.noSpinners::-webkit-outer-spin-button,
+.noSpinners::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

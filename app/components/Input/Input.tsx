@@ -71,7 +71,7 @@ const Input = forwardRef<HTMLInputElement, IInput>(
                         type={type}
                         autoComplete={autoComplete || 'off'}
                         onKeyDown={handleKeyDown}
-                        className={`peer w-full ${where === 'auth' ? 'text-white placeholder:text-white/70' : 'text-[#6B7172] placeholder:text-[#6b7172]'} appearance-none bg-transparent focus:border-none focus:ring-none focus:outline-none ${type === 'number' && style.inputNumber}`}
+                        className={`peer w-full ${where === 'auth' ? 'text-white placeholder:text-white/70' : 'text-[#6B7172] placeholder:text-[#6b7172]'} appearance-none bg-transparent focus:border-none focus:ring-none focus:outline-none [&::-webkit-inner-spin-button]:appearance-none ${type === 'number' && style.noSpinners}`}
                         placeholder={placeholder}
                     />
                 </div>
@@ -123,7 +123,7 @@ export const InputSelect = forwardRef<HTMLSelectElement, ISelect>(({ placeholder
                     }
                 </select>
             </div>
-            {error && <span className="text-red-500">{error}</span>}
+            {error && <span className="text-red-400 text-sm">{error}</span>}
         </div>
     )
 }
