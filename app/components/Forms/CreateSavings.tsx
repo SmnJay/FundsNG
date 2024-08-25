@@ -1,34 +1,105 @@
 'use client'
 
 import React, { useState } from 'react'
-import Input from '../Input/Input';
-import Datepicker, { DateValueType } from 'react-tailwindcss-datepicker';
+import Input, { InputSelect } from '../Input/Input';
+import Datepicker, { DateType, DateValueType } from 'react-tailwindcss-datepicker';
 import style from '../Input/InputField.module.css'
 import { GoPlus } from 'react-icons/go';
 import SavingsMember from '../Savings/SavingsMember';
+import { useForm, Controller } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import createSavingsSchema, { CreateSavingsSchema } from '@/app/schemaa/createSavingsSchema';
 
+interface FormDataProps {
+    title: string,
+    reason: string,
+    targetAmount: string,
+    amountPerSave: string,
+    type: string,
+    startDate: DateType,
+    endDate: DateType,
+    deductionDate: DateType,
+    deductionTime: string,
+    paymentSource: string,
+    frequency: string,
+    participants: string //array of string. guessing user id
+}
 const CreateSavings = () => {
+    const [formData, setFormData] = useState<FormDataProps>({
+        title: '',
+        reason: '',
+        targetAmount: '',
+        amountPerSave: '',
+        type: '',
+        startDate: '',
+        endDate: '',
+        deductionDate: '',
+        deductionTime: '',
+        paymentSource: '',
+        frequency: '',
+        participants: ''
+    });
+
+    const { handleSubmit, control, register, trigger, formState: { errors } } = useForm<CreateSavingsSchema>({
+        resolver: zodResolver(createSavingsSchema),
+        mode: 'onSubmit'
+    });
+
+    const savingsTypeOptions = [
+        { label: 'Individual', value: '0' },
+        { label: 'Group', value: '1' },
+    ]
+
     const [step, setStep] = useState(1);
 
     const [value, setValue] = useState<DateValueType>({
         startDate: new Date(),
         endDate: new Date()
     });
+
     const [value2, setValue2] = useState<DateValueType>({
         startDate: new Date(),
         endDate: new Date()
     });
 
     const handleNextStep = (val: number) => {
+        console.log(formData)
         return setStep(val)
     }
 
+    const handleToStep2 = async () => {
+        let res = await trigger(['title', 'reason', 'targetAmount', 'type', 'startDate', 'endDate']);
+        if (!res) {
+            return;
+        }
+        return setStep(2);
+    }
+
+    // utilitiy function to set new value from input fields.
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target
+        setFormData((prev) => ({
+            ...formData,
+            [name]: value
+        }))
+    }
+
     const handleValueChange = (newValue: DateValueType) => {
+        console.log(newValue)
         setValue(newValue);
     }
 
     const handleValue2Change = (newValue: DateValueType) => {
+        console.log(newValue)
         setValue2(newValue);
+    }
+
+    // const submit = async (data: CreateSavingsSchema) => {
+    //     console.log(data)
+    // }
+
+    const isSubmit = async (data: CreateSavingsSchema) => {
+        console.log({ formData, data })
     }
 
     const Savings1 = () => (
@@ -40,51 +111,112 @@ const CreateSavings = () => {
                 <h3 className="text-[#323232] font-medium leading-loose">Enter basic savings information</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
                     <div className="form-group">
-                        <Input where='app' label='Target Title' error='' placeholder='Title goes here' name='' type='text' />
+                        <Input
+                            where='app'
+                            label='Target Title'
+                            error={errors?.title?.message}
+                            placeholder='Title goes here'
+                            {...register('title')}
+                            id='title'
+                            type='text'
+                        />
                     </div>
                     <div className="form-group">
-                        <Input where='app' label='Savings Reason' error='' placeholder='Vacation' name='' type='text' />
+                        <Input
+                            where='app'
+                            label='Savings Reason'
+                            error={errors?.reason?.message}
+                            placeholder='Vacation'
+                            {...register('reason')}
+                            type='text'
+                        />
                     </div>
                     <div className="form-group">
-                        <Input where='app' label='Target amount' error='' placeholder='500,000' name='' type='number' />
+                        <Input
+                            where='app'
+                            label='Target amount'
+                            error={errors?.targetAmount?.message}
+                            placeholder='500,000'
+                            {...register('targetAmount')} type='number'
+                        />
                     </div>
                     <div className="form-group">
-                        <Input where='app' label='Type' error='' placeholder='Individual' name='' type='text' />
+                        <InputSelect
+                            where='app'
+                            label='Type'
+                            error={errors?.type?.message}
+                            placeholder='Select Savings Type'
+                            {...register('type')}
+                            options={savingsTypeOptions}
+                        />
                     </div>
                     <div className='relative'>
                         <div className={`form-group rounded-lg bg-white border px-3 py-2 ${style.containerApp}`}>
-                            <label htmlFor={'campaign_end_date'} className={`block text-sm text-[#979FA0]`}>Select a date to end the campaign</label>
-                            <Datepicker
-                                value={value}
-                                onChange={handleValueChange}
-                                useRange={false}
-                                asSingle
-                                minDate={new Date()}
-                                inputClassName={'bg-white peer w-full ring-0 !focus:ring-none !border-none !focus:border-none !outline-none !focus:outline-none'}
-                                containerClassName={`${style.dateInput}`}
+                            <label htmlFor={'campaign_start_date'} className={`block text-sm text-[#979FA0]`}>
+                                Select a date to start the Campaign
+                            </label>
+                            <Controller
+                                name='startDate'
+                                control={control}
+                                render={({ field: { onChange, value } }) => {
+                                    let startDateValue = value as unknown as DateValueType
+                                    return (
+                                        <Datepicker
+                                            value={startDateValue} // value from react-hook-form
+                                            onChange={(newValue) => {
+                                                onChange(newValue); // Update form state
+                                                handleValueChange(newValue); // Update local state
+                                            }}
+                                            useRange={false}
+                                            asSingle
+                                            minDate={new Date()}
+                                            inputClassName={'bg-white peer w-full ring-0 !focus:ring-none !border-none !focus:border-none !outline-none !focus:outline-none'}
+                                            containerClassName={`${style.dateInput}`}
+                                            popoverDirection='down'
+                                        />
+                                    )
+                                }}
                             />
                         </div>
-                        <span className="text-red-500">{''}</span>
+                        <span className="text-red-500">{errors?.startDate?.message}</span>
                     </div>
                     <div className='relative'>
                         <div className={`form-group rounded-lg bg-white border px-3 py-2 ${style.containerApp}`}>
-                            <label htmlFor={'campaign_end_date'} className={`block text-sm text-[#979FA0]`}>Select a date to end the campaign</label>
-                            <Datepicker
-                                value={value2}
-                                onChange={handleValue2Change}
-                                useRange={false}
-                                asSingle
-                                minDate={new Date()}
-                                inputClassName={'bg-white peer w-full ring-0 !focus:ring-none !border-none !focus:border-none !outline-none !focus:outline-none'}
-                                containerClassName={`${style.dateInput}`}
+                            <label htmlFor={'campaign_end_date'} className={`block text-sm text-[#979FA0]`}>Select a date to end the Campaign</label>
+                            <Controller
+                                name='endDate'
+                                control={control}
+                                render={({ field: { onChange, value } }) => {
+                                    let endDateValue = value as unknown as DateValueType;
+                                    return (
+                                        <Datepicker
+                                            value={endDateValue}
+                                            onChange={(newValue) => {
+                                                onChange(newValue); // Update form state
+                                                handleValue2Change(newValue); // Update local state
+                                            }}
+                                            useRange={false}
+                                            asSingle
+                                            minDate={new Date()}
+                                            popoverDirection='down'
+                                            inputClassName={'bg-white peer w-full ring-0 !focus:ring-none !border-none !focus:border-none !outline-none !focus:outline-none'}
+                                            containerClassName={`${style.dateInput}`}
+                                        />
+                                    )
+                                }}
                             />
                         </div>
-                        <span className="text-red-500">{''}</span>
+                        <span className="text-red-500">{errors?.endDate?.message}</span>
                     </div>
                 </div>
 
                 <div className="flex items-center justify-center w-full mt-8 mb-2">
-                    <button type='button' className="rounded-md border text-sm px-6 py-2 border-[#0c424c] bg-[#0C424C] hover:bg-primary text-white font-medium ease-out duration-150" onClick={() => handleNextStep(2)}>Next</button>
+                    <button
+                        type='button'
+                        className="rounded-md border text-sm px-6 py-2 border-[#0c424c] bg-[#0C424C] hover:bg-primary text-white font-medium ease-out duration-150"
+                        onClick={handleToStep2}>
+                        Next
+                    </button>
                 </div>
             </div>
         </React.Fragment>
@@ -99,14 +231,14 @@ const CreateSavings = () => {
                 <h3 className="text-[#323232] font-medium leading-loose">Enter other target saving information</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
                     <div className="form-group">
-                        <Input where='app' label='Frequency' error='' placeholder='Monthly' name='' type='text' />
+                        <Input where='app' label='Frequency' error={errors?.frequency?.message} placeholder='Monthly' {...register('frequency')} type='text' />
                     </div>
                     <div className="form-group">
-                        <Input where='app' label='Amount to save monthly' error='' placeholder='20,000' name='' type='text' />
+                        <Input where='app' label='Amount to save monthly' error={errors?.amountPerSave?.message} placeholder='20,000' {...register('amountPerSave')} type='number' />
                     </div>
                     <div className='relative'>
                         <div className={`form-group rounded-lg bg-white border px-3 py-2 ${style.containerApp}`}>
-                            <label htmlFor={'campaign_end_date'} className={`block text-sm text-[#979FA0]`}>Day of savings deduction</label>
+                            <label htmlFor={'endDate'} className={`block text-sm text-[#979FA0]`}>Day of savings deduction</label>
                             <Datepicker
                                 value={value}
                                 onChange={handleValueChange}
@@ -117,13 +249,13 @@ const CreateSavings = () => {
                                 containerClassName={`${style.dateInput}`}
                             />
                         </div>
-                        <span className="text-red-500">{''}</span>
+                        <span className="text-red-500">{errors?.deductionDate?.message}</span>
                     </div>
                     <div className="form-group">
-                        <Input where='app' label='Time of savings deduction' error='' placeholder='Select' name='' type='time' />
+                        <Input where='app' label='Time of savings deduction' error={errors?.deductionTime?.message} placeholder='Select' {...register('deductionTime')} type='time' />
                     </div>
                     <div className="form-group">
-                        <Input where='app' label='Savings Source' error='' placeholder='Wallet' name='' type='text' />
+                        <Input where='app' label='Savings Source' error={errors?.paymentsource?.message} placeholder='Wallet' {...register('paymentsource')} type='text' />
                     </div>
                 </div>
 
@@ -156,8 +288,9 @@ const CreateSavings = () => {
                     <SavingsMember />
                     <SavingsMember />
                 </div>
-                <div className="max-w-md mx-auto px-6 flex items-center justify-center w-full">
-                    <button type='button' className="w-full rounded-md border text-sm px-6 py-2 border-[#0c424c] bg-[#0C424C] hover:bg-primary text-white font-medium ease-out duration-150" onClick={() => handleNextStep(3)}>Create</button>
+                <div className="max-w-md mx-auto px-6 flex items-center justify-center gap-4 w-full">
+                    <button type='button' className="rounded-md border text-sm px-6 py-2 border-[#0c424c] text-[#0C424C] hover:bg-appGrey ease-out duration-150" onClick={() => handleNextStep(2)}>Back</button>
+                    <button type='submit' className="rounded-md border text-sm px-6 py-2 border-[#0c424c] bg-[#0C424C] hover:bg-primary text-white font-medium ease-out duration-150" onClick={() => handleNextStep(3)}>Create</button>
                 </div>
             </div>
 
@@ -167,7 +300,7 @@ const CreateSavings = () => {
 
     return (
         <div className='mt-4'>
-            <form action="" name='create_savings' id='create-savings' className='max-w-3xl mr-auto'>
+            <form onSubmit={handleSubmit(isSubmit)} name='create_savings' id='create-savings' className='max-w-3xl mr-auto'>
 
                 {/* step 1 */}
                 {step === 1 && Savings1()}

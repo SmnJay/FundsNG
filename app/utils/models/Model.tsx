@@ -46,7 +46,6 @@ export interface ICampaign {
     userId: string
     mediaUrl: string
     endDate: string
-
 }
 
 export interface ICampaignDetails {
@@ -55,4 +54,19 @@ export interface ICampaignDetails {
     numberOfDonors: number,
     numberOfDonations: number,
     activities: any[]
+}
+
+export interface ICreateSavings {
+    title: string
+    reason: string
+    targetAmount: string
+    amountPerSave: string
+    type: string
+    startDate: string
+    endDate: string
+    deductionDate: string
+    deductionTime: string
+    paymentsource: string
+    frequency: string
+    participants: string[]
 }

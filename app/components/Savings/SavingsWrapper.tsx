@@ -14,7 +14,6 @@ import { getServiceApiService } from '@/app/utils/services/savings/savingsApiSer
 import CampaignLoader from '../Campaigns/CampaignLoader';
 
 const SavingsWrapper = () => {
-
     const { data, isLoading, ...res } = useQuery({
         queryKey: ['savings'],
         queryFn: getServiceApiService
@@ -22,11 +21,8 @@ const SavingsWrapper = () => {
 
     const emptyState = data?.length < 1
 
-    console.log({ data, res, emptyState })
-
     return (
         <Fragment>
-
             <div className='flex items-center justify-between mt-4'>
                 <Link href={'savings/create'} className='h-full md:hidden block'>
                     <div className={`rounded flex items-center gap-1 text-white bg-primary-10 px-4 py-2 h-full `}>
@@ -172,8 +168,6 @@ const SavingsWrapper = () => {
                             </div>
                         </>
             }
-
-
         </Fragment>
     )
 }

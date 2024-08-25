@@ -11,6 +11,7 @@ interface IInput extends React.InputHTMLAttributes<HTMLInputElement> {
     accept?: string
     where?: 'auth' | 'app'
     readonly?: boolean
+    formatWithCommas?: boolean;
 }
 
 interface TextArea extends React.InputHTMLAttributes<HTMLTextAreaElement> {
@@ -34,9 +35,31 @@ interface ISelect extends React.SelectHTMLAttributes<HTMLSelectElement> {
 }
 
 const Input = forwardRef<HTMLInputElement, IInput>(
-    ({ label, error, name, where = 'auth', accept, autoComplete, placeholder, type, ...props }, ref) => {
-        return (
+    ({ label, error, name, where = 'auth', accept, autoComplete, formatWithCommas, placeholder, type, ...props }, ref) => {
+        const [inputValue, setInputValue] = React.useState<string | number>('');
 
+        const formatNumberWithCommas = (value: string) => {
+            return value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        };
+
+        const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+            let value = e.target.value.replace(/,/g, ''); // Remove commas for internal state
+
+            // Ensure that it's a valid number or empty
+            if (!isNaN(Number(value)) || value === '') {
+                if (formatWithCommas) {
+                    value = formatNumberWithCommas(value); // Apply formatting if enabled
+                }
+                setInputValue(value);
+            }
+        };
+        const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+            if (type === 'number' && (e.key === 'e' || e.key === 'E' || e.key === '+' || e.key === '-')) {
+                e.preventDefault();
+            }
+        };
+
+        return (
             <div className={`relative ${type === 'hidden' && 'hidden'}`}>
                 <div className={`form-group rounded-lg ${where === 'auth' ? 'bg-primary-30' : 'bg-white'} border ${error ? '!border-red-400 border-2' : ''} px-3 py-2 ${where === 'auth' ? style.container : style.containerApp}`}>
                     <label htmlFor={name} className={`block text-sm ${where === 'auth' ? 'text-primary-20' : 'text-[#979FA0]'}`}>{label}</label>
@@ -47,7 +70,8 @@ const Input = forwardRef<HTMLInputElement, IInput>(
                         name={name}
                         type={type}
                         autoComplete={autoComplete || 'off'}
-                        className={`peer w-full ${where === 'auth' ? 'text-white placeholder:text-white/70' : 'text-[#6B7172] placeholder:text-[#6b7172]'} bg-transparent focus:border-none focus:ring-none focus:outline-none`}
+                        onKeyDown={handleKeyDown}
+                        className={`peer w-full ${where === 'auth' ? 'text-white placeholder:text-white/70' : 'text-[#6B7172] placeholder:text-[#6b7172]'} appearance-none bg-transparent focus:border-none focus:ring-none focus:outline-none ${type === 'number' && style.inputNumber}`}
                         placeholder={placeholder}
                     />
                 </div>

@@ -3,15 +3,11 @@ import React, { useState } from 'react'
 import CreateCampaign1 from './CreateCampaign1';
 import CreateCampaign2 from './CreateCampaign2';
 import PreviewCampaign from '../Campaigns/PreviewCampaign';
-import { TfiShine } from 'react-icons/tfi';
 import StepIndicator from '../StepIndicator';
-import CreateCampaign3 from './CreateCampaign3';
 import Modal from '../Modal/Modal';
 import { toast } from 'react-toastify';
 import { IoCopyOutline } from 'react-icons/io5';
-import { RiInstagramFill, RiTwitterXFill } from 'react-icons/ri';
-import { ImFacebook2 } from 'react-icons/im';
-import { MdWhatsapp } from 'react-icons/md';
+import { RiTwitterXFill } from 'react-icons/ri';
 import { DateType } from 'react-tailwindcss-datepicker';
 import { useMutation } from '@tanstack/react-query';
 import { createCampaignApiService } from '@/app/utils/services/campaign/campaignApiService';
