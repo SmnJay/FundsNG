@@ -6,10 +6,11 @@ import Avatar from '@/app/components/UserProfilePicture'
 import Image from 'next/image'
 import React from 'react'
 import { BsBellFill } from 'react-icons/bs'
-import { FaHourglassHalf, FaUserCircle } from 'react-icons/fa'
+import { FaHourglassHalf, FaPiggyBank, FaUserCircle, FaWallet } from 'react-icons/fa'
 import { IoIosGift, IoMdShareAlt } from 'react-icons/io'
 import { MdOutlineKeyboardDoubleArrowRight } from 'react-icons/md'
-import { RiCalendarTodoFill } from 'react-icons/ri'
+import { RiCalendarTodoFill, RiMegaphoneFill } from 'react-icons/ri'
+import { TbLayoutDashboardFilled } from 'react-icons/tb'
 
 const page = () => {
     return (
@@ -21,10 +22,10 @@ const page = () => {
                     </div>
                     <nav className="hidden md:block">
                         <ul className='flex items-center gap-8 text-sm'>
-                            <li className=""><span className="text-[#5F655E] font-light">Home</span> </li>
-                            <li className=""><span className="text-leafGreen-30 font-light">Campaign</span> </li>
-                            <li className=""><span className="text-[#5F655E] font-light">Target Savings</span> </li>
-                            <li className=""><span className="text-[#5F655E] font-light">Wallet</span> </li>
+                            <li className="flex items-center gap-2 cursor-pointer"><TbLayoutDashboardFilled className='text-[#5F655E]'/><span className=" font-light">Home</span> </li>
+                            <li className="flex items-center gap-2 cursor-pointer"><RiMegaphoneFill className='text-leafGreen-40'/><span className="text-leafGreen-30 font-light">Campaign</span> </li>
+                            <li className="flex items-center gap-2 cursor-pointer"><FaPiggyBank className='text-[#5F655E]'/><span className=" font-light">Target Savings</span> </li>
+                            <li className="flex items-center gap-2 cursor-pointer"><FaWallet className='text-[#5F655E]'/><span className=" font-light">Wallet</span> </li>
                         </ul>
                     </nav>
                     <div className="flex items-center gap-3">
@@ -57,7 +58,7 @@ const page = () => {
                                 <div className=""> <span className="font-light text-[#888F87] pr-1">Our Goal</span>&#8358;600,000.00</div>
                             </div>
                             <ProgressBar value={70} />
-                            <div className="mt-4 flex flex-col md:flex-row md:justify-between gap-4">
+                            <div className="mt-6 flex flex-col md:flex-row md:justify-between gap-4">
                                 <div className="">
                                     <Image
                                         src={'/images/groupAvatar.png'}
@@ -71,7 +72,7 @@ const page = () => {
                                     <MdOutlineKeyboardDoubleArrowRight className='group-hover:translate-x-1 transition-all '/>
                                 </div>
                             </div>
-                            <div className="space-y-4 my-4 text-[#5F655E] font-medium">
+                            <div className="space-y-4 my-6 text-[#5F655E] font-medium">
                                 <div className="flex items-center gap-2 text-sm"><FaHourglassHalf />12 Days Left</div>
                                 <div className="flex items-center gap-2 text-sm"><RiCalendarTodoFill /> 2 June, 2024</div>
                             </div>
