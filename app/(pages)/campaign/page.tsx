@@ -102,7 +102,7 @@ const page = () => {
                             <WhiteLogo />
                         </div>
                         <p className="text-sm font-extralight pt-4 pb-6">Harness the collective strength of our community to drive positive change where it matters most.</p>
-                        <ButtonLink cls='whitespace-nowrap w-1/2 md:w-1/3 lg:w-1/2' href='/' name="Create an Acount" ariaLabel="Create an Account" color="white" />
+                        <ButtonLink cls='whitespace-nowrap w-1/2 md:w-1/3 lg:w-1/2' href='/' name="Create an Account" ariaLabel="Create an Account" color="white" />
 
                     </div>
                     <div className="">
