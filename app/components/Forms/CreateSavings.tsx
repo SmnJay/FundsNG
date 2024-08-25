@@ -114,6 +114,7 @@ const CreateSavings = () => {
     const startDate = watch("startDate");
     const endDate = watch("endDate");
     const deductionDate = watch("deductionDate");
+    const type = watch('type');
 
     React.useEffect(() => {
         if (startDate) {
@@ -148,6 +149,8 @@ const CreateSavings = () => {
             }
         }
     }, [deductionDate]);
+
+    console.log(type)
 
 
     const Savings1 = () => (
@@ -323,7 +326,7 @@ const CreateSavings = () => {
 
                 <div className="flex items-center justify-center w-full mt-8 mb-2 gap-4">
                     <button type='button' className="rounded-md border text-sm px-6 py-2 border-[#0c424c] text-[#0C424C] hover:bg-appGrey ease-out duration-150" onClick={() => handleNextStep(1)}>Back</button>
-                    <button type='button' className="rounded-md border text-sm px-6 py-2 border-[#0c424c] bg-[#0C424C] hover:bg-primary text-white font-medium ease-out duration-150" onClick={handleToStep3}>Next</button>
+                    <button type={type !== '0' ? 'button' : 'submit'} className="rounded-md border text-sm px-6 py-2 border-[#0c424c] bg-[#0C424C] hover:bg-primary text-white font-medium ease-out duration-150" onClick={type !== '0' ? handleToStep3 : undefined}>{type === '0' ? 'Submit' : 'Next'}</button>
                 </div>
             </div>
         </React.Fragment>
@@ -371,7 +374,7 @@ const CreateSavings = () => {
                 {step === 2 && Savings2()}
 
                 {/* step 3 */}
-                {step === 3 && Savings3()}
+                {(step === 3 && type !== '0') && Savings3()}
             </form>
         </div>
     )
