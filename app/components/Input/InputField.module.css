@@ -20,6 +20,7 @@
 
 .noSpinners {
     -moz-appearance: textfield;
+    appearance: textfield;
 }
 
 .noSpinners::-webkit-outer-spin-button,
