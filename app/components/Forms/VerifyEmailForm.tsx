@@ -5,16 +5,47 @@ import React from 'react'
 import { WhiteLogo } from '../Logo/Logo'
 import Input from '../Input/Input'
 import Button from '../Button/Button'
-import { useParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { verifyEmailApiService } from '@/app/utils/services/verifyEmail/verifyEmailApiService';
+import { useMutation } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
 
 const VerifyEmailForm = () => {
-    const params = useParams();
+    const searchParams = useSearchParams();
+    const router = useRouter();
 
-    console.log(params);
-    
+    const email = searchParams.get('email') as string;
+    const token = searchParams.get('token') as string;
+
+    const formData = {
+        email, token
+    }
+
+    const verifyEmailMutation = useMutation({
+        mutationKey: ['verify-email'],
+        mutationFn: verifyEmailApiService,
+        onError: (error) => {
+            toast.error(error.message)
+        },
+        onSuccess(data) {
+            if (data.success === false) {
+                toast.error(data.message);
+            } else {
+                toast.success(data.message);
+                router.push('/signin')
+            }
+        },
+    })
+
+    const handleSubmit = async (e: any) => {
+        e.preventDefault();
+        verifyEmailMutation.mutate(formData)
+
+    }
+
     return (
         <form
-            // onSubmit={handleSubmit}
+            onSubmit={handleSubmit}
             className="relative mx-auto max-w-[500px] px-4 py-8 md:p-8"
             autoComplete="off"
         >
@@ -31,14 +62,16 @@ const VerifyEmailForm = () => {
                     placeholder='Enter Email Address'
                     autoComplete='off'
                     error=''
-                // defaultValue={email}
+                    readOnly
+                    defaultValue={email !== null ? email : ''}
                 />
             </div>
+            <Link href='/' className='text-right text-white leading-loose mt-4 flex justify-end mx-auto'>Resend Verification Link</Link>
 
             <div className="flex flex-col gap-4 py-10">
                 <Button
                     type='submit'
-                    // processing={forgotPasswordMutation.isPending}
+                    processing={verifyEmailMutation.isPending}
                     name="Submit"
                     ariaLabel="Submit button"
                     color="white"
