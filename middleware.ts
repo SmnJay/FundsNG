@@ -14,9 +14,9 @@ export default withAuth(
                     return false;
                 }
 
-                if (req.nextUrl.pathname.startsWith("/verify-otp") && token === null) {
-                    return false;
-                }
+                // if (req.nextUrl.pathname.startsWith("/verify-otp") && token === null) {
+                //     return false;
+                // }
 
                 if (req.nextUrl.pathname.startsWith("/complete-profile") && token === null) {
                     return false;
@@ -26,9 +26,9 @@ export default withAuth(
                     return false;
                 }
 
-                if (req.nextUrl.pathname.startsWith("/verify-email") && token === null) {
-                    return false;
-                }
+                // if (req.nextUrl.pathname.startsWith("/verify-email") && token === null) {
+                //     return false;
+                // }
 
                 return true;
             },
@@ -36,5 +36,5 @@ export default withAuth(
     });
 
 export const config = {
-    matcher: ["/dashboard", "/settings", "/verify-otp", "/verify-email", "/ready", "/complete-profile"],
+    matcher: ["/dashboard", "/settings", "/ready", "/complete-profile"],
 };

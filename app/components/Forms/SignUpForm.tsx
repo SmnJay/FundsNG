@@ -5,7 +5,7 @@ import PasswordInput from '../Input/PasswordInput'
 import Button, { ButtonLink } from '../Button/Button'
 import Links from '../Links/Index'
 import Input from '../Input/Input'
-import Logo, { WhiteLogo } from '../Logo/Logo'
+import { WhiteLogo } from '../Logo/Logo'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -98,14 +98,14 @@ const SignUpForm = () => {
             >
                 <div className="px-4 py-8 md:p-8 relative">
                     <h6 className="font-semibold text-left text-xl md:text-3xl leading-loose font-bvp text-primary">Check your email</h6>
-                    <p className="text-sm md:text-base text-left">We sent you an OTP to your email. Kindly check to verify your acount.</p>
+                    <p className="text-sm md:text-base text-left">We sent a link to your email. Kindly check to verify your acount.</p>
 
                     <div>
                         <Image src={'/images/verify-email.gif'} width={253} className='mx-auto' height={253} alt={'Envelope representing email sent to the mailbox'} />
                     </div>
 
                     <div className="flex flex-col gap-4 py-10">
-                        <ButtonLink href='/signin' name="Continue" ariaLabel="Continue button" color="primary" />
+                        <ButtonLink href='/verify-email' name="Continue" ariaLabel="Continue button" color="primary" />
                     </div>
 
                 </div>
