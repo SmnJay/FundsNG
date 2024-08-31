@@ -51,7 +51,6 @@ const Profile = () => {
   const { handleSubmit, errors, register } = useFormValidation<UpdateProfileSchema>(updateProfileSchema, 'onBlur');
 
   const submit = async (data: ICompleteProfile) => {
-    console.log(data);
     const formData = {
       ...data, 
       profilePictureUrl: "string",

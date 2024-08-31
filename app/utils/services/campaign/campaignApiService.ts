@@ -28,6 +28,15 @@ export const createCampaignApiService = async (data: any) => {
     }
 }
 
+export const editCampaignApiService = async (data: any) => {
+    try {
+        const response = await axios.post('/api/campaign/edit', data);
+        return response.data
+    } catch (error: any) {
+        throw new Error(error.response?.data?.message || 'Failed to edit campaign. Please try again.');
+    }
+}
+
 export const getSingleCampaign = async (id: string) => {
     try {
         const response = await axios.get(`/api/campaign/${id}`);

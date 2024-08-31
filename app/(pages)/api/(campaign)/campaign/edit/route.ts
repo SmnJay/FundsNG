@@ -12,9 +12,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
     };
 
     try {
-        const response = await axios.post(
-            `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/Campaign`, body, { headers }
-        );
+        const url = `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/Campaign/Edit`
+        const response = await axios.put(url , body, { headers });
 
         return NextResponse.json(response.data.message, { status: 200 });
     } catch (error: any) {

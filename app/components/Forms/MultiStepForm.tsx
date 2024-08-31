@@ -14,7 +14,7 @@ import { createCampaignApiService } from '@/app/utils/services/campaign/campaign
 import Spinner from '../Spinner/Spinner';
 import { useRouter } from 'next/navigation';
 
-interface FormData {
+export interface FormData {
     name: string;
     description: string;
     binaryString?: File | string;  // Indicates that it can be a File or undefined
@@ -105,7 +105,6 @@ const MultiStepForm = () => {
         mutationKey: ['create-campaign'],
         mutationFn: createCampaignApiService,
         onError: (error) => {
-            console.log(error);
             toast.error(error.message)
         },
         onSuccess(data) {
@@ -119,9 +118,6 @@ const MultiStepForm = () => {
         if ('binaryString' in formData && formData['binaryString'] === '') {
             delete formData['binaryString']
         }
-
-
-        console.log(formData)
         createCampaign.mutate(formData as any)
 
         // toast.success('Congratulations')
@@ -154,7 +150,6 @@ const MultiStepForm = () => {
 
     return (
         <>
-
             <div className="container mx-auto bg-white rounded-md mt-4">
                 <div className='pb-8'>
                     <StepIndicator currentStep={currentStep} steps={steps.length} />

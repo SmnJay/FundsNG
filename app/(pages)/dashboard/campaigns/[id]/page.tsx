@@ -59,8 +59,6 @@ const SingleCampaign = () => {
     }
   })
 
-  console.log({ stopCampaign, stopCampaignError, res })
-
   const { handleCreateQueryParams, getPathname } = useUpdateParams();
 
   const handleRecentActivityQueryParam = () => {

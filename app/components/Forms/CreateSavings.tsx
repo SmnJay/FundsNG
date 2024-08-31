@@ -150,9 +150,6 @@ const CreateSavings = () => {
         }
     }, [deductionDate]);
 
-    console.log(type)
-
-
     const Savings1 = () => (
         <React.Fragment>
             <div className="bg-primary text-white rounded-t-lg p-4 ">

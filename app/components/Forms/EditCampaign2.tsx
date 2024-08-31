@@ -4,8 +4,9 @@ import Datepicker, { DateType, DateValueType } from 'react-tailwindcss-datepicke
 import style from '../Input/InputField.module.css'
 import { useQuery } from '@tanstack/react-query';
 import { getCampaignCategoriesApiService } from '@/app/utils/services/campaign/campaignApiService';
+import { date } from 'zod';
 
-interface CreateCampaign2Props {
+interface EditCampaign2Props {
     data: {
         targetAmount: number,
         endDate: DateType,
@@ -21,10 +22,10 @@ interface CreateCampaign2Props {
     // handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-const CreateCampaign2: React.FC<CreateCampaign2Props> = ({ data, handleChange, handleDateChange, handleCheckChange }) => {
+const EditCampaign2: React.FC<EditCampaign2Props> = ({ data, handleChange, handleDateChange, handleCheckChange }) => {
     const [value, setValue] = useState<DateValueType>({
-        startDate: new Date(),
-        endDate: new Date()
+        startDate: data.endDate ?? new Date(),
+        endDate: data.endDate ?? new Date()
     });
 
     const handleValueChange = (newValue: DateValueType) => {
@@ -88,6 +89,7 @@ const CreateCampaign2: React.FC<CreateCampaign2Props> = ({ data, handleChange, h
                     placeholder='eg Medical Bills'
                     options={campaingCategoriesOptions}
                     label='Add a Category'
+                    value={data.campaignCategoryId}
                     onChange={handleChange}
                 />
                 <Input
@@ -127,7 +129,7 @@ const CreateCampaign2: React.FC<CreateCampaign2Props> = ({ data, handleChange, h
                     />
                 </div>
                 <div className="text-sm space-x-1">
-                    <input onChange={handleCheckChange} type="checkbox" className='accent-leafGreen-30' name="agreementSigned" id="agreementSigned" />
+                    <input onChange={handleCheckChange} checked={data.agreementSigned} readOnly type="checkbox" className='accent-leafGreen-30' name="agreementSigned" id="agreementSigned" />
                     <label htmlFor="agreementSigned" className="">Agreement Signed</label>
                 </div>
             </form>
@@ -135,4 +137,4 @@ const CreateCampaign2: React.FC<CreateCampaign2Props> = ({ data, handleChange, h
     )
 }
 
-export default CreateCampaign2
+export default EditCampaign2
