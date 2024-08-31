@@ -27,11 +27,12 @@ const Profile = () => {
       toast.error(error.message)
     },
     onSuccess(data) {
+      console.log(data)
       if (data.success === false) {
         toast.error(data.message);
 
       } else {
-        toast.success(data.message);
+        toast.success(data);
       }
     },
   })
@@ -57,6 +58,9 @@ const Profile = () => {
       dob: "2000-08-11T19:04:52.205Z"
     }
     profileMutation.mutate(formData)
+
+
+
   }
 
   return (

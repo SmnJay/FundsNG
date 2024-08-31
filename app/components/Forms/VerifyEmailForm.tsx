@@ -9,27 +9,23 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { verifyEmailApiService } from '@/app/utils/services/verifyEmail/verifyEmailApiService';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
+import { resendVerificationEmailApiService } from '@/app/utils/services/resendVerificationEmail/resendVerificationEmailApiService';
 
 const VerifyEmailForm = () => {
     const searchParams = useSearchParams();
     const router = useRouter();
-
-    console.log(searchParams)
-
     const [email, setEmail] = useState('');
     const [token, setToken] = useState('');
 
-    console.log({ email, token })
-
     useEffect(() => {
         const emailParam = searchParams.get('email');
-        const tokenParam = searchParams.get('token');
+        let tokenParam = searchParams.get('token') as string;
+
+        tokenParam = tokenParam?.replace(/ /g, '+');
 
         if (emailParam) setEmail(emailParam);
         if (tokenParam) setToken(tokenParam);
     }, [searchParams]);
-
-    console.log({ email, token });
 
     const formData = {
         email,
@@ -50,14 +46,39 @@ const VerifyEmailForm = () => {
                 router.push('/signin')
             }
         },
-    })
+    });
+
+    const resendEmailMutation = useMutation({
+        mutationKey: ['resend-confimation-email'],
+        mutationFn: resendVerificationEmailApiService,
+        onError: (error) => {
+            toast.error(error.message)
+        },
+        onSuccess(data) {
+            if (data.success === false) {
+                toast.error(data.message);
+            } else {
+                toast.success(data.message);
+            }
+        },
+    });
+
+
+    const handleResendEmailVerification = async () => {
+        const data = { email: email }
+        try {
+            await resendEmailMutation.mutate(data)
+        } catch (error) {
+            return error;
+        }
+    }
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         verifyEmailMutation.mutate(formData)
-    }
+    };
 
-
+    console.log(token)
 
     return (
         <form
@@ -82,7 +103,9 @@ const VerifyEmailForm = () => {
                     defaultValue={email !== null ? email : ''}
                 />
             </div>
-            <Link href='/' className='text-right text-white leading-loose mt-4 flex justify-end mx-auto'>Resend Verification Link</Link>
+            <div className="flex justify-end items-center">
+                <button type='button' onClick={handleResendEmailVerification} className='text-right text-white leading-loose mt-4' style={{ margin: '0 auto 0 0' }}>{resendEmailMutation.isPending ? 'sending...' : 'Resend Verification Link'}</button>
+            </div>
 
             <div className="flex flex-col gap-4 py-10">
                 <Button
