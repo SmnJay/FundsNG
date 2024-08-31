@@ -13,6 +13,8 @@ import RecentActivity from '../Activity';
 import { CgChevronRight } from 'react-icons/cg';
 import { IoWalletOutline } from 'react-icons/io5';
 import { TfiShine } from 'react-icons/tfi';
+import { useQuery } from '@tanstack/react-query';
+import { dashboardApiService } from '@/app/utils/services/dashboard/dashboardApiService';
 
 type DashboardWrapperProps = {
     isProfileSetUp: boolean
@@ -20,6 +22,13 @@ type DashboardWrapperProps = {
 
 const DashboardWrapper: React.FC<DashboardWrapperProps> = ({ isProfileSetUp }) => {
     const [isEmpty, setIsEmpty] = useState(true);
+
+    const dashboardQuery = useQuery({
+        queryKey: ['dashboard'],
+        queryFn: dashboardApiService
+    });
+
+    console.log(dashboardQuery)
 
     return (
         <div>
@@ -31,10 +40,10 @@ const DashboardWrapper: React.FC<DashboardWrapperProps> = ({ isProfileSetUp }) =
                     </Link>
                 </div>
                     :
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 md:mt-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 md:mt-8 lg:w-3/4 2xl:w-2/3 lg:mx-auto">
                         <Cards
                             title='Total Donations made'
-                            amount={'1500387'}
+                            amount={dashboardQuery?.data?.donatedAmount}
                             icon={<FaHandHoldingHeart className='text-[#4591a1] text-2xl ' />}
                             bgColor='bg-[#E0FAFF]'
                             titleColor='text-white'
@@ -42,14 +51,14 @@ const DashboardWrapper: React.FC<DashboardWrapperProps> = ({ isProfileSetUp }) =
                         <Cards
                             bgColor='bg-[#2acd0f10]'
                             title={'Total Savings'}
-                            amount={'12500'}
+                            amount={dashboardQuery?.data?.savedAmount}
                             icon={<span className='border block rounded-md border-[#7fb42d]'><TfiShine className='text-2xl p-1 text-[#7fb42d]' /></span>}
                         />
                         <Cards
                             titleColor='text-black'
                             bgColor='bg-[#FFB0B030]'
                             title={'Wallet Balance'}
-                            amount={'28955'}
+                            amount={dashboardQuery?.data?.walletBalance}
                             amountColor={'text-black'}
                             icon={<IoWalletOutline className='text-2xl text-[#FF1414]' />}
                         />
