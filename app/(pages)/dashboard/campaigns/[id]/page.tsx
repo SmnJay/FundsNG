@@ -1,6 +1,7 @@
 'use client';
 
 import Breadcrumb from '@/app/components/Breadcrumb';
+import { ButtonLink } from '@/app/components/Button/Button';
 import Cards from '@/app/components/Cards';
 import ProgressBar from '@/app/components/ProgressBar';
 import Spinner from '@/app/components/Spinner/Spinner';
@@ -49,7 +50,7 @@ const SingleCampaign = () => {
   const { data: stopCampaign, isError: stopCampaignIsError, error: stopCampaignError, mutate, ...res } = useMutation({
     mutationKey: ['stop-campaign', id],
     mutationFn: stopCampaignApi,
-    onSuccess: (data) => {      
+    onSuccess: (data) => {
       if (data.success === false) {
         toast.error(data.message)
       } else {
@@ -164,7 +165,17 @@ const SingleCampaign = () => {
           </div>
 
           <div className="grid grid-cols-2 gap-4 mt-4">
-            <button className="rounded-md py-2 font-medium text-sm px-4 flex items-center justify-center gap-2 bg-leafGreen-20 text-white"><FiEdit /> Edit Campaign</button>
+            <ButtonLink
+              href={`${id}/edit`}
+              ariaLabel='link to edit campaign'
+              color='leafGreen'
+              cls='text-sm'
+              iconPosition='left'
+              // className="rounded-md py-2 font-medium text-sm px-4 flex items-center justify-center gap-2 bg-leafGreen-20 text-white"
+              name='Edit Campaign'
+              icon={<FiEdit />}
+
+            />
             <button className="rounded-md py-2 font-medium text-sm px-4 flex items-center justify-center gap-2 text-white bg-red-700" onClick={handleStopCampaign} disabled={res.isPending}> {res.isPending ? <Spinner /> : <><LiaTimesSolid /> End Campaign</>}</button>
             <button className="rounded-md py-2 font-medium text-sm px-4 flex items-center justify-center gap-2 col-span-2 text-leafGreen-5 bg-leafGreen-50"><IoMdShareAlt /> Share Campaign</button>
           </div>

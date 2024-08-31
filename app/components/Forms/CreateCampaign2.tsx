@@ -74,6 +74,7 @@ const CreateCampaign2: React.FC<CreateCampaign2Props> = ({ data, handleChange, h
                             onChange={handleValueChange}
                             useRange={false}
                             asSingle
+                            popoverDirection='down'
                             minDate={new Date()}
                             inputClassName={'bg-white peer w-full ring-0 !focus:ring-none !border-none !focus:border-none !outline-none !focus:outline-none'}
                             containerClassName={`${style.dateInput}`}

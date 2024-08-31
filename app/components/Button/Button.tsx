@@ -93,7 +93,10 @@ export const ButtonLink: React.FC<ButtonLinkProps> = ({ href, textColor, color, 
                     processing ?
                         <span className='block py-3 animate-pulse'>...sending</span>
                         :
-                        <span className={`py-3 duration-300 ease-in-out text-center flex items-center justify-center gap-1 ${iconPosition === 'left' && 'flex-row-reverse'}`}>{name}{icon}</span>
+                        <span className={`py-3 duration-300 ease-in-out text-center flex items-center justify-center gap-1 whitespace-nowrap ${iconPosition === 'left' && 'flex-row-reverse'}`}>
+                            <span className="">{name}</span>
+                            <span className="flex-shrink-0">{icon}</span>
+                        </span>
                 }
             </Link>
         </div>
