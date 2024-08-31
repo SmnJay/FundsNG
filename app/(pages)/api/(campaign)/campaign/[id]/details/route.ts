@@ -14,7 +14,10 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     try {
         const url = `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/Campaign/${id}/Detalis`
+        
         const response = await axios.get(url, { headers });
+
+        console.log(response)
 
         return NextResponse.json(response.data.data, { status: 200 })
     } catch (error: any) {

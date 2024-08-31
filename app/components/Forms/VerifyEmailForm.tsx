@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { WhiteLogo } from '../Logo/Logo'
 import Input from '../Input/Input'
 import Button from '../Button/Button'
@@ -14,12 +14,27 @@ const VerifyEmailForm = () => {
     const searchParams = useSearchParams();
     const router = useRouter();
 
-    const email = searchParams.get('email') as string;
-    const token = searchParams.get('token') as string;
+    console.log(searchParams)
+
+    const [email, setEmail] = useState('');
+    const [token, setToken] = useState('');
+
+    console.log({ email, token })
+
+    useEffect(() => {
+        const emailParam = searchParams.get('email');
+        const tokenParam = searchParams.get('token');
+
+        if (emailParam) setEmail(emailParam);
+        if (tokenParam) setToken(tokenParam);
+    }, [searchParams]);
+
+    console.log({ email, token });
 
     const formData = {
-        email, token
-    }
+        email,
+        token
+    };
 
     const verifyEmailMutation = useMutation({
         mutationKey: ['verify-email'],
@@ -40,8 +55,9 @@ const VerifyEmailForm = () => {
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         verifyEmailMutation.mutate(formData)
-
     }
+
+
 
     return (
         <form
