@@ -80,8 +80,6 @@ const VerifyEmailForm = () => {
         verifyEmailMutation.mutate(formData)
     };
 
-    console.log(token)
-
     return (
         <form
             onSubmit={handleSubmit}
@@ -106,7 +104,7 @@ const VerifyEmailForm = () => {
                 />
             </div>
             <div className="flex justify-end items-center">
-                <button type='button' onClick={handleResendEmailVerification} className='text-right text-white leading-loose mt-4' style={{ margin: '0 auto 0 0' }}>{resendEmailMutation.isPending ? 'sending...' : 'Resend Verification Link'}</button>
+                <button type='button' onClick={handleResendEmailVerification} className='text-right text-white leading-loose mt-1'>{resendEmailMutation.isPending ? 'sending...' : 'Resend Verification Link'}</button>
             </div>
 
             <div className="flex flex-col gap-4 py-10">
