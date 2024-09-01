@@ -36,3 +36,11 @@ const ProfileLoader = () => {
 }
 
 export default ProfileLoader;
+
+const CardLoader = () => {
+    return (
+        <span className="bg-appGrey animate-pulse inline-block rounded-lg h-2 w-full"></span>
+    )
+}
+
+export { CardLoader }

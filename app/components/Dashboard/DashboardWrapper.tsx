@@ -28,8 +28,6 @@ const DashboardWrapper: React.FC<DashboardWrapperProps> = ({ isProfileSetUp }) =
         queryFn: dashboardApiService
     });
 
-    console.log(dashboardQuery)
-
     return (
         <div>
             {
@@ -47,12 +45,14 @@ const DashboardWrapper: React.FC<DashboardWrapperProps> = ({ isProfileSetUp }) =
                             icon={<FaHandHoldingHeart className='text-[#4591a1] text-2xl ' />}
                             bgColor='bg-[#E0FAFF]'
                             titleColor='text-white'
+                            loading={dashboardQuery.isLoading}
                         />
                         <Cards
                             bgColor='bg-[#2acd0f10]'
                             title={'Total Savings'}
                             amount={dashboardQuery?.data?.savedAmount}
                             icon={<span className='border block rounded-md border-[#7fb42d]'><TfiShine className='text-2xl p-1 text-[#7fb42d]' /></span>}
+                            loading={dashboardQuery.isLoading}
                         />
                         <Cards
                             titleColor='text-black'
@@ -61,6 +61,7 @@ const DashboardWrapper: React.FC<DashboardWrapperProps> = ({ isProfileSetUp }) =
                             amount={dashboardQuery?.data?.walletBalance}
                             amountColor={'text-black'}
                             icon={<IoWalletOutline className='text-2xl text-[#FF1414]' />}
+                            loading={dashboardQuery.isLoading}
                         />
                     </div>
             }
