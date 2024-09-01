@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
 import Modal from './Modal'
 import Input, { InputNumber, InputSelect } from '../Input/Input'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { getBankAccountsApiService } from '@/app/utils/services/bankAccount/bankAccountApiService'
 import Button from '../Button/Button'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { linkCampaignToBankApiService } from '@/app/utils/services/campaign/campaignApiService'
+import { toast } from 'react-toastify'
+import { useParams, useSearchParams } from 'next/navigation'
 
 type Props = {
     isOpen: boolean
@@ -18,12 +21,32 @@ const AddBankDetailsModal = ({ isOpen, onClose }: Props) => {
         bankCode: '',
         accountNumber: '',
         bvn: '',
+        campaignId: ''
     });
+
+    const params = useParams();
 
     const bankNames = useQuery({
         queryKey: ['banks'],
         queryFn: getBankAccountsApiService
     });
+
+    const linkAccount = useMutation({
+        mutationKey: ['link-account'],
+        mutationFn: linkCampaignToBankApiService,
+        onError: (error) => {
+            toast.error(error.message)
+        },
+        onSuccess(data) {
+            if (data.success === false) {
+                toast.error(data.message);
+
+            } else {
+                toast.success(data.message);
+                onClose();
+            }
+        },
+    })
 
     const bankOptions = bankNames.data?.map((banks: { name: string }) => {
         return ({
@@ -46,7 +69,13 @@ const AddBankDetailsModal = ({ isOpen, onClose }: Props) => {
 
     const isSubmit = async (e: any) => {
         e.preventDefault();
-        console.log(formData)
+        setFormData((prev) => ({
+            ...prev,
+            campaignId: params.id as string
+        }))
+
+        console.log(formData);
+        linkAccount.mutate(formData);
     }
 
     return (
@@ -111,7 +140,7 @@ const AddBankDetailsModal = ({ isOpen, onClose }: Props) => {
 
                     <div className="flex items-center gap-4">
                         <Button name='Close' ariaLabel='Button to close this modal' onClick={onClose} color='grey' cls='w-full' />
-                        <Button name='Add' ariaLabel='Button to add account' type='submit' color='primary' cls='w-full' />
+                        <Button name='Add' ariaLabel='Button to add account' processing={linkAccount.isPending} type='submit' color='primary' cls='w-full' />
                     </div>
                 </div>
             </form>

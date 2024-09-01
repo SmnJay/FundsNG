@@ -65,3 +65,12 @@ export const stopCampaignApi = async (id: string) => {
         throw new Error(error.respomnse?.data?.message) || "Failed to stop campaign. Please, try again."
     }
 }
+
+export const linkCampaignToBankApiService = async (data: any) => {
+    try {
+        const response = await axios.post('/api/campaign/link-account', data);
+        return response.data
+    } catch (error: any) {
+        throw new Error(error.response?.data?.message || 'Failed to link account to campaign. Please try again.');
+    }
+}
