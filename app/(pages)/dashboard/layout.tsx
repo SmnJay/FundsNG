@@ -11,7 +11,7 @@ const AppLayout = async ({ children }: Readonly<{
   const session = await getServerSession(authOptions);
 
   if (!session?.user.emailConfirmed) {
-    redirect('/verify-otp')
+    redirect('/verify-email')
   }
 
   return (
