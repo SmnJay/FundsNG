@@ -4,6 +4,7 @@ import Breadcrumb from '@/app/components/Breadcrumb'
 import Button from '@/app/components/Button/Button';
 import Input, { InputSelect, InputTextArea } from '@/app/components/Input/Input'
 import ProfileLoader from '@/app/components/Loader/Loader';
+import { PiBankFill } from "react-icons/pi";
 import completeRegistrationSchema, { CompleteRegistrationSchema } from '@/app/schemaa/completeRegistrationSchema';
 import updateProfileSchema, { UpdateProfileSchema } from '@/app/schemaa/updateProfileSchema';
 import ProfilePictureGenerator from '@/app/utils/helper/ProfilePictureGenerator';
@@ -11,10 +12,19 @@ import useFormValidation from '@/app/utils/hooks/useFormValidation';
 import { ICompleteProfile, ICompleteRegistration } from '@/app/utils/models/Model';
 import { getProfileApiService, updateProfileApiService } from '@/app/utils/services/profile/profileApiService'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import React from 'react'
+import React, { useState } from 'react'
 import { toast } from 'react-toastify';
+import Modal from '@/app/components/Modal/Modal';
+import { getBankAccountsApiService } from '@/app/utils/services/bankAccount/bankAccountApiService';
+import AddBankDetailsModal from '@/app/components/Modal/AddBankDetailsModal';
 
 const Profile = () => {
+  const [showAddBankDetailsModal, setShowAddBankDetailsModal] = useState(false);
+
+  const handleShowAddBankDetailModal = () => {
+    setShowAddBankDetailsModal(!showAddBankDetailsModal);
+  }
+
   const profileQuery = useQuery({
     queryKey: ['profile'],
     queryFn: getProfileApiService,
@@ -53,20 +63,17 @@ const Profile = () => {
 
   const submit = async (data: ICompleteProfile) => {
     const formData = {
-      ...data, 
+      ...data,
       profilePictureUrl: "string",
       dob: "2000-08-11T19:04:52.205Z"
     }
     profileMutation.mutate(formData)
-
-
-
   }
 
   return (
     <>
       <Breadcrumb items={items} />
-      {
+      {/* {
         profileQuery?.isFetching ?
           <ProfileLoader />
           :
@@ -98,24 +105,25 @@ const Profile = () => {
                 <Input where='app' label='Password' readOnly placeholder='*************' error='' name='password' type='password' />
               </div>
             </div>
-            {/* <div className="flex items-start justify-between">
-          <span className="text-sm font-medium">About Me</span>
-          <div className="flex-shrink-0 grid grid-cols-2 items-center">
-          <InputTextArea where='app' label={'Bio'} error='' placeholder='Enter your bio here' name='bio' />
-          </div>
-          </div> */}
-            {/* <div className="md:flex items-start justify-between hidden">
-          <span className="text-sm font-medium">Social LInks</span>
-          <div className="md:w-[74%] max-md:mt-2 flex-shrink-0 grid grid-cols-2 items-center gap-2">
-          <Input where='app' label='First Name' placeholder='Ajoji' error='' name='' type='' />
-          <Input where='app' label='Last Name' placeholder='Laye' error='' name='' type='' />
-          </div>
-          </div> */}
+           
             <div className="flex justify-end mt-6">
               <Button cls='' type='submit' processing={profileMutation.isPending} ariaLabel='Button to update your profile information' name='Update' color='primary' />
             </div>
           </form>
-      }
+
+      } */}
+
+      <section className='mt-4 max-w-screen-md mr-auto bg-white rounded-lg p-6 border'>
+        <h2 className="font-semibold text-lg">Bank Details</h2>
+        <div className="mt-8"></div>
+        <PiBankFill className='border rounded-full mx-auto p-2' color='#979A93' size={110} />
+        <p className="text-center text-[#899192] leading-loose text-sm mt-6 mb-4">Link Bank Account for Withdrawal</p>
+        <div className="flex items-center justify-center">
+          <Button onClick={handleShowAddBankDetailModal} name='Link Account' color='leafGreen' type='button' ariaLabel='button to link your bank account' />
+        </div>
+      </section>
+
+      <AddBankDetailsModal isOpen={showAddBankDetailsModal} onClose={handleShowAddBankDetailModal} />
     </>
   )
 }
