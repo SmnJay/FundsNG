@@ -32,8 +32,6 @@ const VerifyEmailForm = () => {
         token
     };
 
-    console.log({ email, token, searchParams })
-
     const verifyEmailMutation = useMutation({
         mutationKey: ['verify-email'],
         mutationFn: verifyEmailApiService,
@@ -45,7 +43,8 @@ const VerifyEmailForm = () => {
                 toast.error(data.message);
             } else {
                 toast.success(data.message);
-                router.push('/signin')
+                alert('asdfads')
+                router.push('/ready')
             }
         },
     });

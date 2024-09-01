@@ -22,9 +22,9 @@ export default withAuth(
                     return false;
                 }
 
-                if (req.nextUrl.pathname.startsWith("/ready") && token === null) {
-                    return false;
-                }
+                // if (req.nextUrl.pathname.startsWith("/ready") && token === null) {
+                //     return false;
+                // }
 
                 // if (req.nextUrl.pathname.startsWith("/verify-email") && token === null) {
                 //     return false;
@@ -36,5 +36,5 @@ export default withAuth(
     });
 
 export const config = {
-    matcher: ["/dashboard", "/settings", "/ready", "/complete-profile"],
+    matcher: ["/dashboard", "/settings", "/complete-profile"],
 };

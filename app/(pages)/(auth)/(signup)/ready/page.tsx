@@ -1,9 +1,14 @@
+import { authOptions } from '@/app/(pages)/api/auth/[...nextauth]/options'
 import { ButtonLink } from '@/app/components/Button/Button'
 import { WhiteLogo } from '@/app/components/Logo/Logo'
+import { getServerSession } from 'next-auth'
 import Image from 'next/image'
 import React from 'react'
 
-const Ready = () => {
+const Ready = async () => {
+    const session = await getServerSession(authOptions);
+    console.log(session);
+    
     return (
         <div className="mx-auto max-w-[500px] px-4 py-8 md:p-8 relative">
             <div>
@@ -11,7 +16,6 @@ const Ready = () => {
             </div>
             <h6 className="text-white font-semibold text-center text-xl md:text-3xl leading-loose font-bvp">Your account is ready</h6>
             <p className="text-sm md:text-base text-center text-white">Welcome to the online platform for fundraising and efficient saving towards goals</p>
-
 
             <div className="flex gap-4 py-10">
                 <ButtonLink cls='basis-1/2' href='/complete-profile' name="Setup Profile" ariaLabel="Setup Profile" color="white" />
