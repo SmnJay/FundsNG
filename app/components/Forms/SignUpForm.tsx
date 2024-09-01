@@ -101,7 +101,7 @@ const SignUpForm = () => {
                     <p className="text-sm md:text-base text-left">We sent a link to your email. Kindly check to verify your acount.</p>
 
                     <div>
-                        <Image src={'/images/verify-email.gif'} width={253} className='mx-auto' height={253} alt={'Envelope representing email sent to the mailbox'} />
+                        <Image src={'/images/verify-email.gif'} width={253} className='mx-auto' height={253} alt={'Envelope representing email sent to the mailbox'} unoptimized/>
                     </div>
 
                     <div className="flex flex-col gap-4 py-10">

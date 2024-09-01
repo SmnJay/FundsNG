@@ -7,7 +7,7 @@ const Ready = () => {
     return (
         <div className="mx-auto max-w-[500px] px-4 py-8 md:p-8 relative">
             <div>
-                <Image src={'/images/check.gif'} width={253} className='mx-auto' height={253} alt={'check mark in a circle'} />
+                <Image src={'/images/check.gif'} width={253} className='mx-auto' height={253} alt={'check mark in a circle'} unoptimized />
             </div>
             <h6 className="text-white font-semibold text-center text-xl md:text-3xl leading-loose font-bvp">Your account is ready</h6>
             <p className="text-sm md:text-base text-center text-white">Welcome to the online platform for fundraising and efficient saving towards goals</p>

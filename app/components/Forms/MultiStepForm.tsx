@@ -120,7 +120,6 @@ const MultiStepForm = () => {
         }
         createCampaign.mutate(formData as any)
 
-        // toast.success('Congratulations')
     }
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -171,10 +170,9 @@ const MultiStepForm = () => {
                             </button>
                             :
                             <button onClick={handleSubmit} disabled={createCampaign.isPending} className="bg-leafGreen-20 hover:bg-leafGreen-30 text-sm text-white font-medium py-2 px-12 rounded">
-                                {createCampaign.isPending ? <Spinner /> : 'Submit'}
+                                {createCampaign.isPending ? <Spinner /> : 'Create'}
                             </button>
                         }
-
                     </div>
 
                     <Modal isOpen={showSubmitModal} bgColor='bg-[#FCFDFC]' onClose={handleToggleModal}>

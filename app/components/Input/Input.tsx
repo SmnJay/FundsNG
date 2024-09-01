@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useState } from 'react';
 import style from './InputField.module.css';
 
 interface IInput extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -12,6 +12,8 @@ interface IInput extends React.InputHTMLAttributes<HTMLInputElement> {
     where?: 'auth' | 'app'
     readonly?: boolean
     formatWithCommas?: boolean;
+    defaultValue?: string
+    onValueChange?: (value: string) => void;
 }
 
 interface TextArea extends React.InputHTMLAttributes<HTMLTextAreaElement> {
@@ -105,6 +107,43 @@ export const InputTextArea = forwardRef<HTMLTextAreaElement, TextArea>(
     }
 );
 
+export const InputNumber = forwardRef<HTMLInputElement, IInput>(
+    ({ name, label, autoComplete, defaultValue = '', placeholder, onValueChange, error, accept, where, ...props }, ref) => {
+        const [value, setValue] = useState(defaultValue);
+        const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+            const newValue = event.target.value;
+            // Use a regular expression to ensure the value is numeric
+            if (newValue === '' || /^\d+$/.test(newValue)) {
+                setValue(newValue);
+                if (onValueChange) {
+                    onValueChange(newValue); // Call the external onChange handler if it exists
+                }
+            }
+        };
+
+        return (
+            <div className={`relative}`}>
+                <div className={`form-group rounded-lg ${where === 'auth' ? 'bg-primary-30' : 'bg-white'} border ${error ? '!border-red-400 border-2' : ''} px-3 py-2 ${where === 'auth' ? style.container : style.containerApp}`}>
+                    <label htmlFor={name} className={`block text-sm ${where === 'auth' ? 'text-primary-20' : 'text-[#979FA0]'}`}>{label}</label>
+                    <input
+                        {...props}
+                        ref={ref}
+                        accept={accept}
+                        name={name}
+                        value={value}
+                        type='text'
+                        autoComplete={autoComplete || 'off'}
+                        onChange={handleChange}
+                        className={`peer w-full ${where === 'auth' ? 'text-white placeholder:text-white/70' : 'text-[#6B7172] placeholder:text-[#6b7172]'} appearance-none bg-transparent focus:border-none focus:ring-none focus:outline-none [&::-webkit-inner-spin-button]:appearance-none`}
+                        placeholder={placeholder}
+                    />
+                </div>
+                {error && <span className="text-red-400 text-sm px-1">{error}</span>}
+            </div>
+        )
+    }
+)
+
 export const InputSelect = forwardRef<HTMLSelectElement, ISelect>(({ placeholder, name, options, label, where, error, ...props }, ref) => {
     return (
         <div className='relative'>
@@ -131,4 +170,5 @@ export const InputSelect = forwardRef<HTMLSelectElement, ISelect>(({ placeholder
 
 Input.displayName = 'Input';
 InputTextArea.displayName = 'InputTextArea';
-InputSelect.displayName = 'InputSelect'
+InputSelect.displayName = 'InputSelect';
+InputNumber.displayName = 'InputNumber';

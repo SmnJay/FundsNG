@@ -3,6 +3,8 @@
 import Breadcrumb from '@/app/components/Breadcrumb';
 import { ButtonLink } from '@/app/components/Button/Button';
 import Cards from '@/app/components/Cards';
+import { CardLoader } from '@/app/components/Loader/Loader';
+import AddBankDetailsModal from '@/app/components/Modal/AddBankDetailsModal';
 import ProgressBar from '@/app/components/ProgressBar';
 import Spinner from '@/app/components/Spinner/Spinner';
 import calculateDaysLeft from '@/app/utils/helper/deadlineCalculator';
@@ -13,8 +15,8 @@ import { getSingleCampaign, getSingleCampaignDetail, stopCampaignApi } from '@/a
 import { useMutation, useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation'
-import React, { Fragment } from 'react'
-import { BiSolidHourglass, BiSolidStopwatch } from 'react-icons/bi';
+import React, { Fragment, useState } from 'react'
+import { BiPlus, BiSolidHourglass, BiSolidStopwatch } from 'react-icons/bi';
 import { FiEdit } from 'react-icons/fi';
 import { GoGoal } from 'react-icons/go';
 import { HiOutlineUser } from 'react-icons/hi2';
@@ -35,13 +37,19 @@ const SingleCampaign = () => {
 
   const campaignId = Array.isArray(id) ? id[0] : id
 
+  const [showAddAccountModal, setShowAddAccountModal] = useState(false);
+
+  const handleShowAddAccountModal = () => {
+    setShowAddAccountModal(!showAddAccountModal)
+  }
+
   const { data, isError, error, isFetching, isLoading } = useQuery<ICampaign>({
     queryKey: ['campaign', id],
     queryFn: () => getSingleCampaign(campaignId),
     enabled: !!campaignId
   });
 
-  const { data: CampaignDetail, isError: isCampaignDetailError } = useQuery<ICampaignDetails>({
+  const { data: CampaignDetail, isError: isCampaignDetailError, isLoading: isCampaignDetailLoading } = useQuery<ICampaignDetails>({
     queryKey: ['campaign-detail', id],
     queryFn: () => getSingleCampaignDetail(campaignId),
     enabled: !!campaignId
@@ -85,11 +93,14 @@ const SingleCampaign = () => {
               amount={<>&#8358; {moneyFormatter(CampaignDetail?.donatedAmount as unknown as string)}</>}
               bgColor='bg-leafGreen-5'
               icon={<TbMoneybag className='text-white h-6 w-6 md:h-10 md:w-10' />}
+              loading={isCampaignDetailLoading}
             />
             <Cards
               title='Number of people who donate'
+              bgColor='bg-primary'
               amount={CampaignDetail?.numberOfDonations as unknown as string}
               icon={<HiOutlineUser className='text-white h-6 w-6 md:h-10 md:w-10' />}
+              loading={isCampaignDetailLoading}
             />
           </div>
           <div className='mt-4 space-y-2'>
@@ -120,13 +131,13 @@ const SingleCampaign = () => {
               getPathname('campaign-det') === 'recent-activity' ? (
                 <div className="bg-white rounded-lg p-4">
                   <h3 className="font-semibold">Recent Activity</h3>
-                  <Image src='/images/no-notification.gif' width={300} className='mx-auto' height={300} alt='' />
+                  <Image src='/images/no-notification.gif' width={300} className='mx-auto' height={300} alt='' unoptimized />
                   <p className="text-center max-w-md mx-auto text-[#535758]">Looks like you do not have any ongoing campaigns. Try creating one to get started.</p>
                 </div>
               ) : getPathname('campaign-det') !== 'recent-activity' ? (
                 <div className="bg-white rounded-lg p-4">
                   <h3 className="font-semibold">Donation Update</h3>
-                  <Image src='/images/no-notification.gif' width={300} className='mx-auto' height={300} alt='' />
+                  <Image src='/images/no-notification.gif' width={300} className='mx-auto' height={300} unoptimized alt='' />
                   <p className="text-center max-w-md mx-auto text-[#535758]">Looks like you do not have any ongoing campaigns. Try creating one to get started.</p>
                 </div>
               ) : null
@@ -139,27 +150,46 @@ const SingleCampaign = () => {
             <div className="">
               <Image src={'/images/underbridge.png'} className='rounded-lg' width={300} height={120} style={{ width: '100%' }} alt='' />
             </div>
-            <h3 className="text-leafGreen-20 mt-1 mb-2 text-base md:text-lg font-semibold">{data?.name}</h3>
-            <p className="text-sm text-[#5F655E]">{data?.description}</p>
+            <h3 className="text-leafGreen-20 mt-1 mb-2 text-base md:text-lg font-semibold">{isLoading ? <CardLoader /> : data?.name}</h3>
+            <p className="text-sm text-[#5F655E]">{isLoading ? <CardLoader /> : data?.description}</p>
           </div>
 
           <div className="bg-white text-[#5f6553] rounded-lg py-6 px-3 mt-3">
             <div className="grid text-sm grid-cols-3 gap-1 mb-8">
               <div className="space-y-2">
                 <div className="text-sm flex items-center gap-1"><GoGoal /> Our Goal</div>
-                <div className="text-base font-medium">&#8358; {data?.targetAmount ? moneyFormatter(data?.targetAmount) : 0.00}</div>
+                <div className="text-base font-medium">
+                  {
+                    isLoading ? <CardLoader /> : (data?.targetAmount ? `₦${moneyFormatter(data?.targetAmount)}` : 0.00)
+                  }
+                </div>
               </div>
               <div className="space-y-2">
                 <div className="text-sm flex items-center gap-1"><BiSolidHourglass /> Duration</div>
-                <div className="text-base font-medium">{data?.endDate ? `${calculateDaysLeft(data?.endDate)} Days left` : 'Now'}</div>
+                <div className="text-base font-medium">
+                  {
+                    isLoading ? <CardLoader /> : (data?.endDate ? `${calculateDaysLeft(data?.endDate)} Days left` : 'Now')
+                  }
+                </div>
               </div>
               <div className="space-y-2">
                 <div className="text-sm flex items-center gap-1"><BiSolidStopwatch /> Ending Date</div>
-                <div className="text-base font-medium">{data?.endDate.slice(0, 10)}</div>
+                <div className="text-base font-medium">
+                  {
+                    isLoading ? <CardLoader /> : data?.endDate.slice(0, 10)
+                  }
+                </div>
               </div>
             </div>
             <ProgressBar value={1} />
-            <span className="text-sm text-center block mt-2">{CampaignDetail && CampaignDetail?.numberOfDonors < 1 ? 'No one has donated so far' : `${CampaignDetail?.numberOfDonors} people have donated thus far`} </span>
+            <span className="text-sm text-center block mt-2">
+              {
+                isCampaignDetailLoading ? <CardLoader /> :
+                  (CampaignDetail && CampaignDetail?.numberOfDonors < 1
+                    ? 'No one has donated so far' :
+                    `${CampaignDetail?.numberOfDonors} people have donated thus far`)
+              }
+            </span>
           </div>
 
           <div className="grid grid-cols-2 gap-4 mt-4">
@@ -175,11 +205,14 @@ const SingleCampaign = () => {
 
             />
             <button className="rounded-md py-2 font-medium text-sm px-4 flex items-center justify-center gap-2 text-white bg-red-700" onClick={handleStopCampaign} disabled={res.isPending}> {res.isPending ? <Spinner /> : <><LiaTimesSolid /> End Campaign</>}</button>
-            <button className="rounded-md py-2 font-medium text-sm px-4 flex items-center justify-center gap-2 col-span-2 text-leafGreen-5 bg-leafGreen-50"><IoMdShareAlt /> Share Campaign</button>
+            <button type='button' onClick={handleShowAddAccountModal} className="rounded-md py-2 font-medium text-sm px-4 flex items-center justify-center gap-2 text-white bg-primary"><BiPlus />Add Account</button>
+            <button className="rounded-md py-2 font-medium text-sm px-4 flex items-center justify-center gap-2 text-leafGreen-5 bg-leafGreen-50"><IoMdShareAlt /> Share Campaign</button>
           </div>
         </div>
 
       </div>
+
+      <AddBankDetailsModal isOpen={showAddAccountModal} onClose={handleShowAddAccountModal} />
     </Fragment>
   )
 }
