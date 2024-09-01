@@ -32,6 +32,8 @@ const VerifyEmailForm = () => {
         token
     };
 
+    console.log({ email, token, searchParams })
+
     const verifyEmailMutation = useMutation({
         mutationKey: ['verify-email'],
         mutationFn: verifyEmailApiService,
