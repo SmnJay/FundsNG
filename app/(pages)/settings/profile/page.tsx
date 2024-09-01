@@ -73,7 +73,7 @@ const Profile = () => {
   return (
     <>
       <Breadcrumb items={items} />
-      {/* {
+      {
         profileQuery?.isFetching ?
           <ProfileLoader />
           :
@@ -105,13 +105,13 @@ const Profile = () => {
                 <Input where='app' label='Password' readOnly placeholder='*************' error='' name='password' type='password' />
               </div>
             </div>
-           
+
             <div className="flex justify-end mt-6">
               <Button cls='' type='submit' processing={profileMutation.isPending} ariaLabel='Button to update your profile information' name='Update' color='primary' />
             </div>
           </form>
 
-      } */}
+      }
 
       <section className='mt-4 max-w-screen-md mr-auto bg-white rounded-lg p-6 border'>
         <h2 className="font-semibold text-lg">Bank Details</h2>
