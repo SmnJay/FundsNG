@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Modal from './Modal'
 import Input, { InputNumber, InputSelect } from '../Input/Input'
 import { useMutation, useQuery } from '@tanstack/react-query'
@@ -42,7 +42,7 @@ const AddBankDetailsModal = ({ isOpen, onClose }: Props) => {
                 toast.error(data.message);
 
             } else {
-                toast.success(data.message);
+                toast.success(data);
                 onClose();
             }
         },
@@ -66,17 +66,20 @@ const AddBankDetailsModal = ({ isOpen, onClose }: Props) => {
             }
         }
     }
+    useEffect(() => {
+        if (formData.campaignId) {
+            linkAccount.mutate(formData);
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [formData.campaignId]); // Dependency on campaignId
 
-    const isSubmit = async (e: any) => {
+    const isSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setFormData((prev) => ({
             ...prev,
             campaignId: params.id as string
-        }))
-
-        console.log(formData);
-        linkAccount.mutate(formData);
-    }
+        }));
+    };
 
     return (
         <Modal isOpen={isOpen} onClose={onClose}>
