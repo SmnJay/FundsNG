@@ -43,8 +43,7 @@ const VerifyEmailForm = () => {
                 toast.error(data.message);
             } else {
                 toast.success(data.message);
-                alert('asdfads')
-                router.push('/ready')
+                router.push('/signin')
             }
         },
     });

@@ -5,12 +5,14 @@ import Avatar from '../UserProfilePicture';
 import Link from 'next/link';
 
 const UserProfile = () => {
-    const session = useSession();
+    const { data: session, status, ...res } = useSession();
+    
+    console.log({status, res})
     const showUserInfo = () => {
-        if (session?.data?.user?.fullname) {
-            return session?.data?.user?.fullname
+        if (session?.user?.fullname) {
+            return session.user.fullname;
         }
-        return session?.data?.user?.username
+        return session?.user?.username;
     }
 
     return (

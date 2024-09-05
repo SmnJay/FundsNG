@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react'
+import React, { useState } from 'react'
 import { WhiteLogo } from '../Logo/Logo'
 import Input from '../Input/Input'
 import Button, { ButtonLink } from '../Button/Button'
@@ -10,11 +10,8 @@ import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link';
 
-interface Props {
-    email: string
-}
-
-const ForgotPasswordForm: React.FC<Props> = ({ email }) => {
+const ForgotPasswordForm: React.FC = () => {
+    const [email, setEmail] = useState('');
 
     const router = useRouter();
 
@@ -58,7 +55,7 @@ const ForgotPasswordForm: React.FC<Props> = ({ email }) => {
                     placeholder='Enter Email Address'
                     autoComplete='off'
                     error=''
-                    defaultValue={email}
+                    onChange={(e) => setEmail(e.target.value)}
                 />
             </div>
 
