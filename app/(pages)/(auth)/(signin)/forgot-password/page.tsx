@@ -7,7 +7,7 @@ const ForgotPassword = async () => {
   const session = await getServerSession(authOptions);
 
   return (
-    <ForgotPasswordForm email={session?.user?.username as string} />
+    <ForgotPasswordForm />
   )
 }
 
