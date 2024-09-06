@@ -39,6 +39,7 @@ export interface ICampaign {
     country: string
     state: string
     mobile: string
+    status: string
     name: string
     targetAmount: number
     description: string

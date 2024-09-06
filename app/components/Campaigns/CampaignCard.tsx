@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import Status from '../Status/Status'
+import { dateFormatter } from '@/app/utils/helper/dateFormatter'
 
 type CampaignCardProps = {
     link: string
@@ -18,7 +19,7 @@ const CampaignCard: React.FC<CampaignCardProps> = ({ status, link, imageSrc, dat
                 <Image src={imageSrc} width={300} height={120} style={{ width: '100%' }} alt='' />
                 <h6 className="text-[#3f4343] font-semibold">{title}</h6>
                 <div className="flex items-center gap-2">
-                    <span className="text-[#888f87] text-xs">Created {dateCreated}</span>
+                    <span className="text-[#888f87] text-xs">Created {dateFormatter(dateCreated)}</span>
                     <Status status={status} />
                 </div>
             </div>

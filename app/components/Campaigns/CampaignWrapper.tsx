@@ -17,7 +17,15 @@ const CampaignWrapper = () => {
         <>
             {
                 campaignQuery?.isLoading ?
-                    <CampaignLoader /> :
+                    <>
+                        {
+                            Array.from({ length: 2 }, (_, index) => (
+                                <CampaignLoader key={index} />
+                            ))
+                        }
+
+                    </>
+                    :
                     campaignQuery?.data?.length < 1 ? <EmptyCampaignView /> : <CampaignDashboard data={campaignQuery?.data} />
             }
         </>

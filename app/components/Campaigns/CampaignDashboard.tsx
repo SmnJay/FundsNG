@@ -31,7 +31,7 @@ const CampaignDashboard: React.FC<CampaignDashboardProps> = ({ data }) => {
                         return (
                             <CampaignCard
                                 key={campaign.id}
-                                status='active'
+                                status={campaign.status}
                                 link={`/dashboard/campaigns/${campaign.id}`}
                                 title={campaign.name}
                                 dateCreated={campaign.endDate.slice(0, 10)}

@@ -7,6 +7,7 @@ import { CardLoader } from '@/app/components/Loader/Loader';
 import AddBankDetailsModal from '@/app/components/Modal/AddBankDetailsModal';
 import ProgressBar from '@/app/components/ProgressBar';
 import Spinner from '@/app/components/Spinner/Spinner';
+import { dateFormatter } from '@/app/utils/helper/dateFormatter';
 import calculateDaysLeft from '@/app/utils/helper/deadlineCalculator';
 import moneyFormatter from '@/app/utils/helper/moneyFormatter';
 import useUpdateParams from '@/app/utils/hooks/useUpdateParams';
@@ -176,7 +177,7 @@ const SingleCampaign = () => {
                 <div className="text-sm flex items-center gap-1"><BiSolidStopwatch /> Ending Date</div>
                 <div className="text-base font-medium">
                   {
-                    isLoading ? <CardLoader /> : data?.endDate.slice(0, 10)
+                    isLoading ? <CardLoader /> : dateFormatter(data?.endDate.slice(0, 10) as unknown as string)
                   }
                 </div>
               </div>

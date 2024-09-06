@@ -16,7 +16,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
             `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/Campaign`, body, { headers }
         );
 
-        return NextResponse.json(response.data.message, { status: 200 });
+        return NextResponse.json(response.data, { status: 200 });
     } catch (error: any) {
         const err = error.response.data.message;
         return NextResponse.json(err, { status: error.response.status });
