@@ -31,6 +31,24 @@ export interface FormData {
     // bvn: number | null;
 }
 
+export interface EditFormData {
+    id: string
+    name: string;
+    description: string;
+    binaryString?: File | string;  // Indicates that it can be a File or undefined
+    mediaUrl: string;
+    targetAmount: number;
+    endDate: DateType;
+    campaignCategoryId: string;
+    mobile: string;
+    state: string;
+    country: string;
+    agreementSigned: boolean
+    // bank_name: string;
+    // account_number: number | null;
+    // bvn: number | null;
+}
+
 const MultiStepForm = () => {
     const [currentStep, setCurrentStep] = useState(1);
     const [showSubmitModal, setShowSubmitModal] = useState(false);

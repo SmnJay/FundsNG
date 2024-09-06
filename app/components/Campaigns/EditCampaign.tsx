@@ -3,7 +3,7 @@
 import { useParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation';
-import { FormData } from '../Forms/MultiStepForm';
+import { EditFormData, FormData } from '../Forms/MultiStepForm';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { editCampaignApiService, getCampaignCategoriesApiService, getSingleCampaign, getSingleCampaignDetail } from '@/app/utils/services/campaign/campaignApiService';
@@ -15,9 +15,9 @@ import EditCampaign2 from '../Forms/EditCampaign2';
 const EditCampaign = () => {
     const params = useParams();
     const { id } = params;
-
     const [currentStep, setCurrentStep] = useState(1);
-    const [formData, setFormData] = useState<FormData>({
+    const [formData, setFormData] = useState<EditFormData>({
+        id: id as string,
         name: '',
         description: '',
         mediaUrl: '',
@@ -45,14 +45,15 @@ const EditCampaign = () => {
         onError: (error) => {
             toast.error('Failed to update campaign');
         },
-        onSuccess: () => {
-            toast.success('Campaign updated successfully');
+        onSuccess: (data) => {
+            toast.success(data ?? 'Campaign updated successfully');
             router.push('/dashboard/campaigns');
         },
     });
 
     const handleSubmit = (e: any) => {
         e.preventDefault();
+
         editCampaign.mutate(formData as any);
     };
 
@@ -107,6 +108,7 @@ const EditCampaign = () => {
     useEffect(() => {
         if (singleCampaignData) {
             setFormData({
+                id: id as string,
                 name: singleCampaignData.name,
                 description: singleCampaignData.description,
                 mediaUrl: singleCampaignData.mediaUrl,

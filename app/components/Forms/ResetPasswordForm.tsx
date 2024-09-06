@@ -18,6 +18,8 @@ interface Props {
 
 const ResetPasswordForm: React.FC<Props> = ({ email }) => {
 
+    console.log({ email })
+
     const { handleSubmit, errors, register } = useFormValidation<ResetPasswordSchema>(schema, 'onTouched');
 
     const searchParams = useSearchParams();

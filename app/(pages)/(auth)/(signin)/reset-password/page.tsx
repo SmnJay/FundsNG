@@ -6,6 +6,8 @@ import React from 'react'
 const ResetPassword = async () => {
   const session = await getServerSession(authOptions);
 
+  console.log(session, 'aaa')
+
   return (
     <ResetPasswordForm email={session?.user?.username as string} />
   )
