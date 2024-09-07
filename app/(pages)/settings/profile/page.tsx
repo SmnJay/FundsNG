@@ -128,9 +128,10 @@ const Profile = () => {
               <div className="my-8 max-h-64 overflow-y-auto">
                 {
                   activeBankAccounts && activeBankAccounts?.length > 0 ?
-                    activeBankAccounts?.map((item) => {
+                    activeBankAccounts?.map((item, idx) => {
                       return (
                         <UserBank
+                          key={idx}
                           bankName={item?.bankName}
                           accountName={item?.accountName}
                           accountNumber={item?.accountNumber}
