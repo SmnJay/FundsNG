@@ -26,7 +26,7 @@ const Profile = () => {
     setShowAddBankDetailsModal(!showAddBankDetailsModal);
   }
 
-  const { data: activeBankAccounts } = useQuery<{ bankName: string, accountName: string, accountNumber: string, isPrimary: boolean }[]>({
+  const { data: activeBankAccounts, isLoading: activeBankAccountsIsLoading } = useQuery<{ bankName: string, accountName: string, accountNumber: string, isPrimary: boolean }[]>({
     queryKey: ['activeBankAccounts'],
     queryFn: getActiveBankAccountsApiService
   });
@@ -122,29 +122,34 @@ const Profile = () => {
 
       <section className='mt-4 max-w-screen-md mr-auto bg-white rounded-lg p-6 border'>
         <h2 className="font-semibold text-lg">Bank Details</h2>
-        <div className="my-8 max-h-64 overflow-y-auto">
-          {
-            activeBankAccounts && activeBankAccounts?.length > 0 ?
-              activeBankAccounts?.map((item) => {
-                return (
-                  <UserBank
-                    bankName={item?.bankName}
-                    accountName={item?.accountName}
-                    accountNumber={item?.accountNumber}
-                    isPrimary={item?.isPrimary}
-                  />
-                )
-              })
-              :
-              null
-          }
-        </div>
         {
-          !(activeBankAccounts && activeBankAccounts.length > 0) &&
-          <>
-            <PiBankFill className='border rounded-full mx-auto p-2' color='#979A93' size={110} />
-            <p className="text-center text-[#899192] leading-loose text-sm mt-6 mb-4">Link Bank Account for Withdrawal</p>
-          </>
+          activeBankAccountsIsLoading ? 'Loading...' :
+            <>
+              <div className="my-8 max-h-64 overflow-y-auto">
+                {
+                  activeBankAccounts && activeBankAccounts?.length > 0 ?
+                    activeBankAccounts?.map((item) => {
+                      return (
+                        <UserBank
+                          bankName={item?.bankName}
+                          accountName={item?.accountName}
+                          accountNumber={item?.accountNumber}
+                          isPrimary={item?.isPrimary}
+                        />
+                      )
+                    })
+                    :
+                    null
+                }
+              </div>
+              {
+                !(activeBankAccounts && activeBankAccounts.length > 0) &&
+                <>
+                  <PiBankFill className='border rounded-full mx-auto p-2' color='#979A93' size={110} />
+                  <p className="text-center text-[#899192] leading-loose text-sm mt-6 mb-4">Link Bank Account for Withdrawal</p>
+                </>
+              }
+            </>
         }
         <div className="flex items-center justify-center">
           <Button
@@ -155,7 +160,7 @@ const Profile = () => {
             ariaLabel='button to link your bank account'
           />
         </div>
-      </section>
+      </section >
 
       <AddBankDetailsModal isOpen={showAddBankDetailsModal} onClose={handleShowAddBankDetailModal} />
     </>
