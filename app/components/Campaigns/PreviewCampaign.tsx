@@ -56,7 +56,7 @@ const PreviewCampaign = () => {
               <div className="">&#8358;{getPreviewOpenCampaign?.donatedAmount.toLocaleString(undefined, { maximumFractionDigits: 2 })} <span className="font-extralight text-[#888F87] pl-1">Donated</span></div>
               <div className=""> <span className="font-light text-[#888F87] pr-1">Our Goal</span>&#8358;{getPreviewOpenCampaign?.targetAmount.toLocaleString(undefined, { maximumFractionDigits: 2 })}</div>
             </div>
-            <ProgressBar value={70} />
+            <ProgressBar value={getPreviewOpenCampaign?.donatedAmount as number} />
             <div className="mt-6 flex flex-col md:flex-row md:justify-between gap-4">
               <div className="">
                 <Image
