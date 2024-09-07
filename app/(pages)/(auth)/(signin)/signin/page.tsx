@@ -5,7 +5,7 @@ import { authOptions } from '@/app/(pages)/api/auth/[...nextauth]/options';
 
 const SignIn = async () => {
     const session = await getServerSession(authOptions);
-    console.log('signin', session);
+
     return (
         <SignInForm />
     );

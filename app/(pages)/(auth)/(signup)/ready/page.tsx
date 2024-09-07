@@ -7,7 +7,6 @@ import React from 'react'
 
 const Ready = async () => {
     const session = await getServerSession(authOptions);
-    console.log(session);
     
     return (
         <div className="mx-auto max-w-[500px] px-4 py-8 md:p-8 relative">

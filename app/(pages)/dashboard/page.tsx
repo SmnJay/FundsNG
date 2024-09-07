@@ -6,8 +6,6 @@ import { authOptions } from '../api/auth/[...nextauth]/options';
 const DashboardPage = async () => {
   const session = await getServerSession(authOptions);
 
-  console.log(session);
-
   const isProfileSetUp = (): boolean => {
     const fullname = session?.user?.fullname?.trim();
     const email = session?.user?.username; //this should actually be .user.email but Godstar never run am yet.

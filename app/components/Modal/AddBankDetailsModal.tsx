@@ -43,7 +43,6 @@ const AddBankDetailsModal = ({ isOpen, onClose }: Props) => {
                 bankCode: formData.bankCode
             };
             const response = await getBankAccountsResolveApiService(data);
-            console.log(response)
             if (response.success) {
                 toast.success(response.message)
                 setFormData((prev) => ({
