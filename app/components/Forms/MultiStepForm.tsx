@@ -158,7 +158,7 @@ const MultiStepForm = () => {
         if (url?.length < 35) {
             return url
         } else {
-            return url.slice(0, 32) + '...'
+            return url?.slice(0, 32) + '...'
         }
     }
 
