@@ -1,12 +1,12 @@
-import { authOptions } from '@/app/(pages)/api/auth/[...nextauth]/options'
 import ResetPasswordForm from '@/app/components/Forms/ResetPasswordForm';
-import { getServerSession } from 'next-auth'
-import React from 'react'
+import React, { Suspense } from 'react'
 
 const ResetPassword = async () => {
 
   return (
-    <ResetPasswordForm />
+    <Suspense>
+      <ResetPasswordForm />
+    </Suspense>
   )
 }
 
