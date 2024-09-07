@@ -3,5 +3,5 @@ export function dateFormatter(value: string) {
         month: "short",
         year: "numeric",
         day: "2-digit",
-    }).format(new Date(value))
+    })?.format(new Date(value))
 }

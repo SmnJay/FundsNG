@@ -11,11 +11,14 @@ import ProgressBar from '../ProgressBar';
 import { useQuery } from '@tanstack/react-query';
 import { getOpenCampaignApiService } from '@/app/utils/services/campaign/campaignApiService';
 import { useParams, useSearchParams } from 'next/navigation';
+import { ICampaign } from '@/app/utils/models/Model';
+import { dateFormatter } from '@/app/utils/helper/dateFormatter';
+import calculateDaysLeft from '@/app/utils/helper/deadlineCalculator';
 
 const PreviewCampaign = () => {
   const params = useSearchParams().get('url')?.replace(/ /g, '+');;
 
-  const getPreviewOpenCampaign = useQuery({
+  const { data: getPreviewOpenCampaign, isLoading: getPreviewOpenCampaignIsLoading } = useQuery<ICampaign>({
     queryKey: ['open-campaign', params],
     queryFn: () => getOpenCampaignApiService(params || '')
   });
@@ -23,7 +26,7 @@ const PreviewCampaign = () => {
 
   return (
     <main className='app-width py-6'>
-      <h1 className="font-semibold text-[#323232] text-lg lg:text-2xl pb-6">Campaign Title goes here</h1>
+      <h1 className="font-semibold text-[#323232] text-lg lg:text-2xl pb-6">{getPreviewOpenCampaign?.name}</h1>
       <section className="lg:grid md:grid-cols-2 lg:grid-cols-5 gap-6 max-lg:space-y-4 relative">
         <section className="lg:col-span-3 bg-white rounded-b-lg">
           <div className="relative w-full h-0 pb-[59.68%]">
@@ -35,14 +38,14 @@ const PreviewCampaign = () => {
             />
           </div>
           <p className="text-[#7D847C] p-4 rounded-b-md text-sm leading-6 lg:leading-8">
-            ECWA Goodnews Church Bukuru (EGNCB) is building a new Sunday school auditorium, with the capacity to hold about 300 children. The structure will host a general worship area on the ground floor and age appropriate Sunday school classes on the first floor. This project is long overdue as for around two decades, the children of EGNCB were housed in an old unconducive zinc building, which was relatively unsafe and made some children either uncooperative or uninterested in attending the Sunday school. This project will facilitate the seamless delivery of children services and motivate the participation of children as well. The funds raised by the Two Pennies project will go towards supporting the realization of the Sunday school rebuilding project in the shortest time possible.ECWA Goodnews Church Bukuru (EGNCB) is building a new Sunday school auditorium, with the capacity to hold about 300 children. The structure will host a general worship area on the ground floor and age appropriate Sunday school classes on the first floor. This project is long overdue as for around two decades, the children of EGNCB were housed in an old unconducive zinc building, which was relatively unsafe and made some children either uncooperative or uninterested in attending the Sunday school. This project will facilitate the seamless delivery of children services and motivate the participation of children as well. The funds raised by the Two Pennies project will go towards supporting the realization of the Sunday school rebuilding project in the shortest time possible.
+            {getPreviewOpenCampaign?.description}
           </p>
         </section>
         <aside className="w-full space-y-4 md:sticky md:top-4 md:self-start lg:col-span-2">
           <div className="bg-white px-4 md:px-6 md:py-6 py-3 rounded-lg">
             <div className="flex flex-col sm:flex-row gap-2 sm:items-center text-sm sm:justify-between mb-4">
-              <div className="">&#8358;600,000.00 <span className="font-extralight text-[#888F87] pl-1">Donated</span></div>
-              <div className=""> <span className="font-light text-[#888F87] pr-1">Our Goal</span>&#8358;600,000.00</div>
+              <div className="">&#8358;{getPreviewOpenCampaign?.donatedAmount.toLocaleString(undefined, { maximumFractionDigits: 2 })} <span className="font-extralight text-[#888F87] pl-1">Donated</span></div>
+              <div className=""> <span className="font-light text-[#888F87] pr-1">Our Goal</span>&#8358;{getPreviewOpenCampaign?.targetAmount.toLocaleString(undefined, { maximumFractionDigits: 2 })}</div>
             </div>
             <ProgressBar value={70} />
             <div className="mt-6 flex flex-col md:flex-row md:justify-between gap-4">
@@ -60,8 +63,13 @@ const PreviewCampaign = () => {
               </div>
             </div>
             <div className="space-y-4 my-6 text-[#5F655E] font-medium">
-              <div className="flex items-center gap-2 text-sm"><FaHourglassHalf />12 Days Left</div>
-              <div className="flex items-center gap-2 text-sm"><RiCalendarTodoFill /> 2 June, 2024</div>
+              <div className="flex items-center gap-2 text-sm"><FaHourglassHalf />{getPreviewOpenCampaign?.endDate ? `${calculateDaysLeft(getPreviewOpenCampaign?.endDate).toLocaleString()} Days left` : 'Now'}</div>
+              <div className="flex items-center gap-2 text-sm"><RiCalendarTodoFill />
+                {
+                  (getPreviewOpenCampaign?.endDate?.slice(0, 10) as string)
+                  // dateFormatter(getPreviewOpenCampaign?.endDate?.slice(0, 10) as string)
+                }
+              </div>
             </div>
             <div className="lg:grid lg:grid-cols-2 lg:gap-4 max-lg:space-y-2">
               <Button ariaLabel='share campaign' cls='md:text-sm whitespace-nowrap w-full' icon={<IoMdShareAlt size={23} />} name='Share Campaign' />
@@ -73,8 +81,8 @@ const PreviewCampaign = () => {
             <div className="flex items-center gap-2 mt-2">
               <FaUserCircle className='text-slate-400' size={40} />
               <ul className="">
-                <li className='font-semibold'>Opeyemi Olalude</li>
-                <li className='text-[#7D847C] font-thin text-sm'>email@fundsng.com</li>
+                <li className='font-semibold'>{getPreviewOpenCampaign?.createdBy}</li>
+                <li className='text-[#7D847C] font-thin text-sm'>{getPreviewOpenCampaign?.email}</li>
               </ul>
             </div>
           </div>

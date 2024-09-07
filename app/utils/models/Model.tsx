@@ -43,10 +43,14 @@ export interface ICampaign {
     name: string
     targetAmount: number
     description: string
+    createdBy: string
     id: string
+    donatedAmount: number
+    email: string
     userId: string
     mediaUrl: string
     endDate: string
+    shareableUrl: string
 }
 
 export interface ICampaignDetails {

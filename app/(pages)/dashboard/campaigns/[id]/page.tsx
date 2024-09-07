@@ -68,6 +68,15 @@ const SingleCampaign = () => {
     }
   })
 
+  const handleCopyClick = async () => {
+    try {
+      await navigator.clipboard.writeText(data?.shareableUrl as string);
+      toast.success('Link copied to clipboard!');
+    } catch (err) {
+      toast.error('Failed to copy link: ' + err);
+    }
+  };
+
   const { handleCreateQueryParams, getPathname } = useUpdateParams();
 
   const handleRecentActivityQueryParam = () => {
@@ -207,7 +216,7 @@ const SingleCampaign = () => {
             />
             <button className="rounded-md py-2 font-medium text-sm px-4 flex items-center justify-center gap-2 text-white bg-red-700" onClick={handleStopCampaign} disabled={res.isPending}> {res.isPending ? <Spinner /> : <><LiaTimesSolid /> End Campaign</>}</button>
             <button type='button' onClick={handleShowAddAccountModal} className="rounded-md py-2 font-medium text-sm px-4 flex items-center justify-center gap-2 text-white bg-primary"><BiPlus />Add Account</button>
-            <button className="rounded-md py-2 font-medium text-sm px-4 flex items-center justify-center gap-2 text-leafGreen-5 bg-leafGreen-50"><IoMdShareAlt /> Share Campaign</button>
+            <button className="rounded-md py-2 font-medium text-sm px-4 flex items-center justify-center gap-2 text-leafGreen-5 bg-leafGreen-50" onClick={handleCopyClick}><IoMdShareAlt /> Share Campaign</button>
           </div>
         </div>
 
