@@ -155,7 +155,7 @@ const MultiStepForm = () => {
     ];
 
     const truncateLink = (url: string) => {
-        if (url.length < 35) {
+        if (url?.length < 35) {
             return url
         } else {
             return url.slice(0, 32) + '...'
@@ -166,7 +166,7 @@ const MultiStepForm = () => {
         <>
             <div className="container mx-auto bg-white rounded-md mt-4">
                 <div className='pb-8'>
-                    <StepIndicator currentStep={currentStep} steps={steps.length} />
+                    <StepIndicator currentStep={currentStep} steps={steps?.length} />
 
                     <hr />
 

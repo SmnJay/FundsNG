@@ -14,6 +14,7 @@ import { useParams, useSearchParams } from 'next/navigation';
 import { ICampaign } from '@/app/utils/models/Model';
 import { dateFormatter } from '@/app/utils/helper/dateFormatter';
 import calculateDaysLeft from '@/app/utils/helper/deadlineCalculator';
+import { toast } from 'react-toastify';
 
 const PreviewCampaign = () => {
   const params = useSearchParams().get('url')?.replace(/ /g, '+');;
@@ -23,6 +24,14 @@ const PreviewCampaign = () => {
     queryFn: () => getOpenCampaignApiService(params || '')
   });
 
+  const handleCopyClick = async () => {
+    try {
+      await navigator.clipboard.writeText(getPreviewOpenCampaign?.shareableUrl as string);
+      toast.success('Link copied to clipboard!');
+    } catch (err) {
+      toast.error('Failed to copy link: ' + err);
+    }
+  };
 
   return (
     <main className='app-width py-6'>
@@ -67,12 +76,11 @@ const PreviewCampaign = () => {
               <div className="flex items-center gap-2 text-sm"><RiCalendarTodoFill />
                 {
                   (getPreviewOpenCampaign?.endDate?.slice(0, 10) as string)
-                  // dateFormatter(getPreviewOpenCampaign?.endDate?.slice(0, 10) as string)
                 }
               </div>
             </div>
             <div className="lg:grid lg:grid-cols-2 lg:gap-4 max-lg:space-y-2">
-              <Button ariaLabel='share campaign' cls='md:text-sm whitespace-nowrap w-full' icon={<IoMdShareAlt size={23} />} name='Share Campaign' />
+              <Button ariaLabel='share campaign' onClick={handleCopyClick} cls='md:text-sm whitespace-nowrap w-full' icon={<IoMdShareAlt size={23} />} name='Share Campaign' />
               <ButtonLink href='campaign/donate' iconPosition='left' ariaLabel='share campaign' cls='md:text-sm whitespace-nowrap w-full' icon={<IoIosGift size={23} />} color='leafGreen' name='Donate Now' />
             </div>
           </div>
