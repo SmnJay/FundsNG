@@ -26,9 +26,6 @@ export interface FormData {
     state: string;
     country: string;
     agreementSigned: boolean
-    // bank_name: string;
-    // account_number: number | null;
-    // bvn: number | null;
 }
 
 export interface EditFormData {
@@ -44,9 +41,6 @@ export interface EditFormData {
     state: string;
     country: string;
     agreementSigned: boolean
-    // bank_name: string;
-    // account_number: number | null;
-    // bvn: number | null;
 }
 
 const MultiStepForm = () => {
@@ -67,11 +61,6 @@ const MultiStepForm = () => {
         mobile: '',
         state: '',
         country: '',
-
-        // link account
-        // bank_name: '',
-        // account_number: null,
-        // bvn: null
     });
 
     const router = useRouter();
@@ -152,10 +141,10 @@ const MultiStepForm = () => {
 
     const handleCopyClick = async () => {
         try {
-            await navigator.clipboard.writeText('https://funds-ng.vercel.app/campaign');
-            toast.success('Text copied to clipboard!');
+            await navigator.clipboard.writeText(createCampaign?.data?.data?.shareableUrl as string);
+            toast.success('Link copied to clipboard!');
         } catch (err) {
-            toast.error('Failed to copy text: ' + err);
+            toast.error('Failed to copy link: ' + err);
         }
     };
 
@@ -164,6 +153,14 @@ const MultiStepForm = () => {
         <CreateCampaign2 key={2} data={formData} handleChange={handleChange} handleDateChange={handleDateChange} handleCheckChange={handleCheckChange} />,
         // <CreateCampaign3 key={3} data={formData} handleChange={handleChange} />
     ];
+
+    const truncateLink = (url: string) => {
+        if (url.length < 35) {
+            return url
+        } else {
+            return url.slice(0, 32) + '...'
+        }
+    }
 
     return (
         <>
@@ -193,13 +190,20 @@ const MultiStepForm = () => {
                         }
                     </div>
 
-                    <Modal isOpen={showSubmitModal} bgColor='bg-[#FCFDFC]' onClose={handleToggleModal}>
+                    <Modal
+                        isOpen={showSubmitModal}
+                        bgColor='bg-[#FCFDFC]'
+                        onClose={() => {
+                            handleToggleModal();
+                            router.push('/dashboard/campaigns')
+                        }}
+                    >
                         <h3 className="leading-loose text-xl font-medium text-primary-10 text-center">Share your campaign</h3>
                         <p className="text-center text-sm text-[#535758]">Share your campaign on your favourite social media platform to create awareness.</p>
                         <div className="rounded-lg my-4 bg-[#EBF7DF] border border-[#7D847C] py-2 px-3 flex items-center justify-between">
                             <div className="">
                                 <span className="text-FBlack/50 block text-xs">Copy the link to your campaign</span>
-                                <span className="text-FBlack text-sm font-medium block leading-loose">https://funds-ng.vercel.app/campaign</span>
+                                <span className="text-FBlack text-sm font-medium block leading-loose">{truncateLink(createCampaign?.data?.data?.shareableUrl)}</span>
                             </div>
                             <button className="!font-bvp flex items-center gap-1 text-sm" onClick={handleCopyClick}>
                                 <span className="max-md:hidden">Copy Link</span><IoCopyOutline />
