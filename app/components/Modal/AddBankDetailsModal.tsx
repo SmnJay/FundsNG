@@ -116,7 +116,7 @@ const AddBankDetailsModal = ({ isOpen, onClose }: Props) => {
 
             const timeout = setTimeout(() => {
                 resolveBank();
-            }, 500);
+            }, 2000);
 
             setDebounceTimeout(timeout);
         }
