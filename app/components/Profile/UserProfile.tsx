@@ -7,7 +7,6 @@ import Link from 'next/link';
 const UserProfile = () => {
     const { data: session, status, ...res } = useSession();
     
-    console.log({status, res})
     const showUserInfo = () => {
         if (session?.user?.fullname) {
             return session.user.fullname;

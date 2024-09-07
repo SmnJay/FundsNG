@@ -8,3 +8,20 @@ export const getBankAccountsApiService = async () => {
         throw new Error(error.response?.data?.message || 'Failed to fetch bank accounts. Please try again.');
     }
 }
+
+export const getBankAccountsResolveApiService = async (data: { accountNumber: string, bankCode: string }) => {
+    try {
+        const { accountNumber, bankCode } = data;
+
+        const response = await axios.get('/api/bankAccount/resolveBankAccount', {
+            params: {
+                accountNumber,
+                bankCode
+            }
+        });
+        return response.data;
+    } catch (error: any) {
+        throw new Error(error.response?.data?.message || 'Failed to resolve bank account details. Please try again.');
+    }
+}
+

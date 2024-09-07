@@ -8,6 +8,8 @@ const Status = ({ status }: { status: string }) => {
             return <div className="w-fit bg-gray-300 text-FBlack rounded-md px-2 leading-6 text-xs">{status}</div>
         case 'stopped':
             return <div className="w-fit bg-gray-300 text-FBlack rounded-md px-2 leading-6 text-xs">{status}</div>
+        case 'completed':
+            return <div className="w-fit bg-secondary text-FBlack rounded-md px-2 leading-6 text-xs">{status}</div>
         case 'draft':
             return <div className="w-fit bg-primary text-white rounded-md px-2 leading-6 text-xs">{status}</div>
         default:
