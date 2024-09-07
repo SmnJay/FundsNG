@@ -86,7 +86,7 @@ const Profile = () => {
             </div>
             <div className="md:flex items-start justify-between">
               <span className="text-sm font-medium">Personal Details</span>
-              <div className="md:w-[74%] max-md:mt-2 flex-shrink-0 grid grid-cols-2 items-center gap-2">
+              <div className="md:w-[74%] max-md:mt-2 flex-shrink-0 grid grid-cols-1 md:grid-cols-2 items-center gap-2">
                 <Input where='app' label='First Name' placeholder='' error={errors?.firstName?.message} {...register('firstName')} defaultValue={profileQuery?.data?.firstName} type='text' />
                 <Input where='app' label='Last Name' placeholder='' error={errors?.lastName?.message} {...register('lastName')} defaultValue={profileQuery?.data?.lastName} type='text' />
                 <InputSelect where='app' label='Gender' placeholder='Select Gender' error={errors?.gender?.message} {...register('gender')} defaultValue={profileQuery?.data?.gender} options={GenderOptions} />
@@ -94,7 +94,7 @@ const Profile = () => {
             </div>
             <div className="md:flex items-start justify-between">
               <span className="text-sm font-medium">Contact Information</span>
-              <div className="md:w-[74%] max-md:mt-2 flex-shrink-0 grid grid-cols-2 items-center gap-2">
+              <div className="md:w-[74%] max-md:mt-2 flex-shrink-0 grid grid-cols-1 md:grid-cols-2 items-center gap-2">
                 <Input where='app' label='Email' placeholder='' error='' name='email' readOnly type='email' defaultValue={profileQuery?.data?.email} />
                 <Input where='app' label='Phone Number' placeholder='' error={errors?.mobile?.message} {...register('mobile')} type='tel' defaultValue={profileQuery?.data?.mobile} />
               </div>
@@ -106,11 +106,10 @@ const Profile = () => {
               </div>
             </div>
 
-            <div className="flex justify-end mt-6">
+            <div className="flex justify-center md:justify-end mt-6">
               <Button cls='' type='submit' processing={profileMutation.isPending} ariaLabel='Button to update your profile information' name='Update' color='primary' />
             </div>
           </form>
-
       }
 
       <section className='mt-4 max-w-screen-md mr-auto bg-white rounded-lg p-6 border'>

@@ -41,7 +41,7 @@ const DashboardWrapper: React.FC<DashboardWrapperProps> = ({ isProfileSetUp }) =
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 md:mt-8 lg:w-3/4 2xl:w-2/3 lg:mx-auto">
                         <Cards
                             title='Total Donations made'
-                            amount={dashboardQuery?.data?.donatedAmount}
+                            amount={dashboardQuery?.data?.donatedAmount ?? '--'}
                             icon={<FaHandHoldingHeart className='text-[#4591a1] text-2xl ' />}
                             bgColor='bg-[#E0FAFF]'
                             titleColor='text-white'
@@ -50,7 +50,7 @@ const DashboardWrapper: React.FC<DashboardWrapperProps> = ({ isProfileSetUp }) =
                         <Cards
                             bgColor='bg-[#2acd0f10]'
                             title={'Total Savings'}
-                            amount={dashboardQuery?.data?.savedAmount}
+                            amount={dashboardQuery?.data?.savedAmount ?? '--'}
                             icon={<span className='border block rounded-md border-[#7fb42d]'><TfiShine className='text-2xl p-1 text-[#7fb42d]' /></span>}
                             loading={dashboardQuery.isLoading}
                         />
@@ -58,7 +58,7 @@ const DashboardWrapper: React.FC<DashboardWrapperProps> = ({ isProfileSetUp }) =
                             titleColor='text-black'
                             bgColor='bg-[#FFB0B030]'
                             title={'Wallet Balance'}
-                            amount={dashboardQuery?.data?.walletBalance}
+                            amount={dashboardQuery?.data?.walletBalance ?? '--'}
                             amountColor={'text-black'}
                             icon={<IoWalletOutline className='text-2xl text-[#FF1414]' />}
                             loading={dashboardQuery.isLoading}
