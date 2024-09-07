@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { WhiteLogo } from '../Logo/Logo';
@@ -13,17 +13,17 @@ import PasswordInput from '../Input/PasswordInput';
 import Link from 'next/link';
 
 interface Props {
-    email: string
 }
 
-const ResetPasswordForm: React.FC<Props> = ({ email }) => {
+const ResetPasswordForm: React.FC<Props> = () => {
 
-    console.log({ email })
+    const [email, setEmail] = useState('');
+    const [token, setToken] = useState('');
 
     const { handleSubmit, errors, register } = useFormValidation<ResetPasswordSchema>(schema, 'onTouched');
 
     const searchParams = useSearchParams();
-    const token = searchParams.get('token')
+
 
     const router = useRouter();
 
@@ -53,6 +53,16 @@ const ResetPasswordForm: React.FC<Props> = ({ email }) => {
         }
         resetPasswordMutation.mutate(formData)
     }
+
+    useEffect(() => {
+        const emailParam = searchParams.get('email');
+        let tokenParam = searchParams.get('token') as string;
+
+        tokenParam = tokenParam?.replace(/ /g, '+');
+
+        if (emailParam) setEmail(emailParam);
+        if (tokenParam) setToken(tokenParam);
+    }, [searchParams]);
 
     return (
         <form onSubmit={handleSubmit(submit)} className="relative mx-auto max-w-[500px] px-4 py-8 md:p-8" autoComplete="off">
