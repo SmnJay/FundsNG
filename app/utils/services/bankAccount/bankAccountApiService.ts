@@ -25,3 +25,11 @@ export const getBankAccountsResolveApiService = async (data: { accountNumber: st
     }
 }
 
+export const getActiveBankAccountsApiService = async () => {
+    try {
+        const response = await axios.get('/api/bankAccount/activeBankAccounts');
+        return response.data;
+    } catch (error: any) {
+        throw new Error(error.response?.data?.message || 'Failed to fetch active bank accounts. Please try again.');
+    }
+}
