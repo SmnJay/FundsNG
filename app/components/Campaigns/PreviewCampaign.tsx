@@ -21,6 +21,7 @@ import Input, { InputNumber } from '../Input/Input';
 
 const PreviewCampaign = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isClient, setIsClient] = useState(false);
   const [donorEmail, setDonorEmail] = useState('');
   const [donorAmount, setDonorAmount] = useState(0);
   const [paystackConfig, setPaystackConfig] = useState<any>(null); // to store Paystack config
@@ -69,12 +70,47 @@ const PreviewCampaign = () => {
     onClose: handlePaystackCloseAction,
   }
 
-  useEffect(() => {
-    if (donorEmail && donorAmount > 0) {
-      const config = PaystackConfig(donorEmail, donorAmount);
-      setPaystackConfig(config);
+   // Ensure Paystack is only initialized client-side
+   useEffect(() => {
+    // Set that the component is running on the client
+    setIsClient(typeof window !== 'undefined');
+
+    // Dynamically load the Paystack script only if we are in the client
+    if (isClient) {
+      const script = document.createElement('script');
+      script.src = 'https://js.paystack.co/v1/inline.js';
+      script.async = true;
+      document.body.appendChild(script);
+
+      return () => {
+        document.body.removeChild(script); // Clean up script when component unmounts
+      };
     }
-  }, [donorEmail, donorAmount]);
+  }, [isClient]);
+
+  const handlePaystackPayment = () => {
+    if (isClient && donorEmail && donorAmount > 0) {
+      const handler = (window as any).PaystackPop.setup({
+        key: 'pk_test_bbfc5cbc4a3c1e1c50ad34cbf4383512aa389fdc', // Replace with your Paystack public key
+        email: donorEmail,
+        amount: donorAmount * 100, // Convert to Kobo or smallest currency unit
+        reference: `${new Date().getTime()}`, // Unique reference
+        callback: function (response: any) {
+          // Payment successful callback
+          console.log('Payment successful. Transaction reference:', response.reference);
+          toast.success(`Payment successful: ${response.reference}`);
+        },
+        onClose: function () {
+          // Payment closed callback
+          console.log('Payment dialog closed');
+          toast.info('Payment dialog closed');
+        },
+      });
+      handler.openIframe();
+    } else {
+      toast.error('Please enter a valid email and donation amount.');
+    }
+  };
 
   return (
     <main className='app-width py-6'>
@@ -168,7 +204,15 @@ const PreviewCampaign = () => {
               where='app'
               onChange={(e) => { setDonorEmail(e.target.value) }}
             />
-            <PaystackButton {...paystackProps} className='bg-leafGreen-5 font-semibold text-sm text-white rounded-md p-3 w-full text-center ' />
+            {/* <PaystackButton {...paystackProps} className='bg-leafGreen-5 font-semibold text-sm text-white rounded-md p-3 w-full text-center ' /> */}
+            <Button
+                onClick={handlePaystackPayment}
+                ariaLabel="donate to campaign"
+                cls="md:text-sm whitespace-nowrap w-full"
+                icon={<IoIosGift size={23} />}
+                color="leafGreen"
+                name="Donate Now"
+              />
           </div>
 
         </section>

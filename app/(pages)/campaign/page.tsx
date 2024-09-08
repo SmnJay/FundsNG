@@ -1,5 +1,3 @@
-'use client';
-
 import PreviewCampaign from '@/app/components/Campaigns/PreviewCampaign'
 import React, { Suspense } from 'react'
 
