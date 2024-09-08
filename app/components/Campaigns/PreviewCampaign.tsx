@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaHourglassHalf, FaUserCircle } from 'react-icons/fa';
 import { IoIosGift, IoMdShareAlt } from 'react-icons/io';
 import { MdOutlineKeyboardDoubleArrowRight } from 'react-icons/md';
@@ -22,7 +22,9 @@ import Input, { InputNumber } from '../Input/Input';
 const PreviewCampaign = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [donorEmail, setDonorEmail] = useState('');
-  const [donorAmount, setDonorAmount] = useState(0)
+  const [donorAmount, setDonorAmount] = useState(0);
+  const [paystackConfig, setPaystackConfig] = useState<any>(null); // to store Paystack config
+
 
   const openDrawer = () => setIsDrawerOpen(true);
   const closeDrawer = () => {
@@ -66,6 +68,13 @@ const PreviewCampaign = () => {
     onSuccess: (reference: any) => handlePaystackSuccessAction(reference),
     onClose: handlePaystackCloseAction,
   }
+
+  useEffect(() => {
+    if (donorEmail && donorAmount > 0) {
+      const config = PaystackConfig(donorEmail, donorAmount);
+      setPaystackConfig(config);
+    }
+  }, [donorEmail, donorAmount]);
 
   return (
     <main className='app-width py-6'>
@@ -147,8 +156,8 @@ const PreviewCampaign = () => {
               placeholder=''
               name='amount'
               onValueChange={(e) => {
-               setDonorAmount(+e)
-            }}
+                setDonorAmount(+e)
+              }}
             />
             <Input
               type='email'
