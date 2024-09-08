@@ -1,22 +1,36 @@
 'use client';
 
-import React from 'react'
+import React, { useState } from 'react'
 import { FaHourglassHalf, FaUserCircle } from 'react-icons/fa';
 import { IoIosGift, IoMdShareAlt } from 'react-icons/io';
 import { MdOutlineKeyboardDoubleArrowRight } from 'react-icons/md';
 import { RiCalendarTodoFill } from 'react-icons/ri';
-import Button, { ButtonLink } from '../Button/Button';
+import Button from '../Button/Button';
 import Image from 'next/image';
 import ProgressBar from '../ProgressBar';
 import { useQuery } from '@tanstack/react-query';
 import { getOpenCampaignApiService } from '@/app/utils/services/campaign/campaignApiService';
-import { useParams, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { ICampaign } from '@/app/utils/models/Model';
-import { dateFormatter } from '@/app/utils/helper/dateFormatter';
 import calculateDaysLeft from '@/app/utils/helper/deadlineCalculator';
 import { toast } from 'react-toastify';
+import { PaystackButton } from 'react-paystack';
+import { PaystackConfig } from '@/app/utils/helper/PaystackUtils';
+import DrawerTab from '../Drawer/DrawerTab';
+import Input, { InputNumber } from '../Input/Input';
 
 const PreviewCampaign = () => {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [donorEmail, setDonorEmail] = useState('');
+  const [donorAmount, setDonorAmount] = useState(0)
+
+  const openDrawer = () => setIsDrawerOpen(true);
+  const closeDrawer = () => {
+    setIsDrawerOpen(false);
+    setDonorAmount(0)
+    setDonorEmail('')
+  };
+
   const params = useSearchParams().get('url')?.replace(/ /g, '+');;
 
   const { data: getPreviewOpenCampaign, isLoading: getPreviewOpenCampaignIsLoading } = useQuery<ICampaign>({
@@ -32,6 +46,26 @@ const PreviewCampaign = () => {
       toast.error('Failed to copy link: ' + err);
     }
   };
+
+  const config = PaystackConfig(donorEmail, donorAmount);
+
+  const handlePaystackSuccessAction = (reference: any) => {
+    // Implementation for whatever you want to do with reference and after success call.
+    console.log(reference);
+  };
+
+  // you can call this function anything
+  const handlePaystackCloseAction = () => {
+    // implementation for  whatever you want to do when the Paystack dialog closed.
+    console.log('closed')
+  }
+
+  const paystackProps = {
+    ...config,
+    text: 'Donate',
+    onSuccess: (reference: any) => handlePaystackSuccessAction(reference),
+    onClose: handlePaystackCloseAction,
+  }
 
   return (
     <main className='app-width py-6'>
@@ -56,7 +90,7 @@ const PreviewCampaign = () => {
               <div className="">&#8358;{getPreviewOpenCampaign?.donatedAmount.toLocaleString(undefined, { maximumFractionDigits: 2 })} <span className="font-extralight text-[#888F87] pl-1">Donated</span></div>
               <div className=""> <span className="font-light text-[#888F87] pr-1">Our Goal</span>&#8358;{getPreviewOpenCampaign?.targetAmount.toLocaleString(undefined, { maximumFractionDigits: 2 })}</div>
             </div>
-            <ProgressBar value={getPreviewOpenCampaign?.donatedAmount as number} />
+            <ProgressBar value={getPreviewOpenCampaign?.donatedAmount as number ?? 0} />
             <div className="mt-6 flex flex-col md:flex-row md:justify-between gap-4">
               <div className="">
                 <Image
@@ -81,7 +115,7 @@ const PreviewCampaign = () => {
             </div>
             <div className="lg:grid lg:grid-cols-2 lg:gap-4 max-lg:space-y-2">
               <Button ariaLabel='share campaign' onClick={handleCopyClick} cls='md:text-sm whitespace-nowrap w-full' icon={<IoMdShareAlt size={23} />} name='Share Campaign' />
-              <ButtonLink href='campaign/donate' iconPosition='left' ariaLabel='share campaign' cls='md:text-sm whitespace-nowrap w-full' icon={<IoIosGift size={23} />} color='leafGreen' name='Donate Now' />
+              <Button onClick={openDrawer} ariaLabel='donate to campaign' cls='md:text-sm whitespace-nowrap w-full' icon={<IoIosGift size={23} />} color='leafGreen' name='Donate Now' />
             </div>
           </div>
           <div className='bg-white rounded-lg px-4 md:px-6 md:py-6 py-3'>
@@ -96,6 +130,40 @@ const PreviewCampaign = () => {
           </div>
         </aside>
       </section>
+
+      {/* drawer */}
+      <DrawerTab isOpen={isDrawerOpen} closeDrawer={closeDrawer}>
+        <h2 className="text-2xl font-bold">Donate</h2>
+        <p className="mt-4">
+          Here, you can enter your donation details. Feel free to fill out the form and proceed with the payment.
+        </p>
+
+        <section className="mt-4">
+          <div className="space-y-4">
+            <InputNumber
+              type='number'
+              label='Donation Amount'
+              error=''
+              placeholder=''
+              name='amount'
+              onValueChange={(e) => {
+               setDonorAmount(+e)
+            }}
+            />
+            <Input
+              type='email'
+              label='Email Address'
+              error=''
+              name='email'
+              placeholder=''
+              where='app'
+              onChange={(e) => { setDonorEmail(e.target.value) }}
+            />
+            <PaystackButton {...paystackProps} className='bg-leafGreen-5 font-semibold text-sm text-white rounded-md p-3 w-full text-center ' />
+          </div>
+
+        </section>
+      </DrawerTab>
     </main>
   )
 }
