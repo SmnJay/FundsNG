@@ -33,14 +33,14 @@ const DashboardWrapper: React.FC<DashboardWrapperProps> = ({ isProfileSetUp }) =
     return (
         <div>
             {
-                !isProfileSetUp ? <div className="flex max-sm:flex-col sm:items-center gap-2 sm:justify-between items-start rounded-md px-4 md:px-8 py-2 bg-[#FFEDD2] lg:w-3/4 s2xl:w-2/3 lg:mx-auto  border border-[#D16A0C] text-[#D16A0C]">
+                !isProfileSetUp ? <div className="flex max-sm:flex-col sm:items-center gap-2 sm:justify-between items-start rounded-md px-4 md:px-8 py-2 bg-[#FFEDD2] lg:w-11/12 lg:mx-auto  border border-[#D16A0C] text-[#D16A0C]">
                     <p className="max-md:text-sm font-light">Before you continue, please complete your profile</p>
                     <Link href='/settings/profile' className='text-sm group flex items-center font-medium'>
                         Complete Profile <span className="group-hover:translate-x-[2px] duration-200 ease-out"><CgChevronRight /></span>
                     </Link>
                 </div>
                     :
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 md:mt-8 lg:w-3/4 s2xl:w-2/3 lg:mx-auto">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 md:mt-8 lg:w-11/12 lg:mx-auto">
                         <Cards
                             title='Total Donations made'
                             amount={dashboardQuery?.data?.donatedAmount ?? '--'}
@@ -69,7 +69,7 @@ const DashboardWrapper: React.FC<DashboardWrapperProps> = ({ isProfileSetUp }) =
             }
 
             {
-                isEmpty ? <div className="lg:w-3/4 s2xl:w-2/3 lg:mx-auto mt-4 flex items-center justify-center sm:justify-between rounded-md bg-signUp-pattern bg-leafGreen-20 text-white p-4 sm:p-8">
+                isEmpty ? <div className="lg:w-11/12 lg:mx-auto mt-4 flex items-center justify-center sm:justify-between rounded-md bg-signUp-pattern bg-leafGreen-20 text-white p-4 sm:p-8">
                     <div className='space-y-3'>
                         <h1 className="font-semibold text-xl">Welcome to FundsNg</h1>
                         <p className="font-thin max-md:text-sm">
@@ -94,7 +94,7 @@ const DashboardWrapper: React.FC<DashboardWrapperProps> = ({ isProfileSetUp }) =
             }
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-                <div className={`${isEmpty ? 'col-span-3 lg:w-3/4 s2xl:w-2/3 lg:mx-auto ' : 'col-span-2'} `}>
+                <div className={`${isEmpty ? 'col-span-3 lg:w-11/12 lg:mx-auto ' : 'col-span-2'} `}>
                     <div className="bg-white rounded-md">
                         <div className="border-b px-4 sm:px-8 py-2 sm:py-4 flex items-center justify-between">
                             <p className="font-medium text-sm sm:text-base text-[#899192]">Your Fundraiser</p>

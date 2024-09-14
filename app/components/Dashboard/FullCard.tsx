@@ -15,12 +15,12 @@ const FullCard = () => {
                 <span className="">Campaign with</span>
                 <span className="text-leafGreen-40 pl-1">FundsNg</span>
             </h2>
-            <p className="text-center font-normal mt-2 text-xs text-[#323232] w-1/2 mx-auto pt-2 pb-4">Harness the collective strength of our community to drive positive change where it matters most.</p>
+            <p className="text-center font-normal mt-2 text-xs text-[#323232] md:w-1/2 mx-auto pt-2 pb-4">Harness the collective strength of our community to drive positive change where it matters most.</p>
             <div className="flex items-center justify-center gap-4 my-3">
                 <button className="rounded-full px-8 hover:brightness-105 duration-150 ease-in-out py-2 text-sm bg-[#494949] text-white">Crowdfunding</button>
-                <button className="rounded-full px-8 hover:brightness-105 duration-150 ease-in-out py-2 text-sm bg-[#d9d9d9] text-[#404040]">Target Savings</button>
+                <button className="rounded-full px-8 hover:brightness-105 whitespace-nowrap duration-150 ease-in-out py-2 text-sm bg-[#d9d9d9] text-[#404040]">Target Savings</button>
             </div>
-            <div className="grid grid-cols-6 gap-3">
+            <div className="max-md:hidden grid grid-cols-6 gap-3">
                 <div className="grid grid-rows-6 gap-3">
                     <div className="row-span-4 relative">
                         <Image src={'/images/left-bg.png'} alt='background' className='w-full' width={160} height={193} />

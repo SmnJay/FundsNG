@@ -20,7 +20,7 @@ const Aside = () => {
   };
 
   return (
-    <aside className={`max-w-xs w-[70px] md:w-[245px] border-r-2 bg-white h-screen z-50 overflow-x-hidden overflow-y-auto fixed left-0 top-0 ${isOpen ? 'max-md:translate-x-0' : 'max-md:-translate-x-[100%]'} ease-linear duration-100`}>
+    <aside className={`max-w-[150px] w-[70px] md:w-[245px] border-r-2 bg-white h-screen z-50 overflow-x-hidden overflow-y-auto fixed left-0 top-0 ${isOpen ? 'max-md:translate-x-0' : 'max-md:-translate-x-[100%]'} ease-linear duration-100`}>
       <div className="h-[4rem] grid place-items-center">
         <span className="hidden md:block"><Logo /></span>
         <span className="md:hidden"><MiniLogo /></span>

@@ -18,7 +18,7 @@ const AppLayout = async ({ children }: Readonly<{
     <div className='bg-appGrey/50 min-h-screen'>
       <Header />
       <Aside />
-      <main className="md:ml-[250px] p-4 md:p-8 grid grid-cols-1 lg:grid-cols-3 gap-12 min-h-[calc(100vh-4rem)]">
+      <main className="md:ml-[150px] p-4 md:p-8 grid grid-cols-1 lg:grid-cols-3 gap-12 min-h-[calc(100vh-4rem)]">
         <section className="col-span-3 h-full">{children}</section>
       </main>
 

@@ -5,7 +5,7 @@ import { ButtonLink } from '../Button/Button'
 
 const BottomCards = () => {
     return (
-        <section className='grid grid-cols-2 gap-8 mt-8'>
+        <section className='grid grid-cols-1 md:grid-cols-2 gap-8 mt-8'>
             <div className='bg-primary-10 rounded-lg p-8'>
                 <div className="flex items-center justify-between gap-4">
                     <h6 className="text-white text-xl font-semibold">Crush any goal with our unique target savings plan</h6>
