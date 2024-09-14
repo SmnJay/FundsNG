@@ -22,7 +22,7 @@ const Navigation: React.FC = () => {
                             key={id}
                             href={link}
                             name={
-                                <div className='flex flex-col justify-center items-center gap-3'>
+                                <div className='flex flex-col justify-center items-center'>
                                     <span className='text-2xl ease-linear duration-200 md:text-3xl text-center'>{icon}</span>
                                     <span className='hidden ease-linear duration-200 md:block text-center'>{name}</span>
                                 </div>
