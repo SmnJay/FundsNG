@@ -15,6 +15,8 @@ import { IoWalletOutline } from 'react-icons/io5';
 import { TfiShine } from 'react-icons/tfi';
 import { useQuery } from '@tanstack/react-query';
 import { dashboardApiService } from '@/app/utils/services/dashboard/dashboardApiService';
+import BottomCards from './BottomCards';
+import FullCard from './FullCard';
 
 type DashboardWrapperProps = {
     isProfileSetUp: boolean
@@ -250,24 +252,8 @@ const DashboardWrapper: React.FC<DashboardWrapperProps> = ({ isProfileSetUp }) =
 
                         </div>
                     </div>
-
-                    <div className="bg-white rounded-md mt-4">
-                        <div className="border-b px-4 sm:px-8 py-2 sm:py-4 flex items-center justify-between">
-                            <p className="font-medium text-sm sm:text-base text-[#899192]">Your Savings</p>
-                            <Link href='/dashboard/savings' className='text-sm group flex items-center'>View All <span className="group-hover:translate-x-[2px] duration-200 ease-out"><CgChevronRight /></span></Link>
-                        </div>
-                        <div className="flex items-center justify-center p-4 sm:p-8">
-                            <div className="grid place-items-center space-y-6">
-                                <p className="text-center max-w-[400px] mx-auto text-sm text-gray-600">You currently do not have any ongoing savings. <br />Create one to see them here</p>
-                                <ButtonLink
-                                    href='/dashboard/savings'
-                                    name='Start Saving'
-                                    ariaLabel='Start Saving'
-                                    color='primary'
-                                />
-                            </div>
-                        </div>
-                    </div>
+                    <FullCard />
+                    <BottomCards />
                 </div>
                 <div className={`col-span-1 bg-white h-full rounded-md p-4 ${isEmpty && 'hidden'}`}>
                     <h6 className='font-medium mb-4 leading-loose'>Recent Activity</h6>
