@@ -1,8 +1,8 @@
 import axios from 'axios'
 
-export const getCampaignApiService = async () => {
+export const getCampaignApiService = async (page: number) => {
     try {
-        const response = await axios.get('/api/campaign');
+        const response = await axios.get(`/api/campaign?page=${page}`);
         return response.data;
     } catch (error: any) {
         throw new Error(error.response?.data?.message || 'Failed to register. Please try again.');

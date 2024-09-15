@@ -31,8 +31,6 @@ const Profile = () => {
     queryFn: getActiveBankAccountsApiService
   });
 
-  console.log(activeBankAccounts)
-
   const profileQuery = useQuery({
     queryKey: ['profile'],
     queryFn: getProfileApiService,
@@ -45,7 +43,6 @@ const Profile = () => {
       toast.error(error.message)
     },
     onSuccess(data) {
-      console.log(data)
       if (data.success === false) {
         toast.error(data.message);
 

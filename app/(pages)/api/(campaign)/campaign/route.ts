@@ -9,10 +9,14 @@ export async function GET(req: NextRequest, res: NextResponse) {
         ApiKey: process.env.APIKEY
     };
 
-    try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/Campaign`, { headers });
+    const page = req.nextUrl.searchParams.get("page");
 
-        return NextResponse.json(response.data.data, { status: 200 })
+    let queryString = page && page !== "null" ? `?page=${page}` : '';
+
+    try {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/Campaign${queryString}`, { headers });
+
+        return NextResponse.json(response.data, { status: 200 })
     } catch (error: any) {
         const err = error.response.data.message;
 

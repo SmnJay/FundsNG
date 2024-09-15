@@ -151,7 +151,6 @@ const DashboardWrapper: React.FC<DashboardWrapperProps> = ({ isProfileSetUp }) =
                                 </div>
                             </>
                     }
-
                     <PopularCategories />
                     <FullCard />
                     <BottomCards />
