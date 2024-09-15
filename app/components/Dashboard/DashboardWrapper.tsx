@@ -22,22 +22,29 @@ import CampaignLoader from '../Campaigns/CampaignLoader';
 import CampaignDashboard from '../Campaigns/CampaignDashboard';
 import moneyFormatter from '@/app/utils/helper/moneyFormatter';
 import calculateDaysLeft from '@/app/utils/helper/deadlineCalculator';
+import { useSearchParams } from 'next/navigation';
+import { ICampaign } from '@/app/utils/models/Model';
 
 type DashboardWrapperProps = {
     isProfileSetUp: boolean
 }
 
 const DashboardWrapper: React.FC<DashboardWrapperProps> = ({ isProfileSetUp }) => {
+    const searchParams = useSearchParams();
     const [isEmpty, setIsEmpty] = useState(true);
+
+    const initialPage = Number(searchParams.get("page")) || 1;
+
+    const [currentPage, setCurrentPage] = useState(initialPage);
 
     const dashboardQuery = useQuery({
         queryKey: ['dashboard'],
         queryFn: dashboardApiService
     });
 
-    const campaignQuery = useQuery({
+    const campaignQuery = useQuery<{ data: ICampaign[], metaData: { totalPages: number, totalCount: number } }>({
         queryKey: ['campaign'],
-        queryFn: getCampaignApiService,
+        queryFn: () => getCampaignApiService(currentPage),
     });
 
     return (
@@ -95,11 +102,17 @@ const DashboardWrapper: React.FC<DashboardWrapperProps> = ({ isProfileSetUp }) =
                             <>
                                 <div className="">
                                     <div className="py-2 flex items-center justify-between">
-                                        <p className="font-medium text-sm sm:text-base text-[#899192]">Your Campaigns {campaignQuery?.data?.length > 0 && `(${campaignQuery?.data?.length})`}</p>
+                                        <p className="font-medium text-sm sm:text-base text-[#899192]">
+                                            Your Campaigns
+                                            {campaignQuery?.data?.metaData?.totalCount !== undefined &&
+                                                campaignQuery?.data?.metaData?.totalCount > 0 &&
+                                                `(${campaignQuery?.data?.metaData?.totalCount})`}
+                                        </p>
                                         <Link href='/dashboard/campaigns' className='flex items-center text-sm group text-leafGreen-30'>View All <span className="group-hover:translate-x-[2px] duration-200 ease-out"><CgChevronRight /></span></Link>
                                     </div>
                                     {
-                                        campaignQuery?.data?.length < 1 ?
+                                        campaignQuery?.data?.metaData?.totalCount !== undefined &&
+                                            campaignQuery?.data?.metaData?.totalCount < 1 ?
                                             <div className="grid place-items-center space-y-6">
                                                 <p className="text-center max-w-[400px] mx-auto text-sm text-gray-600">You currently do not have any ongoing campaign. <br />Create one to see them here</p>
                                                 <ButtonLink
@@ -117,17 +130,17 @@ const DashboardWrapper: React.FC<DashboardWrapperProps> = ({ isProfileSetUp }) =
                                                         src={'/images/campaign-page-preview.png'}
                                                         width={326}
                                                         height={213}
-                                                        
+
                                                         alt=''
                                                     />
                                                 </div>
                                                 <div className="font-inter w-full py-6">
-                                                    <h6 className="font-semibold md:leading-loose text-base text-[#3f4343] mb-1">{campaignQuery?.data[0]?.name}</h6>
-                                                    <p className="text-[#899192] text-sm mb-3">{campaignQuery?.data[0]?.description}</p>
+                                                    <h6 className="font-semibold md:leading-loose text-base text-[#3f4343] mb-1">{campaignQuery?.data?.data[0]?.name}</h6>
+                                                    <p className="text-[#899192] text-sm mb-3">{campaignQuery?.data?.data[0]?.description}</p>
                                                     <ProgressBar value={50} />
                                                     <div className="grid grid-cols-4 items-center gap-2 mt-4">
                                                         <div className="">
-                                                            <p className="font-semibold text-xl">&#8358;{moneyFormatter(campaignQuery?.data[0]?.targetAmount)}</p>
+                                                            <p className="font-semibold text-xl">&#8358;{moneyFormatter(campaignQuery?.data?.data[0]?.targetAmount as string|number)}</p>
                                                             <p className="leading-loose font-light text-[#8B8B8B]">Target</p>
                                                         </div>
                                                         <div className="">
@@ -139,7 +152,7 @@ const DashboardWrapper: React.FC<DashboardWrapperProps> = ({ isProfileSetUp }) =
                                                             <p className="leading-loose font-light text-[#8B8B8B]">Donors</p>
                                                         </div>
                                                         <div className="">
-                                                            <p className="font-semibold text-xl">{calculateDaysLeft(campaignQuery?.data[0]?.endDate).toLocaleString()}</p>
+                                                            <p className="font-semibold text-xl">{calculateDaysLeft(campaignQuery?.data?.data[0]?.endDate as string).toLocaleString()}</p>
                                                             <p className="leading-loose font-light text-[#8B8B8B]">Days Left</p>
                                                         </div>
                                                     </div>

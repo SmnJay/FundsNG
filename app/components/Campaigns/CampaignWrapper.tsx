@@ -11,13 +11,13 @@ import { useSearchParams } from 'next/navigation';
 
 const CampaignWrapper = () => {
     const searchParams = useSearchParams();
-    const initialPage = Number(searchParams.get("page")) || 1; 
+    const initialPage = Number(searchParams.get("page")) || 1;
 
     const [currentPage, setCurrentPage] = useState(initialPage); // Store the current page in state
 
     // Fetch campaigns based on the current page
-    const campaignQuery = useQuery({
-        queryKey: ['campaign', currentPage], 
+    const campaignQuery = useQuery<{ data: ICampaign[], metaData: { totalPages: number, totalCount: number } }>({
+        queryKey: ['campaign', currentPage],
         queryFn: () => getCampaignApiService(currentPage),
     });
 
