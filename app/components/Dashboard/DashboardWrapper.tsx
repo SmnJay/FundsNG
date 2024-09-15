@@ -110,11 +110,18 @@ const DashboardWrapper: React.FC<DashboardWrapperProps> = ({ isProfileSetUp }) =
                                                 />
                                             </div>
                                             :
-                                            <div className='bg-white rounded-r-lg flex flex-col md:flex-row items-center gap-12 py-6 pr-6'>
-                                                <div className="">
-                                                    <Image className='' src={'/images/campaign-page-preview.png'} width={326} style={{ borderRadius: '0.5rem' }} height={213} alt='' />
+                                            <div className='bg-white rounded-r-lg flex flex-col md:flex-row items-center gap-12 pr-6'>
+                                                <div className="w-[326px] h-[213px] spb-[153.05%]">
+                                                    <Image
+                                                        className='h-full'
+                                                        src={'/images/campaign-page-preview.png'}
+                                                        width={326}
+                                                        height={213}
+                                                        
+                                                        alt=''
+                                                    />
                                                 </div>
-                                                <div className="font-inter w-full">
+                                                <div className="font-inter w-full py-6">
                                                     <h6 className="font-semibold md:leading-loose text-base text-[#3f4343] mb-1">{campaignQuery?.data[0]?.name}</h6>
                                                     <p className="text-[#899192] text-sm mb-3">{campaignQuery?.data[0]?.description}</p>
                                                     <ProgressBar value={50} />
