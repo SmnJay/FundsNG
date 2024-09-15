@@ -103,8 +103,6 @@ const DashboardWrapper: React.FC<DashboardWrapperProps> = ({ isProfileSetUp }) =
                                         </div>
                                     </div>
                             }
-
-
                         </div>
                     </div>
 
