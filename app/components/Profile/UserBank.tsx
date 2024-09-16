@@ -35,7 +35,7 @@ const UserBank = ({ bankName, accountNumber, accountName, isPrimary, id }: Props
         <div className='flex items-center gap-4 p-2 bg-[#F6F6F6] rounded-md relative'>
             {
                 isPrimary &&
-                <span className="inline-block absolute bg-primary-30 rounded-full top-2 right-2 h-4 w-4"></span>
+                <span className="inline-block absolute bg-primary-30 rounded-full top-4 right-2 h-4 w-4"></span>
             }
             <PiBankFill className='border rounded-full p-2' color='#4591A1' size={50} />
             <div className="">
