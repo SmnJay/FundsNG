@@ -9,7 +9,7 @@ const AppLayout = ({ children }: Readonly<{
     <div className='bg-appGrey/50 min-h-screen'>
       <Header />
       <Aside />
-      <main className="md:ml-[250px] p-4 md:p-8">
+      <main className="md:ml-[150px] p-4 md:p-8">
         {children}
       </main>
 

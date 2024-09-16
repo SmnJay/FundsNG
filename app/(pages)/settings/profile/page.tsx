@@ -2,7 +2,7 @@
 
 import Breadcrumb from '@/app/components/Breadcrumb'
 import Button from '@/app/components/Button/Button';
-import Input, { InputSelect, InputTextArea } from '@/app/components/Input/Input'
+import Input, { InputNumber, InputSelect, InputTextArea } from '@/app/components/Input/Input'
 import ProfileLoader from '@/app/components/Loader/Loader';
 import { PiBankFill } from "react-icons/pi";
 import completeRegistrationSchema, { CompleteRegistrationSchema } from '@/app/schemaa/completeRegistrationSchema';
@@ -12,14 +12,19 @@ import useFormValidation from '@/app/utils/hooks/useFormValidation';
 import { ICompleteProfile, ICompleteRegistration } from '@/app/utils/models/Model';
 import { getProfileApiService, updateProfileApiService } from '@/app/utils/services/profile/profileApiService'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
 import Modal from '@/app/components/Modal/Modal';
 import { getActiveBankAccountsApiService, getBankAccountsApiService } from '@/app/utils/services/bankAccount/bankAccountApiService';
 import AddBankDetailsModal from '@/app/components/Modal/AddBankDetailsModal';
 import UserBank from '@/app/components/Profile/UserBank';
+import { verifyBvnApiService } from '@/app/utils/services/verifyBvn/verifyBvnApiService';
 
 const Profile = () => {
+  const [bvnVerificationFormData, setBvnVerificationFormData] = useState({
+    bvn: '',
+    dob: ''
+  })
   const [showAddBankDetailsModal, setShowAddBankDetailsModal] = useState(false);
 
   const handleShowAddBankDetailModal = () => {
@@ -52,6 +57,24 @@ const Profile = () => {
     },
   })
 
+  const bvnVerificationMutation = useMutation({
+    mutationKey: ['verify-bvn'],
+    mutationFn: verifyBvnApiService,
+    onError: (error) => {
+      console.log({ error })
+      toast.error(error.message)
+    },
+    onSuccess(data) {
+      console.log({ data })
+      if (data.success === false) {
+        toast.error(data.message);
+
+      } else {
+        toast.success(data);
+      }
+    },
+  });
+
   const items = [
     { label: 'Dashboard', path: '/dashboard' },
     { label: 'Settings' },
@@ -74,6 +97,19 @@ const Profile = () => {
     }
     profileMutation.mutate(formData)
   }
+
+
+  const bvnLength: boolean = bvnVerificationFormData.bvn.length >= 11;
+
+  useEffect(() => {
+    if (profileQuery.isSuccess) {
+      setBvnVerificationFormData((prev) => ({
+        ...prev,
+        dob: profileQuery?.data?.dob
+      }))
+    }
+  }, [profileQuery.isSuccess])
+
 
   return (
     <>
@@ -117,12 +153,41 @@ const Profile = () => {
           </form>
       }
 
+      <section className="mt-4 max-w-screen-md mr-auto bg-white rounded-lg p-6 border">
+        <form action="" className='space-y-4' onSubmit={async (e) => {
+          e.preventDefault();
+          await bvnVerificationMutation.mutate(bvnVerificationFormData)
+        }}>
+          <div className="flex items-center">
+            <h4 className="font-semibold text-base">Bank Verification Number</h4>
+          </div>
+          <div className="flex items-center gap-6">
+            <span className="text-sm">BVN Details</span>
+            <InputNumber
+              label='BVN'
+              error=''
+              name='bnv'
+              type='number'
+              placeholder='1234567890'
+              onValueChange={(e) => setBvnVerificationFormData((prev) => ({
+                ...prev,
+                bvn: e as string
+              }))}
+              className='w-1/3'
+            />
+          </div>
+          <div className="flex items-center justify-end">
+            <Button type='submit' disabled={!bvnLength} color='primary' name='Submit' processing={bvnVerificationMutation.isPending} ariaLabel='submit button ro verify bvn' />
+          </div>
+        </form>
+      </section>
+
       <section className='mt-4 max-w-screen-md mr-auto bg-white rounded-lg p-6 border'>
         <h2 className="font-semibold text-lg">Bank Details</h2>
         {
           activeBankAccountsIsLoading ? 'Loading...' :
             <>
-              <div className="my-8 max-h-64 overflow-y-auto">
+              <div className="my-8 max-h-64 overflow-y-auto grid grid-cols-3 gap-4">
                 {
                   activeBankAccounts && activeBankAccounts?.length > 0 ?
                     activeBankAccounts?.map((item, idx) => {

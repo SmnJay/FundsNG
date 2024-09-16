@@ -13,6 +13,7 @@ interface ButtonProps {
     type?: 'button' | 'submit' | 'reset';
     icon?: ReactNode
     textColor?: string
+    disabled?: boolean
     onClick?: () => void
 }
 
@@ -22,7 +23,7 @@ interface ButtonLinkProps extends ButtonProps {
     fullWidth?: boolean
 }
 
-const Button: React.FC<ButtonProps> = ({ type = 'button', onClick, color, icon, outline, cls, ariaLabel, processing, name, ...props }) => {
+const Button: React.FC<ButtonProps> = ({ type = 'button', onClick, disabled, color, icon, outline, cls, ariaLabel, processing, name, ...props }) => {
     const buttonClassNames = clsx(
         `${cls ? cls : ''} border-2 md:leading-4 font-medium px-8 max-md:text-sm group rounded-lg ${processing && 'cursor-not-allowed'}`,
         {
@@ -43,7 +44,7 @@ const Button: React.FC<ButtonProps> = ({ type = 'button', onClick, color, icon, 
             {...props}
             type={type}
             className={buttonClassNames}
-            disabled={processing}
+            disabled={disabled || processing}
             aria-busy={processing}
             aria-label={ariaLabel}
             aria-live='polite'
