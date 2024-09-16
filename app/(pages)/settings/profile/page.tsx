@@ -31,7 +31,7 @@ const Profile = () => {
     setShowAddBankDetailsModal(!showAddBankDetailsModal);
   }
 
-  const { data: activeBankAccounts, isLoading: activeBankAccountsIsLoading } = useQuery<{ bankName: string, accountName: string, accountNumber: string, isPrimary: boolean }[]>({
+  const { data: activeBankAccounts, isLoading: activeBankAccountsIsLoading } = useQuery<{ bankName: string, accountName: string, id: string, accountNumber: string, isPrimary: boolean }[]>({
     queryKey: ['activeBankAccounts'],
     queryFn: getActiveBankAccountsApiService
   });
@@ -193,6 +193,7 @@ const Profile = () => {
                     activeBankAccounts?.map((item, idx) => {
                       return (
                         <UserBank
+                          id={item.id}
                           key={idx}
                           bankName={item?.bankName}
                           accountName={item?.accountName}
