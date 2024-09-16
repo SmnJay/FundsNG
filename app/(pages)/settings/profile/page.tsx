@@ -215,11 +215,11 @@ const Profile = () => {
               }
             </>
         }
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-end">
           <Button
             onClick={handleShowAddBankDetailModal}
             name={activeBankAccounts && activeBankAccounts.length > 0 ? 'Add New Account' : 'Link Account'}
-            color='leafGreen'
+            color='primary'
             type='button'
             ariaLabel='button to link your bank account'
           />
