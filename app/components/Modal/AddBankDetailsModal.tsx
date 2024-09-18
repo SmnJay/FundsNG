@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react'
 import Modal from './Modal'
 import Input, { InputNumber, InputSelect } from '../Input/Input'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { getBankAccountsApiService, getBankAccountsResolveApiService } from '@/app/utils/services/bankAccount/bankAccountApiService'
+import { addBankAccountApiService, getBankAccountsApiService, getBankAccountsResolveApiService } from '@/app/utils/services/bankAccount/bankAccountApiService'
 import Button from '../Button/Button'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { linkCampaignToBankApiService } from '@/app/utils/services/campaign/campaignApiService'
 import { toast } from 'react-toastify'
-import { useParams, useSearchParams } from 'next/navigation'
+import { useParams, usePathname, useSearchParams } from 'next/navigation'
 import Spinner from '../Spinner/Spinner'
 
 type Props = {
@@ -16,6 +16,7 @@ type Props = {
     onClose: () => void
 }
 const AddBankDetailsModal = ({ isOpen, onClose }: Props) => {
+    const route = usePathname();
     const [isCheckingAccount, setIsCheckingAccount] = useState(false)
     const [formData, setFormData] = useState({
         bankName: '',
@@ -76,6 +77,23 @@ const AddBankDetailsModal = ({ isOpen, onClose }: Props) => {
         },
     })
 
+    const addAccount = useMutation({
+        mutationKey: ['add-bank-account'],
+        mutationFn: addBankAccountApiService,
+        onError: (error) => {
+            toast.error(error.message)
+        },
+        onSuccess(data) {
+            if (data.success === false) {
+                toast.error(data.message);
+
+            } else {
+                toast.success(data);
+                onClose();
+            }
+        },
+    })
+
     const bankOptions = bankNames.data?.map((banks: { name: string }) => {
         return ({
             label: banks.name,
@@ -110,6 +128,12 @@ const AddBankDetailsModal = ({ isOpen, onClose }: Props) => {
         }));
     };
 
+    const checkRoute = route === '/settings/profile';
+    const isSubmit2 = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+      
+    };
+
     useEffect(() => {
         if (formData.bankCode && formData.accountNumber) {
             if (debounceTimeout) clearTimeout(debounceTimeout);
@@ -127,7 +151,7 @@ const AddBankDetailsModal = ({ isOpen, onClose }: Props) => {
 
     return (
         <Modal isOpen={isOpen} onClose={onClose}>
-            <form name='bank-details-form' onSubmit={isSubmit}>
+            <form name='bank-details-form' onSubmit={checkRoute ? isSubmit2 : isSubmit}>
                 <h2 className="text-center font-semibold text-lg pb-4">Add Bank Details</h2>
                 <div className="space-y-4">
                     <InputSelect

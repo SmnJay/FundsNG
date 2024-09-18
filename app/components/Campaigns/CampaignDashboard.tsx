@@ -5,6 +5,11 @@ import { IoFilterOutline } from 'react-icons/io5';
 import Link from 'next/link';
 import { ICampaign } from '@/app/utils/models/Model';
 import Pagination from '../Pagination/Pagination';
+import Image from 'next/image';
+import ProgressBar from '../ProgressBar';
+import moneyFormatter from '@/app/utils/helper/moneyFormatter';
+import calculateDaysLeft from '@/app/utils/helper/deadlineCalculator';
+import CampaignCad from './CampaignCad';
 
 type CampaignDashboardProps = {
     data: ICampaign[];
@@ -31,18 +36,20 @@ const CampaignDashboard: React.FC<CampaignDashboardProps> = ({ data, number, tot
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-4">
-                {data?.map((campaign) => (
-                    <CampaignCard
+            {
+                data?.map((campaign) => (
+                    <CampaignCad
                         key={campaign.id}
+                        amount={campaign.targetAmount}
+                        description={campaign.description}
                         status={campaign.status}
                         link={`/dashboard/campaigns/${campaign.id}`}
                         title={campaign.name}
                         dateCreated={campaign.endDate.slice(0, 10)}
                         imageSrc="/images/underbridge.png"
                     />
-                ))}
-            </div>
+                ))
+            }
 
             {/* Pass currentPage and setCurrentPage to Pagination */}
             <Pagination
