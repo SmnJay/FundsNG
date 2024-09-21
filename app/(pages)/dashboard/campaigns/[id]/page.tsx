@@ -7,6 +7,7 @@ import Cards from '@/app/components/Cards';
 import Links from '@/app/components/Links/Index';
 import { CardLoader } from '@/app/components/Loader/Loader';
 import AddBankDetailsModal from '@/app/components/Modal/AddBankDetailsModal';
+import ShareCampaignModal from '@/app/components/Modal/ShareCampaignModal';
 import UserBank from '@/app/components/Profile/UserBank';
 import ProgressBar from '@/app/components/ProgressBar';
 import Spinner from '@/app/components/Spinner/Spinner';
@@ -36,6 +37,8 @@ const items = [
   { label: 'Campaigns', path: '/dashboard/campaigns' },
   { label: 'Campaign Detail' },
 ];
+
+const app_url = 'https://funds-ng.vercel.app'
 const SingleCampaign = () => {
   const router = useRouter();
   const params = useParams();
@@ -44,9 +47,14 @@ const SingleCampaign = () => {
   const campaignId = Array.isArray(id) ? id[0] : id
 
   const [showAddAccountModal, setShowAddAccountModal] = useState(false);
+  const [showShareCampaignModal, setShowShareCampaignModal] = useState(false);
 
   const handleShowAddAccountModal = () => {
     setShowAddAccountModal(!showAddAccountModal)
+  }
+
+  const handleShowShareCampaignModal = () => {
+    setShowShareCampaignModal(!showShareCampaignModal)
   }
 
   const { data, isError, error, isFetching, isLoading } = useQuery<ICampaign>({
@@ -102,13 +110,11 @@ const SingleCampaign = () => {
       <div className="bg-white text-[#5f655e] flex items-center justify-between text-sm font-semibold rounded-lg p-3 mt-4">
         <span>Manage Campaigns</span>
         <div className="flex items-center gap-2">
-          <Link href={`${id}/edit`} className='flex items-center gap-2 font-light text-sm rounded-lg border px-4 py-2 hover:brightness-75 ease-linear duration-200' aria-label='Link to view Campaign'><span className=""><IoEyeOutline /></span><span className="">View Campaign</span> </Link>
+          <a target='_blank' href={`${CampaignDetail?.campaign?.shareableUrl}`} className='flex items-center gap-2 font-light text-sm rounded-lg border px-4 py-2 hover:brightness-75 ease-linear duration-200' aria-label='Link to view Campaign'><span className=""><IoEyeOutline /></span><span className="">View Campaign</span> </a>
           <Link href={`${id}/edit`} className='flex items-center gap-2 font-light text-sm rounded-lg border px-4 py-2 hover:brightness-75 ease-linear duration-200' aria-label='Link to edit Campaign'><span className=""><TbEdit /></span><span className="">Edit Campaign</span> </Link>
-          <button className='flex items-center gap-2 font-light text-sm rounded-lg border border-leafGreen-20 hover:brightness-95 ease-linear duration-200 px-4 py-2 bg-leafGreen-20 text-white' onClick={handleCopyClick} type="button"><span className=""><IoShareSocial /></span><span className="">Share Campaign</span></button>
+          <button className='flex items-center gap-2 font-light text-sm rounded-lg border border-leafGreen-20 hover:brightness-95 ease-linear duration-200 px-4 py-2 bg-leafGreen-20 text-white' onClick={handleShowShareCampaignModal} type="button"><span className=""><IoShareSocial /></span><span className="">Share Campaign</span></button>
         </div>
       </div>
-
-
 
       <div className='bg-white rounded-r-lg flex flex-col md:flex-row items-center gap-12 pr-6 relative mt-4'>
         <div className="w-[326px] h-[213px] spb-[153.05%] relative">
@@ -158,9 +164,6 @@ const SingleCampaign = () => {
         <span className="absolute top-4 right-5 inline-block bg-red-400 rounded-full"></span>
       </div>
 
-
-
-
       <div className='grid grid-cols-3 gap-4 mt-6'>
         <div className="col-span-3 md:col-span-2">
           <div className='mt-4 space-y-2'>
@@ -206,10 +209,8 @@ const SingleCampaign = () => {
         </div>
 
         <div className="col-span-3 md:col-span-1">
-
           <div className="bg-white text-[#5f6553] rounded-lg py-6 px-3 mt-3">
             <h3 className="font-semibold text-black pb-4">Funds Withdrawal Details</h3>
-
             {
               isLoading ? <CardLoader /> :
                 <UserBank
@@ -220,7 +221,6 @@ const SingleCampaign = () => {
                   accountNumber={data?.bankDetails?.accountNumber as unknown as string}
                 />
             }
-
             <div className="flex items-center gap-2 py-4 text-xs">
               <span className="font-medium  text-black">Frequency: </span>
               <span className=" text-[#F7A145]">Withdraw Funds by the end of Campaign</span>
@@ -246,6 +246,13 @@ const SingleCampaign = () => {
 
       </div>
 
+
+      <ShareCampaignModal
+        showModal={showShareCampaignModal}
+        handleModal={handleShowShareCampaignModal}
+        pushToUrl=''
+        shareableUrl={CampaignDetail?.campaign?.shareableUrl as unknown as string}
+      />
       <AddBankDetailsModal isOpen={showAddAccountModal} onClose={handleShowAddAccountModal} />
     </Fragment>
   )

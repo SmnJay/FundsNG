@@ -43,7 +43,7 @@ const CampaignCad = (props: Props) => {
                 />
                 <div className="absolute bg-[#f4ffe3eb] border border-[#FC9D51] rounded-lg py-1 px-3 font-medium right-4 bottom-4 text-[11px] flex items-center gap-1">{campaignStatus(props.status)} {props.status}</div>
             </div>
-            <div className="font-inter w-full py-6">
+            <div className="font-inter w-[60%] py-6">
                 <h6 className="font-semibold md:leading-loose text-base text-[#3f4343] mb-1">{props.title}</h6>
                 <p className="text-[#899192] text-sm mb-3">{props.description}</p>
                 <ProgressBar value={50} />
