@@ -12,15 +12,19 @@ type Props = {
     title: string
     status: string
     description: string
-    amount: number
+    amount: number | string
 }
 
 
 
-const campaignStatus = (status: string) => {
+export const campaignStatus = (status: string) => {
     switch (status.toLowerCase()) {
         case 'started':
             return <span className="inline-block h-[8px] w-[8px] bg-leafGreen-20"></span>
+        case 'draft':
+            return <span className="inline-block h-[8px] w-[8px] bg-primary"></span>
+        case 'stopped':
+            return <span className="inline-block h-[8px] w-[8px] bg-gray-500"></span>
         default:
             return status;
     }
@@ -37,7 +41,7 @@ const CampaignCad = (props: Props) => {
                     height={213}
                     alt=''
                 />
-                <div className="absolute bg-[#F4FFE391] border border-[#FC9D51] rounded-lg py-1 px-3 font-medium right-4 bottom-4 text-[11px] flex items-center gap-1">{campaignStatus(props.status)} {props.status}</div>
+                <div className="absolute bg-[#f4ffe3eb] border border-[#FC9D51] rounded-lg py-1 px-3 font-medium right-4 bottom-4 text-[11px] flex items-center gap-1">{campaignStatus(props.status)} {props.status}</div>
             </div>
             <div className="font-inter w-full py-6">
                 <h6 className="font-semibold md:leading-loose text-base text-[#3f4343] mb-1">{props.title}</h6>

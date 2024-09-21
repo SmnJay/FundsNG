@@ -193,6 +193,7 @@ const Profile = () => {
                     activeBankAccounts?.map((item, idx) => {
                       return (
                         <UserBank
+                          showPrimary
                           id={item.id}
                           key={idx}
                           bankName={item?.bankName}

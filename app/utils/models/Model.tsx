@@ -50,7 +50,12 @@ export interface ICampaign {
     userId: string
     mediaUrl: string
     endDate: string
-    shareableUrl: string
+    shareableUrl: string,
+    bankDetails: {
+        bankName: string,
+        accountNumber: string,
+        accountName: string
+    }
 }
 
 export interface ICampaignDetails {
@@ -58,7 +63,12 @@ export interface ICampaignDetails {
     donatedAmount: number,
     numberOfDonors: number,
     numberOfDonations: number,
-    activities: any[]
+    activities: any[],
+    bankDetails: {
+        bankName: string,
+        accountNumber: string,
+        accountName: string
+    }
 }
 
 export interface ICreateSavings {
