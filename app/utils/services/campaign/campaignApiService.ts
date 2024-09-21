@@ -83,3 +83,13 @@ export const getOpenCampaignApiService = async (url: string) => {
         throw new Error(error.response?.data?.message) || "Failed to stop campaign. Please, try again."
     }
 }
+
+export const deleteCampaignApiService = async (id: string) => {
+    try {
+        const response = await axios.delete(`/api/campaign/${id}/delete`);
+        return response.data;
+
+    } catch (error: any) {
+        throw new Error(error.response?.data?.message) || "Failed to delete campaign. Please, try again."
+    }
+}

@@ -1,17 +1,13 @@
 'use client';
 
 import Breadcrumb from '@/app/components/Breadcrumb';
-import Button, { ButtonLink } from '@/app/components/Button/Button';
 import CampaignCad, { campaignStatus } from '@/app/components/Campaigns/CampaignCad';
-import Cards from '@/app/components/Cards';
-import Links from '@/app/components/Links/Index';
 import { CardLoader } from '@/app/components/Loader/Loader';
 import AddBankDetailsModal from '@/app/components/Modal/AddBankDetailsModal';
 import ShareCampaignModal from '@/app/components/Modal/ShareCampaignModal';
 import UserBank from '@/app/components/Profile/UserBank';
 import ProgressBar from '@/app/components/ProgressBar';
 import Spinner from '@/app/components/Spinner/Spinner';
-import { dateFormatter } from '@/app/utils/helper/dateFormatter';
 import calculateDaysLeft from '@/app/utils/helper/deadlineCalculator';
 import moneyFormatter from '@/app/utils/helper/moneyFormatter';
 import useUpdateParams from '@/app/utils/hooks/useUpdateParams';
@@ -22,14 +18,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation'
 import React, { Fragment, useState } from 'react'
-import { BiPlus, BiSolidHourglass, BiSolidStopwatch } from 'react-icons/bi';
-import { FiEdit } from 'react-icons/fi';
-import { GoGoal } from 'react-icons/go';
-import { HiOutlineUser } from 'react-icons/hi2';
-import { IoMdShareAlt } from 'react-icons/io';
+import { HiMiniExclamationTriangle } from 'react-icons/hi2';
 import { IoCogOutline, IoEyeOutline, IoShareSocial } from 'react-icons/io5';
 import { LiaTimesSolid } from 'react-icons/lia';
-import { TbEdit, TbMoneybag } from 'react-icons/tb';
+import { TbEdit } from 'react-icons/tb';
 import { toast } from 'react-toastify';
 
 const items = [
@@ -40,7 +32,6 @@ const items = [
 
 const app_url = 'https://funds-ng.vercel.app'
 const SingleCampaign = () => {
-  const router = useRouter();
   const params = useParams();
   const { id } = params;
 
@@ -214,7 +205,7 @@ const SingleCampaign = () => {
             {
               isLoading ?
                 <CardLoader /> :
-                data?.bankDetails === null ? 'Please add your bank details to this campaign' :
+                data?.bankDetails === null ? <p className='flex items-center gap-3 rounded-md p-4 bg-slate-100 w-fit text-sm'><HiMiniExclamationTriangle className='text-amber-600 flex-shrink-0' /> This Campaign has no associated bank account information. Kindly add your bank details to this campaign</p> :
                   <UserBank
                     showPrimary={false}
                     id={data?.id as unknown as string}
@@ -228,7 +219,7 @@ const SingleCampaign = () => {
               <span className=" text-[#F7A145]">Withdraw Funds by the end of Campaign</span>
             </div>
             <div className="flex flex-wrap space-x-1 items-center justify-between">
-              <Link href={`${id}/edit`} className='flex items-center gap-2 font-light text-sm rounded-lg border px-4 py-2 hover:brightness-75 ease-linear duration-200 whitespace-nowrap' aria-label='Link to view Campaign'><span className=""><IoCogOutline /></span><span className="">Campaign Settings</span> </Link>
+              <Link href={`${id}/setting`} className='flex items-center gap-2 font-light text-sm rounded-lg border px-4 py-2 hover:brightness-75 ease-linear duration-200 whitespace-nowrap' aria-label='Link to view Campaign'><span className=""><IoCogOutline /></span><span className="">Campaign Settings</span> </Link>
               <Link href={`${id}/edit`} className='flex items-center gap-2 font-light text-sm rounded-lg bg-leafGreen-20 text-white border px-4 py-2 hover:brightness-95 ease-linear duration-200 whitespace-nowrap' aria-label='Link to Withdraw Funds'><span className=""><TbEdit /></span><span className="">Withdraw Funds</span> </Link>
             </div>
           </div>
