@@ -212,22 +212,24 @@ const SingleCampaign = () => {
           <div className="bg-white text-[#5f6553] rounded-lg py-6 px-3 mt-3">
             <h3 className="font-semibold text-black pb-4">Funds Withdrawal Details</h3>
             {
-              isLoading ? <CardLoader /> :
-                <UserBank
-                  showPrimary={false}
-                  id={data?.id as unknown as string}
-                  bankName={data?.bankDetails?.bankName as unknown as string}
-                  accountName={data?.bankDetails?.accountName as unknown as string}
-                  accountNumber={data?.bankDetails?.accountNumber as unknown as string}
-                />
+              isLoading ?
+                <CardLoader /> :
+                data?.bankDetails === null ? 'Please add your bank details to this campaign' :
+                  <UserBank
+                    showPrimary={false}
+                    id={data?.id as unknown as string}
+                    bankName={data?.bankDetails?.bankName as unknown as string}
+                    accountName={data?.bankDetails?.accountName as unknown as string}
+                    accountNumber={data?.bankDetails?.accountNumber as unknown as string}
+                  />
             }
             <div className="flex items-center gap-2 py-4 text-xs">
               <span className="font-medium  text-black">Frequency: </span>
               <span className=" text-[#F7A145]">Withdraw Funds by the end of Campaign</span>
             </div>
-            <div className="flex items-center gap-2">
-              <Link href={`${id}/edit`} className='flex items-center gap-2 font-light text-sm rounded-lg border px-4 py-2 hover:brightness-75 ease-linear duration-200' aria-label='Link to view Campaign'><span className=""><IoCogOutline /></span><span className="">Campaign Settings</span> </Link>
-              <Link href={`${id}/edit`} className='flex items-center gap-2 font-light text-sm rounded-lg bg-leafGreen-20 text-white border px-4 py-2 hover:brightness-95 ease-linear duration-200' aria-label='Link to Withdraw Funds'><span className=""><TbEdit /></span><span className="">Withdraw Funds</span> </Link>
+            <div className="flex flex-wrap space-x-1 items-center justify-between">
+              <Link href={`${id}/edit`} className='flex items-center gap-2 font-light text-sm rounded-lg border px-4 py-2 hover:brightness-75 ease-linear duration-200 whitespace-nowrap' aria-label='Link to view Campaign'><span className=""><IoCogOutline /></span><span className="">Campaign Settings</span> </Link>
+              <Link href={`${id}/edit`} className='flex items-center gap-2 font-light text-sm rounded-lg bg-leafGreen-20 text-white border px-4 py-2 hover:brightness-95 ease-linear duration-200 whitespace-nowrap' aria-label='Link to Withdraw Funds'><span className=""><TbEdit /></span><span className="">Withdraw Funds</span> </Link>
             </div>
           </div>
 
