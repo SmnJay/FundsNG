@@ -1,7 +1,7 @@
 'use client';
 
 import { useParams, useRouter } from 'next/navigation';
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import Breadcrumb from '../Breadcrumb';
 import Link from 'next/link';
 import UserBank from '../Profile/UserBank';
@@ -14,6 +14,7 @@ import { BiRefresh } from 'react-icons/bi';
 import Button from '../Button/Button';
 import Spinner from '../Spinner/Spinner';
 import { toast } from 'react-toastify';
+import { InputSelect } from '../Input/Input';
 
 const CampaignSettings = () => {
     const PageParams = useParams();
@@ -25,6 +26,12 @@ const CampaignSettings = () => {
         { label: 'Single Campaign Details', path: `/dashboard/campaigns/${PageParams.id}` },
         { label: 'Campaign Settings' },
     ];
+
+    const [isAuto, setIsAuto] = useState(false);
+
+    const handleToggleIsAuto = () => {
+        setIsAuto(!isAuto);
+    }
 
     const { data, isError, error, isFetching, isLoading } = useQuery<ICampaign>({
         queryKey: ['campaign', PageParams?.id],
@@ -51,6 +58,13 @@ const CampaignSettings = () => {
             toast.error("Campaign ID is missing");
         }
     };
+
+    const AutowithdrawalOptions = [
+        { label: 'Monthly', value: '0' },
+        { label: 'Bi-Weekly', value: '1' },
+        { label: 'Weekly', value: '2' },
+        { label: 'Daily', value: '3' },
+    ]
 
     return (
         <Fragment>
@@ -84,14 +98,47 @@ const CampaignSettings = () => {
                     <form className="mt-4">
                         <div className="space-y-3">
                             <div className="flex items-center ">
-                                <input type="radio" name="withdrawal-mode" id="manual" className='accent-leafGreen-20 scale-105 mr-4 cursor-pointer' />
+                                <input
+                                    onChange={(e) => {
+                                        if (e.target.checked) {
+                                            setIsAuto(false)
+                                        } else {
+                                            setIsAuto(true)
+                                        }
+                                    }}
+                                    defaultChecked
+                                    type="radio"
+                                    name="withdrawal-mode"
+                                    id="manual"
+                                    className='accent-leafGreen-20 scale-105 mr-4 cursor-pointer'
+                                />
                                 <label className='font-light text-[#899192] cursor-pointer' htmlFor="manual">Manual Withdrawal</label>
                             </div>
                             <div className="flex items-center ">
-                                <input type="radio" name="withdrawal-mode" id="auto" className='accent-leafGreen-20 scale-105 mr-4 cursor-pointer' />
+                                <input
+                                    type="radio"
+                                    name="withdrawal-mode"
+                                    id="auto"
+                                    className='accent-leafGreen-20 scale-105 mr-4 cursor-pointer' onChange={(e) => {
+                                        if (e.target.checked) {
+                                            setIsAuto(true)
+                                        } else {
+                                            setIsAuto(false)
+                                        }
+                                    }}
+                                />
                                 <label className='font-light text-[#899192] cursor-pointer' htmlFor="auto">Automatic Withdrawal</label>
                             </div>
                         </div>
+                        {
+                            isAuto && <div className='mt-4'>
+                                <InputSelect
+                                    name='withdrawal frequency'
+                                    label='Auto Withdrawal Frequency'
+                                    options={AutowithdrawalOptions}
+                                />
+                            </div>
+                        }
                         <div className="grid grid-cols-2 items-center gap-4 mt-6 w-2/3 mx-auto">
                             <Link href={`/dashboard/campaigns/${PageParams.id}`} className="rounded-lg border text-primary py-3 ease-linear duration-200 hover:brightness-95 px-6 text-center bg-white">Back</Link>
                             <button className="rounded-lg border text-white py-3 ease-linear duration-200 hover:brightness-95 px-6 text-center bg-leafGreen-20 whitespace-nowrap">Save Settings</button>
