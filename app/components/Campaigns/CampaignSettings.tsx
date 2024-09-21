@@ -15,6 +15,7 @@ import Button from '../Button/Button';
 import Spinner from '../Spinner/Spinner';
 import { toast } from 'react-toastify';
 import { InputSelect } from '../Input/Input';
+import ChangeAccountModal from '../Modal/ChangeAccountModal';
 
 const CampaignSettings = () => {
     const PageParams = useParams();
@@ -28,6 +29,7 @@ const CampaignSettings = () => {
     ];
 
     const [isAuto, setIsAuto] = useState(false);
+    const [showChangeAccountModal, setShowChangeAccountModal] = useState(false);
 
     const handleToggleIsAuto = () => {
         setIsAuto(!isAuto);
@@ -59,6 +61,10 @@ const CampaignSettings = () => {
         }
     };
 
+    const handleToggleShowChangeAccountModal = async () => {
+        setShowChangeAccountModal(!showChangeAccountModal);
+    };
+
     const AutowithdrawalOptions = [
         { label: 'Monthly', value: '0' },
         { label: 'Bi-Weekly', value: '1' },
@@ -86,10 +92,10 @@ const CampaignSettings = () => {
                     }
                     {
                         !isLoading ?
-                            <Link href='' className='flex items-center gap-2 text-leafGreen-20 hover:text-leafGreen-5 ease-linear duration-200 text-center leading-loose justify-center mx-auto mt-2'>
+                            <button onClick={handleToggleShowChangeAccountModal} className='flex items-center gap-2 text-leafGreen-20 hover:text-leafGreen-5 ease-linear duration-200 text-center leading-loose justify-center mx-auto mt-2'>
                                 <BiRefresh />
                                 <span className="">Use another Account</span>
-                            </Link>
+                            </button>
                             : null
                     }
                 </div>
@@ -97,7 +103,7 @@ const CampaignSettings = () => {
                     <h4 className="text-lg font-medium leading-loose">Withdrawal Type</h4>
                     <form className="mt-4">
                         <div className="space-y-3">
-                            <div className="flex items-center ">
+                            <div className="flex items-center">
                                 <input
                                     onChange={(e) => {
                                         if (e.target.checked) {
@@ -114,7 +120,7 @@ const CampaignSettings = () => {
                                 />
                                 <label className='font-light text-[#899192] cursor-pointer' htmlFor="manual">Manual Withdrawal</label>
                             </div>
-                            <div className="flex items-center ">
+                            <div className="flex items-center">
                                 <input
                                     type="radio"
                                     name="withdrawal-mode"
@@ -149,6 +155,7 @@ const CampaignSettings = () => {
                     <button className="rounded-lg border text-white py-3 ease-linear duration-200 hover:brightness-95 px-6 text-center bg-red-700 whitespace-nowrap" disabled={deleteCampaign?.isPending} onClick={handleDeleteCampaign}>{deleteCampaign?.isPending ? <Spinner /> : 'Delete Campaign'}</button>
                 </div>
             </section>
+            <ChangeAccountModal showChangeAccount={showChangeAccountModal} handleModal={handleToggleShowChangeAccountModal} />
         </Fragment>
     )
 }
