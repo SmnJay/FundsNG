@@ -52,7 +52,7 @@ const AddAccount = () => {
                 toast.error(data.message);
 
             } else {
-                router.back()
+                router.back();
             }
         },
     })
@@ -154,13 +154,13 @@ const AddAccount = () => {
                                         activeBankAccounts?.map((item, idx) => {
                                             return (
                                                 <UserBank
-                                                    showPrimary
+                                                    showPrimary={false}
                                                     id={item.id}
                                                     key={idx}
                                                     bankName={item?.bankName}
                                                     accountName={item?.accountName}
                                                     accountNumber={item?.accountNumber}
-                                                    isPrimary={item?.isPrimary}
+                                                    // isPrimary={item?.isPrimary}
                                                 />
                                             )
                                         })
