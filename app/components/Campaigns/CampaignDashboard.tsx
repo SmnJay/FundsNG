@@ -1,14 +1,9 @@
 import React from 'react';
-import CampaignCard from './CampaignCard';
 import { BiPlus } from 'react-icons/bi';
 import { IoFilterOutline } from 'react-icons/io5';
 import Link from 'next/link';
 import { ICampaign } from '@/app/utils/models/Model';
 import Pagination from '../Pagination/Pagination';
-import Image from 'next/image';
-import ProgressBar from '../ProgressBar';
-import moneyFormatter from '@/app/utils/helper/moneyFormatter';
-import calculateDaysLeft from '@/app/utils/helper/deadlineCalculator';
 import CampaignCad from './CampaignCad';
 
 type CampaignDashboardProps = {

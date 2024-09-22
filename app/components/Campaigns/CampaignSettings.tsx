@@ -8,10 +8,9 @@ import UserBank from '../Profile/UserBank';
 import { CardLoader } from '../Loader/Loader';
 import { ICampaign } from '@/app/utils/models/Model';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { deleteCampaignApiService, getSingleCampaign } from '@/app/utils/services/campaign/campaignApiService';
+import { campaignWithdrawalModeApiService, deleteCampaignApiService, getSingleCampaign } from '@/app/utils/services/campaign/campaignApiService';
 import { HiMiniExclamationTriangle } from 'react-icons/hi2';
 import { BiRefresh } from 'react-icons/bi';
-import Button from '../Button/Button';
 import Spinner from '../Spinner/Spinner';
 import { toast } from 'react-toastify';
 import { InputSelect } from '../Input/Input';
@@ -31,14 +30,15 @@ const CampaignSettings = () => {
     const [isAuto, setIsAuto] = useState(false);
     const [showChangeAccountModal, setShowChangeAccountModal] = useState(false);
 
-    const handleToggleIsAuto = () => {
-        setIsAuto(!isAuto);
-    }
-
     const { data, isError, error, isFetching, isLoading } = useQuery<ICampaign>({
         queryKey: ['campaign', PageParams?.id],
         queryFn: () => getSingleCampaign(PageParams.id as string),
         enabled: !!PageParams.id
+    });
+
+    const [formData, setFormData] = useState<{ bankAccountId: string, withdrawalType: number, frequency?: number }>({
+        bankAccountId: data?.bankAccountId ?? '',
+        withdrawalType: 0
     });
 
     const deleteCampaign = useMutation({
@@ -46,6 +46,19 @@ const CampaignSettings = () => {
         mutationFn: deleteCampaignApiService,
         onError: (error) => {
             toast.error('Failed to delete campaign');
+        },
+        onSuccess: (data) => {
+            toast.success(data ?? 'Campaign updated successfully');
+            router.push('/dashboard/campaigns');
+        },
+    });
+
+    const _saveSettings = useMutation({
+        mutationKey: ['save campaign settings'],
+        mutationFn: campaignWithdrawalModeApiService,
+        onError: (error) => {
+            console.log(error)
+            toast.error('Failed to save campaign settings');
         },
         onSuccess: (data) => {
             toast.success(data ?? 'Campaign updated successfully');
@@ -70,7 +83,13 @@ const CampaignSettings = () => {
         { label: 'Bi-Weekly', value: '1' },
         { label: 'Weekly', value: '2' },
         { label: 'Daily', value: '3' },
-    ]
+    ];
+
+    const saveSettings = async (e: React.FormEvent) => {
+        e.preventDefault();
+        console.log(formData);
+        _saveSettings.mutate(formData)
+    }
 
     return (
         <Fragment>
@@ -92,22 +111,29 @@ const CampaignSettings = () => {
                     }
                     {
                         !isLoading ?
-                            <button onClick={handleToggleShowChangeAccountModal} className='flex items-center gap-2 text-leafGreen-20 hover:text-leafGreen-5 ease-linear duration-200 text-center leading-loose justify-center mx-auto mt-2'>
+                            <Link href={`setting/add`} className='flex items-center gap-2 text-leafGreen-20 hover:text-leafGreen-5 ease-linear duration-200 text-center leading-loose justify-center mx-auto mt-2'>
                                 <BiRefresh />
                                 <span className="">Use another Account</span>
-                            </button>
+                            </Link>
                             : null
                     }
                 </div>
                 <div className="md:w-4/5 xl:w-1/2 mx-auto py-6 border-y">
                     <h4 className="text-lg font-medium leading-loose">Withdrawal Type</h4>
-                    <form className="mt-4">
+                    <form className="mt-4" onSubmit={saveSettings}>
                         <div className="space-y-3">
                             <div className="flex items-center">
                                 <input
                                     onChange={(e) => {
                                         if (e.target.checked) {
-                                            setIsAuto(false)
+                                            setIsAuto(false);
+                                            if (Object.keys(formData).includes('frequency')) {
+                                                delete formData['frequency']
+                                            }
+                                            setFormData((prev) => ({
+                                                ...prev,
+                                                withdrawalType: Number(e.target.value)
+                                            }))
                                         } else {
                                             setIsAuto(true)
                                         }
@@ -116,6 +142,7 @@ const CampaignSettings = () => {
                                     type="radio"
                                     name="withdrawal-mode"
                                     id="manual"
+                                    value={0}
                                     className='accent-leafGreen-20 scale-105 mr-4 cursor-pointer'
                                 />
                                 <label className='font-light text-[#899192] cursor-pointer' htmlFor="manual">Manual Withdrawal</label>
@@ -127,11 +154,16 @@ const CampaignSettings = () => {
                                     id="auto"
                                     className='accent-leafGreen-20 scale-105 mr-4 cursor-pointer' onChange={(e) => {
                                         if (e.target.checked) {
+                                            setFormData((prev) => ({
+                                                ...prev,
+                                                withdrawalType: Number(e.target.value)
+                                            }))
                                             setIsAuto(true)
                                         } else {
                                             setIsAuto(false)
                                         }
                                     }}
+                                    value={1}
                                 />
                                 <label className='font-light text-[#899192] cursor-pointer' htmlFor="auto">Automatic Withdrawal</label>
                             </div>
@@ -142,12 +174,18 @@ const CampaignSettings = () => {
                                     name='withdrawal frequency'
                                     label='Auto Withdrawal Frequency'
                                     options={AutowithdrawalOptions}
+                                    onChange={(e) => {
+                                        setFormData((prev) => ({
+                                            ...prev,
+                                            frequency: +e.target.value
+                                        }))
+                                    }}
                                 />
                             </div>
                         }
                         <div className="grid grid-cols-2 items-center gap-4 mt-6 w-2/3 mx-auto">
                             <Link href={`/dashboard/campaigns/${PageParams.id}`} className="rounded-lg border text-primary py-3 ease-linear duration-200 hover:brightness-95 px-6 text-center bg-white">Back</Link>
-                            <button className="rounded-lg border text-white py-3 ease-linear duration-200 hover:brightness-95 px-6 text-center bg-leafGreen-20 whitespace-nowrap">Save Settings</button>
+                            <button className="rounded-lg border text-white py-3 ease-linear duration-200 hover:brightness-95 px-6 text-center bg-leafGreen-20 whitespace-nowrap" type='submit' disabled={_saveSettings.isPending}>{_saveSettings?.isPending ? <Spinner /> : 'Save Settings'}</button>
                         </div>
                     </form>
                 </div>

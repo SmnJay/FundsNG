@@ -35,6 +35,8 @@ export interface ICompleteProfile {
 export interface ICampaign {
     agreementSigned: boolean
     campaignCategoryId: string
+    bankAccountId: string
+    walletId: string
     category: null | []
     country: string
     state: string

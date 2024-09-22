@@ -93,3 +93,13 @@ export const deleteCampaignApiService = async (id: string) => {
         throw new Error(error.response?.data?.message) || "Failed to delete campaign. Please, try again."
     }
 }
+
+export const campaignWithdrawalModeApiService = async (data: { withdrawalType: number, bankAccountId: string, frequency?: number }) => {
+    try {
+        const response = await axios.put(`/api/campaign/withdrawal-mode`, data);
+        return response.data;
+    } catch (error: any) {
+        throw new Error(error.response?.data?.message) || "Failed to save campaign settings. Please, try again."
+
+    }
+}
