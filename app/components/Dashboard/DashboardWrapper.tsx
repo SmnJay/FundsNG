@@ -21,9 +21,9 @@ import PopularCategories from './PopularCategories';
 import CampaignLoader from '../Campaigns/CampaignLoader';
 import CampaignDashboard from '../Campaigns/CampaignDashboard';
 import moneyFormatter from '@/app/utils/helper/moneyFormatter';
-import calculateDaysLeft from '@/app/utils/helper/deadlineCalculator';
 import { useSearchParams } from 'next/navigation';
 import { ICampaign } from '@/app/utils/models/Model';
+import PercentageCalculator from '@/app/utils/helper/percentageCalculator';
 
 type DashboardWrapperProps = {
     isProfileSetUp: boolean
@@ -137,27 +137,25 @@ const DashboardWrapper: React.FC<DashboardWrapperProps> = ({ isProfileSetUp }) =
                                                 <div className="font-inter w-full py-6">
                                                     <h6 className="font-semibold md:leading-loose text-base text-[#3f4343] mb-1">{campaignQuery?.data?.data[0]?.name}</h6>
                                                     <p className="text-[#899192] text-sm mb-3">{campaignQuery?.data?.data[0]?.description}</p>
-                                                    <ProgressBar value={50} />
+                                                    <ProgressBar value={PercentageCalculator(campaignQuery?.data?.data[0]?.donatedAmount as number, campaignQuery?.data?.data[0]?.targetAmount as number)} />
                                                     <div className="grid grid-cols-4 items-center gap-2 mt-4">
                                                         <div className="">
-                                                            <p className="font-semibold text-xl">&#8358;{moneyFormatter(campaignQuery?.data?.data[0]?.targetAmount as string|number)}</p>
+                                                            <p className="font-semibold text-xl">&#8358;{moneyFormatter(campaignQuery?.data?.data[0]?.targetAmount as string | number)}</p>
                                                             <p className="leading-loose font-light text-[#8B8B8B]">Target</p>
                                                         </div>
                                                         <div className="">
-                                                            <p className="font-semibold text-xl">--</p>
+                                                            <p className="font-semibold text-xl">{campaignQuery?.data?.data[0]?.donatedAmount}</p>
                                                             <p className="leading-loose font-light text-[#8B8B8B]">Raised so far</p>
                                                         </div>
                                                         <div className="">
-                                                            <p className="font-semibold text-xl">--</p>
+                                                            <p className="font-semibold text-xl">{campaignQuery?.data?.data[0]?.numberOfDonors}</p>
                                                             <p className="leading-loose font-light text-[#8B8B8B]">Donors</p>
                                                         </div>
                                                         <div className="">
-                                                            <p className="font-semibold text-xl">{calculateDaysLeft(campaignQuery?.data?.data[0]?.endDate as string).toLocaleString()}</p>
+                                                            <p className="font-semibold text-xl">{(campaignQuery?.data?.data[0]?.daysLeft)?.toLocaleString()}</p>
                                                             <p className="leading-loose font-light text-[#8B8B8B]">Days Left</p>
                                                         </div>
                                                     </div>
-
-                                                    {/* <span className="text-[#899192]">has been donated so far</span> */}
                                                 </div>
                                             </div>
                                     }

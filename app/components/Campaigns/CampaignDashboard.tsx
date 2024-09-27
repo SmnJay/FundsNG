@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { ICampaign } from '@/app/utils/models/Model';
 import Pagination from '../Pagination/Pagination';
 import CampaignCad from './CampaignCad';
+import PercentageCalculator from '@/app/utils/helper/percentageCalculator';
 
 type CampaignDashboardProps = {
     data: ICampaign[];
@@ -35,6 +36,11 @@ const CampaignDashboard: React.FC<CampaignDashboardProps> = ({ data, number, tot
                 data?.map((campaign) => (
                     <CampaignCad
                         key={campaign.id}
+                        category={campaign.category}
+                        numberOfDonors={campaign.numberOfDonors}
+                        daysLeft={campaign.daysLeft}
+                        progress={PercentageCalculator(campaign.donatedAmount, campaign.targetAmount)}
+                        amountRaised={campaign.donatedAmount}
                         amount={campaign.targetAmount}
                         description={campaign.description}
                         status={campaign.status}

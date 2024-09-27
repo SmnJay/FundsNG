@@ -4,8 +4,6 @@ import { PaymentActivities } from '@/app/components/Activity';
 import Breadcrumb from '@/app/components/Breadcrumb';
 import ProgressBar from '@/app/components/ProgressBar';
 import SavingsMember from '@/app/components/Savings/SavingsMember';
-import SavingsWrapper from '@/app/components/Savings/SavingsWrapper';
-import { MemberAvatar } from '@/app/components/UserProfilePicture';
 import Link from 'next/link';
 import { useParams } from 'next/navigation'
 import React from 'react'

@@ -1,4 +1,4 @@
-export default function calculateDaysLeft(endDate: string | Date): number {
+export default function calculateDaysLeft(endDate: string | Date): any {
     // Convert endDate to a Date object if it's a string (ISO string)
     const targetDate = typeof endDate === 'string' ? new Date(endDate) : endDate;
     const currentDate = new Date();

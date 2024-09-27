@@ -37,7 +37,6 @@ export interface ICampaign {
     campaignCategoryId: string
     bankAccountId: string
     walletId: string
-    category: null | []
     country: string
     state: string
     mobile: string
@@ -45,8 +44,11 @@ export interface ICampaign {
     name: string
     targetAmount: number
     description: string
+    daysLeft: number
     createdBy: string
+    category: string
     id: string
+    numberOfDonors: number
     donatedAmount: number
     email: string
     userId: string
