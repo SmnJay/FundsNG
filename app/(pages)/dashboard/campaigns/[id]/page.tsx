@@ -218,9 +218,13 @@ const SingleCampaign = () => {
               <span className="font-medium  text-black">Frequency: </span>
               <span className=" text-[#F7A145]">Withdraw Funds by the end of Campaign</span>
             </div>
-            <div className="flex flex-wrap space-x-1 items-center justify-between">
-              <Link href={`${id}/setting`} className='flex items-center gap-2 font-light text-sm rounded-lg border px-4 py-2 hover:brightness-75 ease-linear duration-200 whitespace-nowrap' aria-label='Link to view Campaign'><span className=""><IoCogOutline /></span><span className="">Campaign Settings</span> </Link>
-              <Link href={`${id}/edit`} className='flex items-center gap-2 font-light text-sm rounded-lg bg-leafGreen-20 text-white border px-4 py-2 hover:brightness-95 ease-linear duration-200 whitespace-nowrap' aria-label='Link to Withdraw Funds'><span className=""><TbEdit /></span><span className="">Withdraw Funds</span> </Link>
+            <div className="flex flex-wrap xl:grid xl:grid-cols-2 space-x-1 items-center xl:justify-center">
+              <div className="">
+                <Link href={`${id}/setting`} className='flex items-center justify-content-center gap-2 font-light text-sm rounded-lg border px-4 py-2 hover:brightness-75 ease-linear duration-200 whitespace-nowrap' aria-label='Link to view Campaign'><span className=""><IoCogOutline /></span><span className="">Campaign Settings</span> </Link>
+              </div>
+              <div className="">
+                <Link href={`${id}/edit`} className='flex items-center justify-center gap-2 font-light text-sm rounded-lg bg-leafGreen-20 text-white border px-4 py-2 hover:brightness-95 ease-linear duration-200 whitespace-nowrap' aria-label='Link to Withdraw Funds'><span className=""><TbEdit /></span><span className="">Withdraw Funds</span> </Link>
+              </div>
             </div>
           </div>
 
