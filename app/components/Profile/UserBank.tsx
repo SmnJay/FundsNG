@@ -14,8 +14,9 @@ type Props = {
     accountName: string
     isPrimary?: boolean
     showPrimary: boolean
+    linkAccount?: boolean
 }
-const UserBank = ({ bankName, accountNumber, accountName, showPrimary = true, isPrimary, id }: Props) => {
+const UserBank = ({ bankName, accountNumber, accountName, linkAccount, showPrimary = true, isPrimary, id }: Props) => {
     const makeBankPrimaryMutation = useMutation({
         mutationKey: ['make-bank-primary'],
         mutationFn: makeAccountPrimaryApiService,
@@ -43,6 +44,16 @@ const UserBank = ({ bankName, accountNumber, accountName, showPrimary = true, is
                 <h4 className="font-medium text-[#7D847C] py-1 text-base">{bankName}</h4>
                 <h4 className="text-sm font-semibold">{accountName}</h4>
                 <h4 className="text-sm text-[#899192]">{accountNumber}</h4>
+                {
+                    linkAccount && <button
+                        className="text-xs text-leafGreen-20 underline"
+                        disabled={makeBankPrimaryMutation.isPending}
+                        onClick={submitMakeBankPriamry}>
+                        {
+                            makeBankPrimaryMutation?.isPending ? <Spinner /> : 'Link Account'
+                        }
+                    </button>
+                }
                 {
                     showPrimary &&
                     (isPrimary ?

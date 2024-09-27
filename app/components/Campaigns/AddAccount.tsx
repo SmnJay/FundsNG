@@ -134,6 +134,7 @@ const AddAccount = () => {
         return () => {
             if (debounceTimeout) clearTimeout(debounceTimeout);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [formData.bankCode, formData.accountNumber]); // Dependencies on bankCode and accountNumber
 
 
@@ -160,6 +161,7 @@ const AddAccount = () => {
                                                     bankName={item?.bankName}
                                                     accountName={item?.accountName}
                                                     accountNumber={item?.accountNumber}
+                                                    linkAccount
                                                     // isPrimary={item?.isPrimary}
                                                 />
                                             )
