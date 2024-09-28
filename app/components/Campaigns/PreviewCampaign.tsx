@@ -60,6 +60,7 @@ const PreviewCampaign = () => {
     },
     onSuccess: (data) => {
       toast.success(data.message ?? 'Transaction initialized successfully');
+      handlePaystackPayment()
     },
 
   })
