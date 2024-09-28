@@ -36,7 +36,7 @@ const OTPInput = ({ length = 6, onComplete }: InputProps) => {
                 return (
                     <>
                         <input
-                            key={index + (Math.random() * 0.5)}
+                            key={index}
                             type="text"
                             maxLength={1}
                             value={OTP[index]}
