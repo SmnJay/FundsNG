@@ -6,6 +6,8 @@ import React from 'react'
 import { PiBankFill } from 'react-icons/pi';
 import Spinner from '../Spinner/Spinner';
 import { toast } from 'react-toastify';
+import { updateLinkCampaignToBankApiService } from '@/app/utils/services/campaign/campaignApiService';
+import { useParams } from 'next/navigation';
 
 type Props = {
     id: string
@@ -17,6 +19,8 @@ type Props = {
     linkAccount?: boolean
 }
 const UserBank = ({ bankName, accountNumber, accountName, linkAccount, showPrimary = true, isPrimary, id }: Props) => {
+    const params = useParams();
+
     const makeBankPrimaryMutation = useMutation({
         mutationKey: ['make-bank-primary'],
         mutationFn: makeAccountPrimaryApiService,
@@ -28,8 +32,28 @@ const UserBank = ({ bankName, accountNumber, accountName, linkAccount, showPrima
         }
     });
 
+    const updateLinkBankAccountMutation = useMutation({
+        mutationKey: ['update bank account'],
+        mutationFn: updateLinkCampaignToBankApiService,
+        onError: (error) => {
+            toast.error(error.message)
+        },
+        onSuccess: (data) => {
+            toast.success(data)
+        }
+
+    })
+
     const submitMakeBankPriamry = async () => {
         await makeBankPrimaryMutation.mutateAsync({ accountId: id })
+    }
+
+    const submitUpdateLinkAccount = async (id: string) => {
+        if (params.id) {
+            await updateLinkBankAccountMutation.mutateAsync({ campaignId: params.id, bankAccountId: id })
+        } else {
+            toast.error("Please use an active campaign or log out and start afresh.")
+        }
     }
 
 
@@ -48,9 +72,9 @@ const UserBank = ({ bankName, accountNumber, accountName, linkAccount, showPrima
                     linkAccount && <button
                         className="text-xs text-leafGreen-20 underline"
                         disabled={makeBankPrimaryMutation.isPending}
-                        onClick={submitMakeBankPriamry}>
+                        onClick={() => submitUpdateLinkAccount(id)}>
                         {
-                            makeBankPrimaryMutation?.isPending ? <Spinner /> : 'Link Account'
+                            updateLinkBankAccountMutation?.isPending ? <Spinner /> : 'Link Account'
                         }
                     </button>
                 }

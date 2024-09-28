@@ -75,6 +75,15 @@ export const linkCampaignToBankApiService = async (data: any) => {
     }
 }
 
+export const updateLinkCampaignToBankApiService = async (data: any) => {
+    try {
+        const response = await axios.put('/api/campaign/update-account', data);
+        return response.data
+    } catch (error: any) {
+        throw new Error(error.response?.data?.message || 'Failed to update bank account to campaign. Please try again.');
+    }
+}
+
 export const getOpenCampaignApiService = async (url: string) => {
     try {
         const response = await axios.get(`/api/viewCampaign/${url}`);
