@@ -5,6 +5,7 @@ import Modal from './Modal'
 import { IoCloseOutline } from 'react-icons/io5'
 import moneyFormatter from '@/app/utils/helper/moneyFormatter'
 import OTPModal from './OTPModal';
+import { useParams } from 'next/navigation';
 
 type Props = {
     showModal: boolean,
@@ -15,10 +16,17 @@ type Props = {
     bankName: string
 }
 const WithdrawFundsModal: FC<Props> = ({ showModal, amountToWithdraw, accountName, accoutNumber, bankName, handleModal }) => {
+    const params = useParams();
+
     const [showOTPModal, setShowOTPModal] = useState(false);
 
     const handleShowOTPModal = () => {
         setShowOTPModal(!showOTPModal);
+    }
+
+    const formData = {
+        amount: amountToWithdraw,
+        campaignId: params ? params?.id : ''
     }
 
     return (
@@ -47,8 +55,9 @@ const WithdrawFundsModal: FC<Props> = ({ showModal, amountToWithdraw, accountNam
                     </button>
                 </div>
             </Modal>
-            
+
             <OTPModal
+                formData={formData}
                 showModal={showOTPModal}
                 handleModal={handleShowOTPModal}
             />

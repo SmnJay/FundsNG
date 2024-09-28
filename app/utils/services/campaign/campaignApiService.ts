@@ -121,3 +121,12 @@ export const getCampaignSettingsApiService = async () => {
         throw new Error(error.response?.data?.message) || "Failed to stop campaign. Please, try again."
     }
 }
+
+export const withdrawCampaignApiService = async (data: any) => {
+    try {
+        const response = await axios.post('/api/campaign/campaignWithdrawal', data);
+        return response.data
+    } catch (error: any) {
+        throw new Error(error.response?.data?.message || 'Failed to process withdrawal. Please try again.');
+    }
+}
