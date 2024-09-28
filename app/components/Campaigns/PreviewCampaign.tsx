@@ -18,6 +18,9 @@ import { PaystackButton } from 'react-paystack';
 import { PaystackConfig } from '@/app/utils/helper/PaystackUtils';
 import DrawerTab from '../Drawer/DrawerTab';
 import Input, { InputNumber } from '../Input/Input';
+import { CardLoader } from '../Loader/Loader';
+import { dateFormatter } from '@/app/utils/helper/dateFormatter';
+import moneyFormatter from '@/app/utils/helper/moneyFormatter';
 
 const PreviewCampaign = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -70,8 +73,8 @@ const PreviewCampaign = () => {
     onClose: handlePaystackCloseAction,
   }
 
-   // Ensure Paystack is only initialized client-side
-   useEffect(() => {
+  // Ensure Paystack is only initialized client-side
+  useEffect(() => {
     // Set that the component is running on the client
     setIsClient(typeof window !== 'undefined');
 
@@ -126,16 +129,19 @@ const PreviewCampaign = () => {
             />
           </div>
           <p className="text-[#7D847C] p-4 rounded-b-md text-sm leading-6 lg:leading-8">
-            {getPreviewOpenCampaign?.description}
+            {getPreviewOpenCampaignIsLoading ? <CardLoader /> : getPreviewOpenCampaign?.description}
           </p>
         </section>
         <aside className="w-full space-y-4 md:sticky md:top-4 md:self-start lg:col-span-2">
           <div className="bg-white px-4 md:px-6 md:py-6 py-3 rounded-lg">
             <div className="flex flex-col sm:flex-row gap-2 sm:items-center text-sm sm:justify-between mb-4">
-              <div className="">&#8358;{getPreviewOpenCampaign?.donatedAmount.toLocaleString(undefined, { maximumFractionDigits: 2 })} <span className="font-extralight text-[#888F87] pl-1">Donated</span></div>
-              <div className=""> <span className="font-light text-[#888F87] pr-1">Our Goal</span>&#8358;{getPreviewOpenCampaign?.targetAmount.toLocaleString(undefined, { maximumFractionDigits: 2 })}</div>
+              <div className="">{getPreviewOpenCampaignIsLoading ? <CardLoader /> : `₦${moneyFormatter(getPreviewOpenCampaign?.donatedAmount as unknown as string)}`}<span className="font-extralight text-[#888F87] pl-1">Donated</span></div>
+              <div className=""> <span className="font-light text-[#888F87] pr-1">Our Goal</span>{getPreviewOpenCampaignIsLoading ? <CardLoader /> : `₦${moneyFormatter(getPreviewOpenCampaign?.targetAmount as unknown as string)}`}</div>
             </div>
-            <ProgressBar value={getPreviewOpenCampaign?.donatedAmount as number ?? 0} />
+            {
+              getPreviewOpenCampaignIsLoading ? <CardLoader /> :
+                <ProgressBar value={getPreviewOpenCampaign?.donatedAmount as number ?? 0} />
+            }
             <div className="mt-6 flex flex-col md:flex-row md:justify-between gap-4">
               <div className="">
                 <Image
@@ -151,10 +157,13 @@ const PreviewCampaign = () => {
               </div>
             </div>
             <div className="space-y-4 my-6 text-[#5F655E] font-medium">
-              <div className="flex items-center gap-2 text-sm"><FaHourglassHalf />{getPreviewOpenCampaign?.endDate ? `${calculateDaysLeft(getPreviewOpenCampaign?.endDate).toLocaleString()} Days left` : 'Now'}</div>
+              <div className="flex items-center gap-2 text-sm"><FaHourglassHalf />{
+                getPreviewOpenCampaignIsLoading ? <CardLoader /> :
+                  getPreviewOpenCampaign?.endDate ? `${calculateDaysLeft(getPreviewOpenCampaign?.endDate).toLocaleString()} Days left` : 'Now'
+              }</div>
               <div className="flex items-center gap-2 text-sm"><RiCalendarTodoFill />
                 {
-                  (getPreviewOpenCampaign?.endDate?.slice(0, 10) as string)
+                  getPreviewOpenCampaignIsLoading ? <CardLoader /> : dateFormatter(getPreviewOpenCampaign?.endDate?.slice(0, 10) as string)
                 }
               </div>
             </div>
@@ -168,8 +177,8 @@ const PreviewCampaign = () => {
             <div className="flex items-center gap-2 mt-2">
               <FaUserCircle className='text-slate-400' size={40} />
               <ul className="">
-                <li className='font-semibold'>{getPreviewOpenCampaign?.createdBy}</li>
-                <li className='text-[#7D847C] font-thin text-sm'>{getPreviewOpenCampaign?.email}</li>
+                <li className='font-semibold'>{getPreviewOpenCampaignIsLoading ? <CardLoader /> : getPreviewOpenCampaign?.createdBy}</li>
+                <li className='text-[#7D847C] font-thin text-sm'>{getPreviewOpenCampaignIsLoading ? <CardLoader /> : getPreviewOpenCampaign?.email}</li>
               </ul>
             </div>
           </div>
@@ -207,13 +216,13 @@ const PreviewCampaign = () => {
             />
             {/* <PaystackButton {...paystackProps} className='bg-leafGreen-5 font-semibold text-sm text-white rounded-md p-3 w-full text-center ' /> */}
             <Button
-                onClick={handlePaystackPayment}
-                ariaLabel="donate to campaign"
-                cls="md:text-sm whitespace-nowrap w-full"
-                icon={<IoIosGift size={23} />}
-                color="leafGreen"
-                name="Donate Now"
-              />
+              onClick={handlePaystackPayment}
+              ariaLabel="donate to campaign"
+              cls="md:text-sm whitespace-nowrap w-full"
+              icon={<IoIosGift size={23} />}
+              color="leafGreen"
+              name="Donate Now"
+            />
           </div>
 
         </section>

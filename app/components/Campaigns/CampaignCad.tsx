@@ -2,7 +2,6 @@ import Image from 'next/image'
 import React from 'react'
 import ProgressBar from '../ProgressBar'
 import moneyFormatter from '@/app/utils/helper/moneyFormatter'
-import calculateDaysLeft from '@/app/utils/helper/deadlineCalculator'
 import Link from 'next/link'
 
 type Props = {
@@ -115,11 +114,11 @@ const CampaignCad = (props: Props) => {
                         <p className="leading-loose font-light text-[#8B8B8B]">Raised so far</p>
                     </div>
                     <div className="">
-                        <p className="font-semibold text-xl">{props.numberOfDonors}</p>
+                        <p className="font-semibold text-xl">{props.numberOfDonors.toLocaleString()}</p>
                         <p className="leading-loose font-light text-[#8B8B8B]">Donors</p>
                     </div>
                     <div className="">
-                        <p className="font-semibold text-xl">{props.daysLeft}</p>
+                        <p className="font-semibold text-xl">{props.daysLeft.toLocaleString()}</p>
                         <p className="leading-loose font-light text-[#8B8B8B]">Days Left</p>
                     </div>
                 </div>
