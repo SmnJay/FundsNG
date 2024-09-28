@@ -9,7 +9,7 @@ import Button from '../Button/Button';
 import Image from 'next/image';
 import ProgressBar from '../ProgressBar';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { getOpenCampaignApiService, initializePaystackforCampaignApiService } from '@/app/utils/services/campaign/campaignApiService';
+import { getOpenCampaignApiService, initializePaystackforCampaignApiService, verifyPaystackforCampaignApiService } from '@/app/utils/services/campaign/campaignApiService';
 import { useSearchParams } from 'next/navigation';
 import { ICampaign } from '@/app/utils/models/Model';
 import { toast } from 'react-toastify';
@@ -60,10 +60,22 @@ const PreviewCampaign = () => {
     },
     onSuccess: (data) => {
       toast.success(data.message ?? 'Transaction initialized successfully');
-      handlePaystackPayment()
+      handlePaystackPayment(data?.data?.referenceId)
     },
-
   })
+
+  const { mutate: verifyPaystackPayment } = useMutation({
+    mutationKey: ['verify'],
+    mutationFn: verifyPaystackforCampaignApiService,
+    onSuccess: (data) => {
+      console.log(data);
+      toast.success(data.message);
+    },
+    onError: (error) => {
+      console.log(error)
+      toast.error('Payment verification failed');
+    },
+  });
 
   const handleCopyClick = async () => {
     try {
@@ -79,6 +91,8 @@ const PreviewCampaign = () => {
   const handlePaystackSuccessAction = (reference: any) => {
     // Implementation for whatever you want to do with reference and after success call.
     console.log(reference);
+    verifyPaystackPayment({ reference, amount: '1000' })
+
   };
 
   // you can call this function anything
@@ -116,21 +130,21 @@ const PreviewCampaign = () => {
     try {
       initializePaystack.mutateAsync(payStackInitializeFormData)
     } catch (error) {
-
+      toast.error('error occured')
     }
   }
 
-  const handlePaystackPayment = () => {
+  const handlePaystackPayment = (ref: string) => {
     if (isClient && donorEmail && donorAmount > 0) {
       const handler = (window as any).PaystackPop.setup({
         key: 'pk_test_bbfc5cbc4a3c1e1c50ad34cbf4383512aa389fdc', // Replace with your Paystack public key
         email: donorEmail,
         amount: donorAmount * 100, // Convert to Kobo or smallest currency unit
-        reference: `${new Date().getTime()}`, // Unique reference
+        reference: ref, // Unique reference
         callback: function (response: any) {
           // Payment successful callback
-          console.log('Payment successful. Transaction reference:', response.reference);
           toast.success(`Payment successful: ${response.reference}`);
+          handlePaystackSuccessAction(response.reference)
         },
         onClose: function () {
           // Payment closed callback
@@ -284,14 +298,7 @@ const PreviewCampaign = () => {
               name="Initialize Payment"
               processing={initializePaystack?.isPending}
             />
-            <Button
-              onClick={handlePaystackPayment}
-              ariaLabel="donate to campaign"
-              cls="hidden md:text-sm whitespace-nowrap w-full"
-              icon={<IoIosGift size={23} />}
-              color="leafGreen"
-              name="Donate Now"
-            />
+
           </div>
 
         </section>
