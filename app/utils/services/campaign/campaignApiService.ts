@@ -130,3 +130,12 @@ export const withdrawCampaignApiService = async (data: any) => {
         throw new Error(error.response?.data?.message || 'Failed to process withdrawal. Please try again.');
     }
 }
+
+export const initializePaystackforCampaignApiService = async (data: any) => {
+    try {
+        const response = await axios.post('/api/paystack/initialize', data);
+        return response.data
+    } catch (error: any) {
+        throw new Error(error.response?.data?.message || 'Failed to initialize payment. Please try again.');
+    }
+}

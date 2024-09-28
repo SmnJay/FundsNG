@@ -13,7 +13,6 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     try {
         const url = `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/Open/CampaignByUrl/${id}`
-        console.log(url);
         const response = await axios.get(url, { headers });
 
         return NextResponse.json(response.data.data, { status: 200 })

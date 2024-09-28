@@ -13,7 +13,6 @@ export async function PUT(req: NextRequest, res: NextResponse) {
 
     try {
         const url = `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/Settings/Campaign`
-        console.log(url)
         const response = await axios.put(url , body, { headers });
 
         return NextResponse.json(response.data.message, { status: 200 });

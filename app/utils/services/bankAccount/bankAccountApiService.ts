@@ -39,7 +39,6 @@ export const makeAccountPrimaryApiService = async (data: { accountId: string }) 
         const response = await axios.put('/api/bankAccount/markAsPrimary', data);
         return response.data;
     } catch (error: any) {
-        console.log(error)
         throw new Error(error?.message || 'Failed to make this bank as primary account. Please try again.');
     }
 }
@@ -49,7 +48,6 @@ export const addBankAccountApiService = async (data: { bankName: string, account
         const response = await axios.put('/api/bankAccount/addBankAccount', data);
         return response.data;
     } catch (error: any) {
-        console.log(error)
         throw new Error(error?.message || 'Failed to add this bank account. Please try again.');
     }
 }

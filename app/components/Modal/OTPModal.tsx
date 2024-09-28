@@ -42,10 +42,8 @@ const OTPModal: FC<Props> = ({ showModal, formData, handleModal }) => {
         }
 
         if (Object.keys(formData).length == 3) {
-            console.log(formData)
             let data = encryptData(formData);
             let submitEncryptedData = { encryptedText: data };
-            console.log(submitEncryptedData)
             manualWithdrawCampaignFunds.mutateAsync(submitEncryptedData)
         }
     }

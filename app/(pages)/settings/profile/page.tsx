@@ -61,11 +61,9 @@ const Profile = () => {
     mutationKey: ['verify-bvn'],
     mutationFn: verifyBvnApiService,
     onError: (error) => {
-      console.log({ error })
       toast.error(error.message)
     },
     onSuccess(data) {
-      console.log({ data })
       if (data.success === false) {
         toast.error(data.message);
 

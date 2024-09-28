@@ -94,7 +94,6 @@ const CampaignSettings = () => {
 
     const saveSettings = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log(formData);
         _saveSettings.mutate(formData)
     }
 

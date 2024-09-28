@@ -8,11 +8,10 @@ import { RiCalendarTodoFill } from 'react-icons/ri';
 import Button from '../Button/Button';
 import Image from 'next/image';
 import ProgressBar from '../ProgressBar';
-import { useQuery } from '@tanstack/react-query';
-import { getOpenCampaignApiService } from '@/app/utils/services/campaign/campaignApiService';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { getOpenCampaignApiService, initializePaystackforCampaignApiService } from '@/app/utils/services/campaign/campaignApiService';
 import { useSearchParams } from 'next/navigation';
 import { ICampaign } from '@/app/utils/models/Model';
-import calculateDaysLeft from '@/app/utils/helper/deadlineCalculator';
 import { toast } from 'react-toastify';
 import { PaystackButton } from 'react-paystack';
 import { PaystackConfig } from '@/app/utils/helper/PaystackUtils';
@@ -29,6 +28,15 @@ const PreviewCampaign = () => {
   const [donorAmount, setDonorAmount] = useState(0);
   const [paystackConfig, setPaystackConfig] = useState<any>(null); // to store Paystack config
 
+  const [payStackInitializeFormData, setPayStackInitializeFormData] = useState({
+    currency: 'NGN',
+    userId: null,
+    userName: null,
+    email: donorEmail,
+    amount: donorAmount,
+    orderId: null,
+    type: 0 //Donation type
+  })
 
   const openDrawer = () => setIsDrawerOpen(true);
   const closeDrawer = () => {
@@ -43,6 +51,18 @@ const PreviewCampaign = () => {
     queryKey: ['open-campaign', params],
     queryFn: () => getOpenCampaignApiService(params || '')
   });
+
+  const initializePaystack = useMutation({
+    mutationKey: ['initialize-paystack'],
+    mutationFn: initializePaystackforCampaignApiService,
+    onError: (error) => {
+      toast.error('Failed to initialize transaction');
+    },
+    onSuccess: (data) => {
+      toast.success(data.message ?? 'Transaction initialized successfully');
+    },
+
+  })
 
   const handleCopyClick = async () => {
     try {
@@ -91,6 +111,14 @@ const PreviewCampaign = () => {
     }
   }, [isClient]);
 
+  const handleInitializePaystack = async () => {
+    try {
+      initializePaystack.mutateAsync(payStackInitializeFormData)
+    } catch (error) {
+
+    }
+  }
+
   const handlePaystackPayment = () => {
     if (isClient && donorEmail && donorAmount > 0) {
       const handler = (window as any).PaystackPop.setup({
@@ -114,6 +142,15 @@ const PreviewCampaign = () => {
       toast.error('Please enter a valid email and donation amount.');
     }
   };
+
+  useEffect(() => {
+    if (getPreviewOpenCampaign) {
+      setPayStackInitializeFormData((prev: any) => ({
+        ...prev,
+        orderId: getPreviewOpenCampaign.id as unknown as string
+      }))
+    }
+  }, [getPreviewOpenCampaign])
 
   return (
     <main className='app-width py-6'>
@@ -159,7 +196,7 @@ const PreviewCampaign = () => {
             <div className="space-y-4 my-6 text-[#5F655E] font-medium">
               <div className="flex items-center gap-2 text-sm"><FaHourglassHalf />{
                 getPreviewOpenCampaignIsLoading ? <CardLoader /> :
-                  getPreviewOpenCampaign?.endDate ? `${calculateDaysLeft(getPreviewOpenCampaign?.endDate).toLocaleString()} Days left` : 'Now'
+                  getPreviewOpenCampaign?.endDate ? `${getPreviewOpenCampaign?.daysLeft.toLocaleString()} Days left` : 'Now'
               }</div>
               <div className="flex items-center gap-2 text-sm"><RiCalendarTodoFill />
                 {
@@ -202,6 +239,10 @@ const PreviewCampaign = () => {
               name='amount'
               onValueChange={(e) => {
                 setDonorAmount(+e)
+                setPayStackInitializeFormData((prev) => ({
+                  ...prev,
+                  amount: +e
+                }))
               }}
               formatWithCommas
             />
@@ -212,13 +253,40 @@ const PreviewCampaign = () => {
               name='email'
               placeholder=''
               where='app'
-              onChange={(e) => { setDonorEmail(e.target.value) }}
+              onChange={(e) => {
+                setDonorEmail(e.target.value);
+                setPayStackInitializeFormData((prev) => ({
+                  ...prev,
+                  email: e.target.value
+                }))
+              }}
+            />
+            <Input
+              type='text'
+              label='Username'
+              error=''
+              name='userName'
+              placeholder='@user123 or can be left blank'
+              where='app'
+              onChange={(e) => setPayStackInitializeFormData((prev: any) => ({
+                ...prev,
+                userName: e.target.value
+              }))}
             />
             {/* <PaystackButton {...paystackProps} className='bg-leafGreen-5 font-semibold text-sm text-white rounded-md p-3 w-full text-center ' /> */}
             <Button
+              onClick={handleInitializePaystack}
+              ariaLabel="initialize donate to campaign"
+              cls="md:text-sm whitespace-nowrap w-full"
+              icon={<IoIosGift size={23} />}
+              color="leafGreen"
+              name="Initialize Payment"
+              processing={initializePaystack?.isPending}
+            />
+            <Button
               onClick={handlePaystackPayment}
               ariaLabel="donate to campaign"
-              cls="md:text-sm whitespace-nowrap w-full"
+              cls="hidden md:text-sm whitespace-nowrap w-full"
               icon={<IoIosGift size={23} />}
               color="leafGreen"
               name="Donate Now"
