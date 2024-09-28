@@ -47,9 +47,9 @@ const OTPInput = ({ length = 6, onComplete }: InputProps) => {
                             className="h-12 w-12 font-semibold text-primary-30 border-2 mx-auto border-solid text-center rounded-lg focus:border-primary-30 outline-none"
                             placeholder="-"
                         />
-                        {/* {
+                        {
                             index === (length / 2) - 1 && <span className='text-white font-semibold'>-</span>
-                        } */}
+                        }
                     </>
                 )
             })}
