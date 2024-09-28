@@ -7,6 +7,7 @@ const useClickOutside = <T extends HTMLElement>(
     const handleClick = useCallback(
         (event: MouseEvent) => {
             if (ref?.current && !ref?.current.contains(event.target as Node)) {
+                event.stopPropagation();
                 callback();
             }
         },

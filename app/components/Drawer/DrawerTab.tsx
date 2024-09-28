@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion'; // Optional for smooth animation
 
 type Props = {
@@ -33,14 +33,14 @@ const DrawerTab = ({ isOpen, closeDrawer, children }: Props) => {
         <>
             {isOpen && (
                 <div
-                    onClick={closeDrawer} 
-                    className="fixed inset-0 bg-black bg-opacity-50 z-40" 
+                    onClick={closeDrawer}
+                    className="fixed inset-0 bg-black bg-opacity-50 z-40"
                 />
             )}
             <motion.div
                 initial={{ x: '100%' }} // Start hidden off-screen
                 animate={{ x: isOpen ? 0 : '100%' }} // Slide in or out based on `isOpen`
-                transition={{ type: 'spring', stiffness: 300, damping: 30 }} // Smooth animation
+                transition={{ ease: 'easeIn', duration: 0.2 }}
                 className={`fixed top-0 right-0 h-full w-80 bg-white shadow-lg z-50 transition-transform duration-300 ${isOpen ? 'translate-x-0' : 'translate-x-full'
                     }`}
                 style={{ overflowY: 'auto' }} // Make the drawer scrollable

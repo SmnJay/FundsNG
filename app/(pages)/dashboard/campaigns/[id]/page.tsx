@@ -5,6 +5,7 @@ import CampaignCad, { campaignStatus } from '@/app/components/Campaigns/Campaign
 import { CardLoader } from '@/app/components/Loader/Loader';
 import AddBankDetailsModal from '@/app/components/Modal/AddBankDetailsModal';
 import ShareCampaignModal from '@/app/components/Modal/ShareCampaignModal';
+import WithdrawFundsModal from '@/app/components/Modal/WithdrawFundsModal';
 import UserBank from '@/app/components/Profile/UserBank';
 import ProgressBar from '@/app/components/ProgressBar';
 import Spinner from '@/app/components/Spinner/Spinner';
@@ -39,9 +40,14 @@ const SingleCampaign = () => {
 
   const [showAddAccountModal, setShowAddAccountModal] = useState(false);
   const [showShareCampaignModal, setShowShareCampaignModal] = useState(false);
+  const [showWithdrawCampaignModal, setShowWithdrawCampaignModal] = useState(false);
 
   const handleShowAddAccountModal = () => {
     setShowAddAccountModal(!showAddAccountModal)
+  }
+
+  const handleShowWithdrawCampaignModal = () => {
+    setShowWithdrawCampaignModal(!showWithdrawCampaignModal)
   }
 
   const handleShowShareCampaignModal = () => {
@@ -218,12 +224,12 @@ const SingleCampaign = () => {
               <span className="font-medium  text-black">Frequency: </span>
               <span className=" text-[#F7A145]">Withdraw Funds by the end of Campaign</span>
             </div>
-            <div className="flex flex-wrap xl:grid xl:grid-cols-2 space-x-1 items-center xl:justify-center">
+            <div className="flex flex-wrap xl:grid xl:grid-cols-2 space-x-2 items-center xl:justify-center">
               <div className="">
-                <Link href={`${id}/setting`} className='flex items-center justify-content-center gap-2 font-light text-sm rounded-lg border px-4 py-2 hover:brightness-75 ease-linear duration-200 whitespace-nowrap' aria-label='Link to view Campaign'><span className=""><IoCogOutline /></span><span className="">Campaign Settings</span> </Link>
+                <Link href={`${id}/setting`} className='flex items-center justify-center gap-2 font-light text-sm rounded-lg border px-4 py-2 hover:brightness-75 ease-linear duration-200 whitespace-nowrap' aria-label='Link to view Campaign'><span className=""><IoCogOutline /></span><span className="">Campaign Settings</span> </Link>
               </div>
               <div className="">
-                <Link href={`${id}/edit`} className='flex items-center justify-center gap-2 font-light text-sm rounded-lg bg-leafGreen-20 text-white border px-4 py-2 hover:brightness-95 ease-linear duration-200 whitespace-nowrap' aria-label='Link to Withdraw Funds'><span className=""><TbEdit /></span><span className="">Withdraw Funds</span> </Link>
+                <button className='flex items-center justify-center gap-2 font-light text-sm rounded-lg bg-leafGreen-20 text-white border px-4 py-2 hover:brightness-95 ease-linear duration-200 whitespace-nowrap w-full' aria-label='button to toggle the Withdraw Funds modal' type='button' onClick={handleShowWithdrawCampaignModal}><span className=""><TbEdit /></span><span className="">Withdraw Funds</span> </button>
               </div>
             </div>
           </div>
@@ -251,6 +257,14 @@ const SingleCampaign = () => {
         shareableUrl={CampaignDetail?.campaign?.shareableUrl as unknown as string}
       />
       <AddBankDetailsModal isOpen={showAddAccountModal} onClose={handleShowAddAccountModal} />
+      <WithdrawFundsModal
+        amountToWithdraw={data?.donatedAmount as number}
+        accountName={data?.bankDetails?.accountName as string || '--'}
+        bankName={data?.bankDetails?.bankName as string || '--'}
+        accoutNumber={data?.bankDetails?.accountNumber as string || '--'}
+        showModal={showWithdrawCampaignModal}
+        handleModal={handleShowWithdrawCampaignModal}
+      />
     </Fragment>
   )
 }

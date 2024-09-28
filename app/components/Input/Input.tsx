@@ -108,18 +108,25 @@ export const InputTextArea = forwardRef<HTMLTextAreaElement, TextArea>(
 );
 
 export const InputNumber = forwardRef<HTMLInputElement, IInput>(
-    ({ name, label, autoComplete, defaultValue = '', placeholder, onValueChange, error, accept, where, ...props }, ref) => {
+    ({ name, label, autoComplete, defaultValue = '', placeholder, onValueChange, error, accept, where, formatWithCommas = false, ...props }, ref) => {
         const [value, setValue] = useState(defaultValue);
+        const formatNumberWithCommas = (num: string) => {
+            return num.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        };
         const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
             const newValue = event.target.value;
+
+            const rawValue = newValue.replace(/,/g, '');
             // Use a regular expression to ensure the value is numeric
-            if (newValue === '' || /^\d+$/.test(newValue)) {
-                setValue(newValue);
+            if (rawValue === '' || /^\d+$/.test(rawValue)) {
+                setValue(formatWithCommas ? formatNumberWithCommas(rawValue) : rawValue);
                 if (onValueChange) {
-                    onValueChange(newValue); // Call the external onChange handler if it exists
+                    onValueChange(rawValue); // Call the external onChange handler if it exists
                 }
             }
         };
+
+
 
         return (
             <div className={`relative}`}>

@@ -194,6 +194,7 @@ const PreviewCampaign = () => {
               onValueChange={(e) => {
                 setDonorAmount(+e)
               }}
+              formatWithCommas
             />
             <Input
               type='email'

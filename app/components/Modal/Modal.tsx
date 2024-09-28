@@ -7,9 +7,10 @@ interface ModalProps {
     size?: 'small' | 'medium' | 'large';
     children: React.ReactNode;
     bgColor?: string
+    zIndex?: string
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, bgColor='bg-white/80', onClose, size = 'medium', children }) => {
+const Modal: React.FC<ModalProps> = ({ isOpen, bgColor = 'bg-white/80', onClose, zIndex='z-50', size = 'medium', children }) => {
     const modalRef = useRef<HTMLDivElement>(null);
     useClickOutside(modalRef, onClose)
 
@@ -22,10 +23,10 @@ const Modal: React.FC<ModalProps> = ({ isOpen, bgColor='bg-white/80', onClose, s
     };
 
     return (
-        <div className="fixed inset-0 flex justify-center items-center z-50 transition-opacity duration-300 ease-out p-4"
+        <div className={`fixed inset-0 flex justify-center items-center ${zIndex} transition-opacity duration-300 ease-out p-4`} onClick={(e) => e.stopPropagation()}
             style={{ opacity: isOpen ? 1 : 0 }}>
             <div className="absolute inset-0 bg-FBlack bg-opacity-50 backdrop-filter backdrop-blur" aria-hidden="true"></div>
-            <div ref={modalRef} className={`relative ${bgColor} p-6 rounded-lg shadow-lg ${sizeClasses[size]} transition-transform duration-300 ease-out transform ${isOpen ? 'scale-100' : 'scale-95'}`}>
+            <div ref={modalRef} onClick={(e) => e.stopPropagation()} className={`relative ${bgColor} p-6 rounded-lg shadow-lg ${sizeClasses[size]} transition-transform duration-300 ease-out transform ${isOpen ? 'scale-100' : 'scale-95'}`}>
                 {children}
             </div>
         </div>

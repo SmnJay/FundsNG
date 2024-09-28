@@ -31,7 +31,7 @@ const OTPInput = ({ length = 6, onComplete }: InputProps) => {
     };
 
     return (
-        <div className={`mt-6 flex items-center justify-between gap-1 lg:w-4/5 mx-auto`}>
+        <div className={`mt-6 flex items-center justify-between gap-1 mx-auto`}>
             {Array.from({ length }, (_, index) => {
                 return (
                     <>
