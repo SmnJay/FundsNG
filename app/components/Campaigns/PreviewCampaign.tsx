@@ -261,6 +261,7 @@ const PreviewCampaign = () => {
                 }))
               }}
               formatWithCommas
+              showCurrency
             />
             <Input
               type='email'

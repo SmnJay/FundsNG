@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import Input, { InputSelect } from '../Input/Input';
+import Input, { InputNumber, InputSelect } from '../Input/Input';
 import Datepicker, { DateType, DateValueType } from 'react-tailwindcss-datepicker';
 import style from '../Input/InputField.module.css'
 import { useQuery } from '@tanstack/react-query';
 import { getCampaignCategoriesApiService } from '@/app/utils/services/campaign/campaignApiService';
-import { date } from 'zod';
 
 interface EditCampaign2Props {
     data: {
@@ -16,13 +15,14 @@ interface EditCampaign2Props {
         country: string
         agreementSigned: boolean
     },
+    handleNumberChange: (e: number) => void,
     handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void
     handleDateChange: (elem: DateType) => void
     handleCheckChange: (e: React.ChangeEvent<HTMLInputElement>) => void
     // handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-const EditCampaign2: React.FC<EditCampaign2Props> = ({ data, handleChange, handleDateChange, handleCheckChange }) => {
+const EditCampaign2: React.FC<EditCampaign2Props> = ({ data, handleNumberChange, handleChange, handleDateChange, handleCheckChange }) => {
     const [value, setValue] = useState<DateValueType>({
         startDate: data.endDate ?? new Date(),
         endDate: data.endDate ?? new Date()
@@ -31,7 +31,7 @@ const EditCampaign2: React.FC<EditCampaign2Props> = ({ data, handleChange, handl
     const handleValueChange = (newValue: DateValueType) => {
         setValue(newValue);
         handleDateChange(newValue?.startDate ?? new Date())
-    }
+    };
 
     const campaignCategory = useQuery({
         queryKey: ['campaign-category'],
@@ -44,8 +44,7 @@ const EditCampaign2: React.FC<EditCampaign2Props> = ({ data, handleChange, handl
             value: id,
             label: name
         })
-    })
-
+    });
 
     return (
         <div className='max-w-lg mx-auto p-4 md:p-6'>
@@ -55,16 +54,18 @@ const EditCampaign2: React.FC<EditCampaign2Props> = ({ data, handleChange, handl
             </div>
 
             <form className='mt-4 space-y-4' name='' id=''>
-                <Input
+                <InputNumber
+                    formatWithCommas
+                    showCurrency
                     error=''
                     where='app'
                     label='Set the financial goal'
-                    placeholder='i.e. NGN 1,000,000'
+                    placeholder='1,000,000'
                     autoComplete='off'
                     type='number'
                     name='targetAmount'
-                    value={data.targetAmount}
-                    onChange={handleChange}
+                    defaultValue={String(data.targetAmount)}
+                    onValueChange={(e) => handleNumberChange(+e)}
                 />
                 <div className='relative'>
                     <div className={`form-group rounded-lg bg-white border px-3 py-2 ${style.containerApp}`}>
@@ -76,7 +77,7 @@ const EditCampaign2: React.FC<EditCampaign2Props> = ({ data, handleChange, handl
                             asSingle
                             popoverDirection='down'
                             minDate={new Date()}
-                            inputClassName={'bg-white peer w-full ring-0 !focus:ring-none !border-none !focus:border-none !outline-none !focus:outline-none'}
+                            inputClassName={'bg-white text-[#6b7172] peer w-full ring-0 !focus:ring-none !border-none !focus:border-none !outline-none !focus:outline-none'}
                             containerClassName={`${style.dateInput}`}
                         />
                     </div>

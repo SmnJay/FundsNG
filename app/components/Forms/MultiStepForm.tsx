@@ -17,7 +17,7 @@ export interface FormData {
     binaryString?: File | string;  // Indicates that it can be a File or undefined
     mediaUrl: string;
     targetAmount: number;
-    endDate: DateType;
+    endDate: DateType | string;
     campaignCategoryId: string;
     mobile: string;
     state: string;
@@ -32,7 +32,7 @@ export interface EditFormData {
     binaryString?: File | string;  // Indicates that it can be a File or undefined
     mediaUrl: string;
     targetAmount: number;
-    endDate: DateType;
+    endDate: DateType | string;
     campaignCategoryId: string;
     mobile: string;
     state: string;
@@ -53,7 +53,7 @@ const MultiStepForm = () => {
 
         // About the campaign
         targetAmount: 0,
-        endDate: '',
+        endDate: null ,
         campaignCategoryId: '',
         mobile: '',
         state: '',
@@ -110,8 +110,12 @@ const MultiStepForm = () => {
             toast.error(error.message)
         },
         onSuccess(data) {
-            toast.success(data);
-            handleToggleModal();
+            if (data.success) {
+                toast.success(data.message);
+                handleToggleModal();
+            } else {
+                toast.error(data.message)
+            }
         },
     })
 
@@ -121,6 +125,15 @@ const MultiStepForm = () => {
             delete formData['binaryString']
         }
         createCampaign.mutate(formData as any)
+    }
+
+    const handleNumberChange = (e: number) => {
+        console.log(e);
+        // return
+        setFormData((prev) => ({
+            ...prev,
+            targetAmount: e
+        }))
     }
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -135,7 +148,7 @@ const MultiStepForm = () => {
 
     const steps = [
         <CreateCampaign1 key={1} data={formData} handleChange={handleChange} handleFileChange={handleFileChange} />,
-        <CreateCampaign2 key={2} data={formData} handleChange={handleChange} handleDateChange={handleDateChange} handleCheckChange={handleCheckChange} />,
+        <CreateCampaign2 key={2} data={formData} handleChange={handleChange} handleNumberChange={handleNumberChange} handleDateChange={handleDateChange} handleCheckChange={handleCheckChange} />,
         // <CreateCampaign3 key={3} data={formData} handleChange={handleChange} />
     ];
 

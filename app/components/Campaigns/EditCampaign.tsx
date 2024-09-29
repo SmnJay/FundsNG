@@ -11,6 +11,7 @@ import StepIndicator from '../StepIndicator';
 import EditCampaign1 from '../Forms/EditCampaign1';
 import EditCampaign2 from '../Forms/EditCampaign2';
 import toast from 'react-hot-toast';
+import { DateType } from 'react-tailwindcss-datepicker';
 
 const EditCampaign = () => {
     const params = useParams();
@@ -24,7 +25,7 @@ const EditCampaign = () => {
         binaryString: '',
         agreementSigned: false,
         targetAmount: 0,
-        endDate: '',
+        endDate: new Date(),
         campaignCategoryId: '',
         mobile: '',
         state: '',
@@ -71,14 +72,23 @@ const EditCampaign = () => {
         });
     };
 
-    const handleDateChange = (date: any) => {
+    const handleDateChange = (date: DateType) => {
         if (date) {
             setFormData({
                 ...formData,
-                endDate: new Date(date).toISOString(),
+                endDate: date, // Directly use the DateType here
             });
         }
     };
+
+    const handleNumberChange = (e: number) => {
+        console.log(e);
+        // return;
+        setFormData((prev) => ({
+            ...prev,
+            targetAmount: e
+        }))
+    }
 
     const handleFileChange = (e: any) => {
         if (e.target.files) {
@@ -100,7 +110,7 @@ const EditCampaign = () => {
 
     const steps = [
         <EditCampaign1 key={1} data={formData} handleChange={handleChange} handleFileChange={handleFileChange} />,
-        <EditCampaign2 key={2} data={formData} handleChange={handleChange} handleDateChange={handleDateChange} handleCheckChange={handleCheckChange} />,
+        <EditCampaign2 key={2} data={formData} handleChange={handleChange} handleNumberChange={handleNumberChange} handleDateChange={handleDateChange} handleCheckChange={handleCheckChange} />,
         // <CreateCampaign3 key={3} data={formData} handleChange={handleChange} />
     ];
 
@@ -115,7 +125,7 @@ const EditCampaign = () => {
                 binaryString: '',
                 agreementSigned: singleCampaignData.agreementSigned,
                 targetAmount: singleCampaignData.targetAmount,
-                endDate: singleCampaignData.endDate,
+                endDate: new Date(singleCampaignData.endDate),
                 campaignCategoryId: singleCampaignData.campaignCategoryId,
                 mobile: singleCampaignData.mobile,
                 state: singleCampaignData.state,
