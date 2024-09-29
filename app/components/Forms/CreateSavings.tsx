@@ -32,9 +32,9 @@ const CreateSavings = () => {
         targetAmount: '',
         amountPerSave: '',
         type: '',
-        startDate: '',
-        endDate: '',
-        deductionDate: '',
+        startDate: null,
+        endDate: null,
+        deductionDate: null,
         deductionTime: '',
         paymentSource: '',
         frequency: '',
@@ -97,15 +97,18 @@ const CreateSavings = () => {
 
     const handleValueChange = (newValue: DateValueType) => {
         setValue1(newValue);
-    }
+        setValue('startDate', newValue?.startDate ? new Date(newValue.startDate).toISOString() : '');
+    };
 
     const handleValue2Change = (newValue: DateValueType) => {
         setValue2(newValue);
-    }
+        setValue('endDate', newValue?.endDate ? new Date(newValue.endDate).toISOString() : '');
+    };
 
     const handleValue3Change = (newValue: DateValueType) => {
         setValue3(newValue);
-    }
+        setValue('deductionDate', newValue?.startDate ? new Date(newValue.startDate).toISOString() : '');
+    };
 
     const isSubmit = async (data: CreateSavingsSchema) => {
         console.log({ formData, data })
@@ -118,35 +121,19 @@ const CreateSavings = () => {
 
     React.useEffect(() => {
         if (startDate) {
-            setValue('startDate', (value1?.startDate as string))
-            let a = getValues();
-
-            const news = {
-                ...a,
-                startDate: new Date(value1?.startDate as string).toISOString()
-            }
+            setValue('startDate', value1?.startDate ? new Date(value1.startDate).toISOString() : '');
         }
     }, [startDate]);
 
     React.useEffect(() => {
         if (endDate) {
-            setValue('endDate', value1?.endDate as string)
-            let a = getValues();
-            const newData = {
-                ...a,
-                endDate: new Date(value2?.startDate as string).toISOString()
-            }
+            setValue('endDate', value2?.startDate ? new Date(value2.startDate).toISOString() : '');
         }
     }, [endDate]);
 
     React.useEffect(() => {
         if (deductionDate) {
-            setValue('deductionDate', value1?.startDate as string)
-            let a = getValues();
-            const newData = {
-                ...a,
-                deductionDate: new Date(value3?.startDate as string).toISOString()
-            }
+            setValue('deductionDate', value3?.startDate ? new Date(value3.startDate).toISOString() : '');
         }
     }, [deductionDate]);
 
