@@ -10,9 +10,9 @@ import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { toast } from 'react-toastify';
 import style from '../Input/InputField.module.css';
 import Link from 'next/link';
+import toast from 'react-hot-toast';
 
 interface Props {
     userId: string

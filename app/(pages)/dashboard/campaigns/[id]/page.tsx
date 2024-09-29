@@ -1,7 +1,7 @@
 'use client';
 
 import Breadcrumb from '@/app/components/Breadcrumb';
-import CampaignCad, { campaignStatus } from '@/app/components/Campaigns/CampaignCad';
+import { campaignStatus } from '@/app/components/Campaigns/CampaignCad';
 import { CardLoader } from '@/app/components/Loader/Loader';
 import AddBankDetailsModal from '@/app/components/Modal/AddBankDetailsModal';
 import ShareCampaignModal from '@/app/components/Modal/ShareCampaignModal';
@@ -17,13 +17,13 @@ import { getSingleCampaign, getSingleCampaignDetail, stopCampaignApi } from '@/a
 import { useMutation, useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useParams, useRouter } from 'next/navigation'
+import { useParams } from 'next/navigation'
 import React, { Fragment, useState } from 'react'
+import toast from 'react-hot-toast';
 import { HiMiniExclamationTriangle } from 'react-icons/hi2';
 import { IoCogOutline, IoEyeOutline, IoShareSocial } from 'react-icons/io5';
 import { LiaTimesSolid } from 'react-icons/lia';
 import { TbEdit } from 'react-icons/tb';
-import { toast } from 'react-toastify';
 
 const items = [
   { label: 'Dashboard', path: '/dashboard' },

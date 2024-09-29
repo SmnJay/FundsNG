@@ -4,12 +4,10 @@ import Input, { InputNumber, InputSelect } from '../Input/Input'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { addBankAccountApiService, getBankAccountsApiService, getBankAccountsResolveApiService } from '@/app/utils/services/bankAccount/bankAccountApiService'
 import Button from '../Button/Button'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { linkCampaignToBankApiService } from '@/app/utils/services/campaign/campaignApiService'
-import { toast } from 'react-toastify'
-import { useParams, usePathname, useSearchParams } from 'next/navigation'
+import { useParams, usePathname } from 'next/navigation'
 import Spinner from '../Spinner/Spinner'
+import toast from 'react-hot-toast'
 
 type Props = {
     isOpen: boolean

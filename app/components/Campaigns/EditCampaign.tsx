@@ -3,14 +3,14 @@
 import { useParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation';
-import { EditFormData, FormData } from '../Forms/MultiStepForm';
+import { EditFormData } from '../Forms/MultiStepForm';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { toast } from 'react-toastify';
-import { editCampaignApiService, getCampaignCategoriesApiService, getSingleCampaign, getSingleCampaignDetail } from '@/app/utils/services/campaign/campaignApiService';
+import { editCampaignApiService, getSingleCampaign } from '@/app/utils/services/campaign/campaignApiService';
 import Spinner from '../Spinner/Spinner';
 import StepIndicator from '../StepIndicator';
 import EditCampaign1 from '../Forms/EditCampaign1';
 import EditCampaign2 from '../Forms/EditCampaign2';
+import toast from 'react-hot-toast';
 
 const EditCampaign = () => {
     const params = useParams();

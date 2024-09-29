@@ -4,12 +4,12 @@ import React, { useState } from 'react'
 import CreateCampaign1 from './CreateCampaign1';
 import CreateCampaign2 from './CreateCampaign2';
 import StepIndicator from '../StepIndicator';
-import { toast } from 'react-toastify';
 import { DateType } from 'react-tailwindcss-datepicker';
 import { useMutation } from '@tanstack/react-query';
 import { createCampaignApiService } from '@/app/utils/services/campaign/campaignApiService';
 import Spinner from '../Spinner/Spinner';
 import ShareCampaignModal from '../Modal/ShareCampaignModal';
+import toast from 'react-hot-toast';
 
 export interface FormData {
     name: string;

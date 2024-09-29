@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect, useState } from 'react'
-import { toast } from 'react-toastify'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { WhiteLogo } from '../Logo/Logo';
 import { resetPasswordApiService } from '@/app/utils/services/resetPassword/resetPasswordApiService';
@@ -11,6 +10,7 @@ import schema, { ResetPasswordSchema } from '@/app/schemaa/resetPasswordSchema';
 import useFormValidation from '@/app/utils/hooks/useFormValidation';
 import PasswordInput from '../Input/PasswordInput';
 import Link from 'next/link';
+import toast from 'react-hot-toast';
 
 interface Props {
 }

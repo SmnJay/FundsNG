@@ -12,9 +12,9 @@ import { campaignWithdrawalModeApiService, deleteCampaignApiService, getCampaign
 import { HiMiniExclamationTriangle } from 'react-icons/hi2';
 import { BiRefresh } from 'react-icons/bi';
 import Spinner from '../Spinner/Spinner';
-import { toast } from 'react-toastify';
 import { InputSelect } from '../Input/Input';
 import ChangeAccountModal from '../Modal/ChangeAccountModal';
+import toast from 'react-hot-toast';
 
 const CampaignSettings = () => {
     const PageParams = useParams();

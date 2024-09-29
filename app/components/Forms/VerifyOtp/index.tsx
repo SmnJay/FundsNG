@@ -2,7 +2,6 @@
 
 import Button from '@/app/components/Button/Button'
 import OTPInput from '@/app/components/Forms/OTPInput';
-import Input from '@/app/components/Input/Input';
 import { WhiteLogo } from '@/app/components/Logo/Logo';
 import { resendOtpApiService } from '@/app/utils/services/resendOtp/resendOtpApiService';
 import { verifyOtpApiService } from '@/app/utils/services/verifyOtp/verifyOtpApiService';
@@ -10,8 +9,7 @@ import { useMutation } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
-import { toast } from 'react-toastify';
-
+import toast from 'react-hot-toast';
 
 interface Props {
     email: string

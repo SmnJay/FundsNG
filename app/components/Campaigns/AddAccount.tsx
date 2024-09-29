@@ -10,8 +10,8 @@ import { PiBankFill } from 'react-icons/pi';
 import Button, { ButtonLink } from '../Button/Button';
 import Input, { InputNumber, InputSelect } from '../Input/Input';
 import Spinner from '../Spinner/Spinner';
-import { toast } from 'react-toastify';
 import { linkCampaignToBankApiService } from '@/app/utils/services/campaign/campaignApiService';
+import toast from 'react-hot-toast';
 
 const AddAccount = () => {
     const PageParams = useParams();

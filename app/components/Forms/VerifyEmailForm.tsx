@@ -8,8 +8,8 @@ import Button from '../Button/Button'
 import { useRouter, useSearchParams } from 'next/navigation';
 import { verifyEmailApiService } from '@/app/utils/services/verifyEmail/verifyEmailApiService';
 import { useMutation } from '@tanstack/react-query';
-import { toast } from 'react-toastify';
 import { resendVerificationEmailApiService } from '@/app/utils/services/resendVerificationEmail/resendVerificationEmailApiService';
+import toast from 'react-hot-toast';
 
 const VerifyEmailForm = () => {
     const searchParams = useSearchParams();

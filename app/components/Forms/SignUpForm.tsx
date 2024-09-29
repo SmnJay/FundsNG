@@ -11,11 +11,11 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import signUpSchema, { SignUpSchema } from '@/app/schemaa/signUpSchema';
 import { useMutation } from '@tanstack/react-query';
-import { toast } from 'react-toastify';
 import { registerApiService } from '@/app/utils/services/register/registerApiService';
 import Modal from '../Modal/Modal';
 import Image from 'next/image';
 import Link from 'next/link';
+import toast from 'react-hot-toast';
 
 const SignUpForm = () => {
     const [showSuccessModal, setShowSuccessModal] = useState(false);

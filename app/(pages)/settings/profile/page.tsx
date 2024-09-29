@@ -2,23 +2,21 @@
 
 import Breadcrumb from '@/app/components/Breadcrumb'
 import Button from '@/app/components/Button/Button';
-import Input, { InputNumber, InputSelect, InputTextArea } from '@/app/components/Input/Input'
+import Input, { InputNumber, InputSelect } from '@/app/components/Input/Input'
 import ProfileLoader from '@/app/components/Loader/Loader';
 import { PiBankFill } from "react-icons/pi";
-import completeRegistrationSchema, { CompleteRegistrationSchema } from '@/app/schemaa/completeRegistrationSchema';
 import updateProfileSchema, { UpdateProfileSchema } from '@/app/schemaa/updateProfileSchema';
 import ProfilePictureGenerator from '@/app/utils/helper/ProfilePictureGenerator';
 import useFormValidation from '@/app/utils/hooks/useFormValidation';
-import { ICompleteProfile, ICompleteRegistration } from '@/app/utils/models/Model';
+import { ICompleteProfile } from '@/app/utils/models/Model';
 import { getProfileApiService, updateProfileApiService } from '@/app/utils/services/profile/profileApiService'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import React, { useEffect, useState } from 'react'
-import { toast } from 'react-toastify';
-import Modal from '@/app/components/Modal/Modal';
-import { getActiveBankAccountsApiService, getBankAccountsApiService } from '@/app/utils/services/bankAccount/bankAccountApiService';
+import { getActiveBankAccountsApiService } from '@/app/utils/services/bankAccount/bankAccountApiService';
 import AddBankDetailsModal from '@/app/components/Modal/AddBankDetailsModal';
 import UserBank from '@/app/components/Profile/UserBank';
 import { verifyBvnApiService } from '@/app/utils/services/verifyBvn/verifyBvnApiService';
+import toast from 'react-hot-toast';
 
 const Profile = () => {
   const [bvnVerificationFormData, setBvnVerificationFormData] = useState({

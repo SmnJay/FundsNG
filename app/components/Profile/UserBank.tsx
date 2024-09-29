@@ -5,9 +5,9 @@ import { useMutation } from '@tanstack/react-query';
 import React from 'react'
 import { PiBankFill } from 'react-icons/pi';
 import Spinner from '../Spinner/Spinner';
-import { toast } from 'react-toastify';
 import { updateLinkCampaignToBankApiService } from '@/app/utils/services/campaign/campaignApiService';
 import { useParams } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 type Props = {
     id: string

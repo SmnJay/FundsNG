@@ -3,9 +3,9 @@ import Modal from './Modal'
 import OTPInput from '../Forms/OTPInput'
 import { useMutation } from '@tanstack/react-query'
 import { withdrawCampaignApiService } from '@/app/utils/services/campaign/campaignApiService'
-import { toast } from 'react-toastify'
 import Spinner from '../Spinner/Spinner'
 import { encryptData } from '@/app/utils/encryption/EncryptDecrypt'
+import toast from 'react-hot-toast'
 
 type Props<T = Record<string, any>> = {
     showModal: boolean,

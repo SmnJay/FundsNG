@@ -3,12 +3,12 @@
 import React, { useState } from 'react'
 import { WhiteLogo } from '../Logo/Logo'
 import Input from '../Input/Input'
-import Button, { ButtonLink } from '../Button/Button'
+import Button from '../Button/Button'
 import { useMutation } from '@tanstack/react-query'
 import { forgotPasswordApiService } from '@/app/utils/services/forgotPassword/forgotPasswordApiService'
-import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link';
+import toast from 'react-hot-toast';
 
 const ForgotPasswordForm: React.FC = () => {
     const [email, setEmail] = useState('');

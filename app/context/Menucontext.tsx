@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useState } from 'react';
-
+import { Toaster } from 'react-hot-toast';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
@@ -23,7 +23,8 @@ const MenucontextProvider = ({ children }: { children: React.ReactNode }) => {
 
     return (
         <QueryClientProvider client={queryClient}>
-            <ReactQueryDevtools initialIsOpen={false} buttonPosition='bottom-left'/>
+            <Toaster />
+            <ReactQueryDevtools initialIsOpen={false} buttonPosition='bottom-left' />
             <Menucontext.Provider value={{ isOpen, handleIsOpen }}>
                 {children}
             </Menucontext.Provider>

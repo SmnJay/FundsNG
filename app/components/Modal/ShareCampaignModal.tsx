@@ -2,8 +2,8 @@ import React, { SetStateAction, useState } from 'react'
 import Modal from './Modal';
 import { IoCopyOutline } from 'react-icons/io5';
 import { useRouter } from 'next/navigation';
-import { toast } from 'react-toastify';
 import { RiTwitterXFill } from 'react-icons/ri';
+import toast from 'react-hot-toast';
 
 type Props = {
     shareableUrl: string

@@ -12,7 +12,6 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { getOpenCampaignApiService, initializePaystackforCampaignApiService, verifyPaystackforCampaignApiService } from '@/app/utils/services/campaign/campaignApiService';
 import { useSearchParams } from 'next/navigation';
 import { ICampaign } from '@/app/utils/models/Model';
-import { toast } from 'react-toastify';
 import { PaystackButton } from 'react-paystack';
 import { PaystackConfig } from '@/app/utils/helper/PaystackUtils';
 import DrawerTab from '../Drawer/DrawerTab';
@@ -20,6 +19,7 @@ import Input, { InputNumber } from '../Input/Input';
 import { CardLoader } from '../Loader/Loader';
 import { dateFormatter } from '@/app/utils/helper/dateFormatter';
 import moneyFormatter from '@/app/utils/helper/moneyFormatter';
+import toast from 'react-hot-toast';
 
 const PreviewCampaign = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -69,7 +69,11 @@ const PreviewCampaign = () => {
     mutationFn: verifyPaystackforCampaignApiService,
     onSuccess: (data) => {
       console.log(data);
-      toast.success(data.message);
+      if (data.success) {
+        toast.success(data.message);
+      } else {
+        toast.error(data.message)
+      }
     },
     onError: (error) => {
       console.log(error)
@@ -92,7 +96,6 @@ const PreviewCampaign = () => {
     // Implementation for whatever you want to do with reference and after success call.
     console.log(reference);
     verifyPaystackPayment({ reference, amount: '1000' })
-
   };
 
   // you can call this function anything
@@ -148,8 +151,6 @@ const PreviewCampaign = () => {
         },
         onClose: function () {
           // Payment closed callback
-          console.log('Payment dialog closed');
-          toast.info('Payment dialog closed');
         },
       });
       handler.openIframe();
