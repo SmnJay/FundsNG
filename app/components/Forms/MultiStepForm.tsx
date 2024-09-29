@@ -32,7 +32,7 @@ export interface EditFormData {
     binaryString?: File | string;  // Indicates that it can be a File or undefined
     mediaUrl: string;
     targetAmount: number;
-    endDate: DateType | string;
+    endDate: DateType;
     campaignCategoryId: string;
     mobile: string;
     state: string;
