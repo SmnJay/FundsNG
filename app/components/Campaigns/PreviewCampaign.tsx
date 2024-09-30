@@ -138,6 +138,7 @@ const PreviewCampaign = () => {
   }
 
   const handlePaystackPayment = (ref: string) => {
+    console.log(ref)
     if (isClient && donorEmail && donorAmount > 0) {
       const handler = (window as any).PaystackPop.setup({
         key: 'pk_test_bbfc5cbc4a3c1e1c50ad34cbf4383512aa389fdc', // Replace with your Paystack public key
@@ -147,7 +148,8 @@ const PreviewCampaign = () => {
         callback: function (response: any) {
           // Payment successful callback
           toast.success(`Payment successful: ${response.reference}`);
-          handlePaystackSuccessAction(response.reference)
+          handlePaystackSuccessAction(ref)
+          // handlePaystackSuccessAction(response.reference)
         },
         onClose: function () {
           // Payment closed callback
