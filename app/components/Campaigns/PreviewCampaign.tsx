@@ -92,10 +92,10 @@ const PreviewCampaign = () => {
 
   const config = PaystackConfig(donorEmail, donorAmount);
 
-  const handlePaystackSuccessAction = (reference: any) => {
+  const handlePaystackSuccessAction = (reference: string, trxnref: string, amount: string = '1000') => {
     // Implementation for whatever you want to do with reference and after success call.
     console.log(reference);
-    verifyPaystackPayment({ reference, amount: '1000' })
+    verifyPaystackPayment({ reference, amount, trxnref })
   };
 
   // you can call this function anything
@@ -107,7 +107,7 @@ const PreviewCampaign = () => {
   const paystackProps = {
     ...config,
     text: 'Donate',
-    onSuccess: (reference: any) => handlePaystackSuccessAction(reference),
+    // onSuccess: (reference: any) => handlePaystackSuccessAction(reference, ),
     onClose: handlePaystackCloseAction,
   }
 
@@ -147,9 +147,9 @@ const PreviewCampaign = () => {
         reference: ref, // Unique reference
         callback: function (response: any) {
           // Payment successful callback
+          console.log({response})
           toast.success(`Payment successful: ${response.reference}`);
-          handlePaystackSuccessAction(ref)
-          // handlePaystackSuccessAction(response.reference)
+          handlePaystackSuccessAction(ref, response.reference)
         },
         onClose: function () {
           // Payment closed callback

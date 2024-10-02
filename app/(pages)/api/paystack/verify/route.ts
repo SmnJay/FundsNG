@@ -9,13 +9,15 @@ export async function GET(req: NextRequest, res: NextResponse) {
     const reference = searchParams.get('reference') || ''; // Extracted from request query
     const version = searchParams.get('version') || '1'; // Default to '1' if not provided
     const amount = searchParams.get('amount') || ''; // Extracted from request query
+    const TrxnRef = searchParams.get('trxnref')
 
     const headers = {
         Authorization: `Bearer ${jwt}`,
         ApiKey: process.env.APIKEY,
         version: version,
         amount: amount,
-        reference: reference
+        reference: reference,
+        TrxnRef
     };
 
     try {

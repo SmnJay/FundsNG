@@ -140,9 +140,9 @@ export const initializePaystackforCampaignApiService = async (data: any) => {
     }
 }
 
-export const verifyPaystackforCampaignApiService = async ({ reference, amount }: { reference: string, amount: string }) => {
+export const verifyPaystackforCampaignApiService = async ({ reference, amount, trxnref }: { reference: string, amount: string, trxnref: string }) => {
     try {
-        const response = await axios.get(`/api/paystack/verify?reference=${reference}&amount=${amount}`);
+        const response = await axios.get(`/api/paystack/verify?reference=${reference}&amount=${amount}&trxnref=${trxnref}`);
         return response.data;
     } catch (error: any) {
         throw new Error(error.response?.data?.message) || "Failed to verify transaction. Please, try again."
