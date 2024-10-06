@@ -67,7 +67,8 @@ export interface ICampaignDetails {
     donatedAmount: number,
     numberOfDonors: number,
     numberOfDonations: number,
-    activities: any[],
+    activities: { id: string, description: string, userFirstname: string, userLastname: string, activityType: string, amount: string | null, createdAt: string }[],
+    donations: { name: string, profileImage: string, amount: number }[] | null
     bankDetails: {
         bankName: string,
         accountNumber: string,

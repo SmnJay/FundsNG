@@ -218,8 +218,7 @@ const PreviewCampaign = () => {
               }</div>
               <div className="flex items-center gap-2 text-sm"><RiCalendarTodoFill />
                 {
-                  getPreviewOpenCampaignIsLoading ? <CardLoader /> : getPreviewOpenCampaign?.endDate as string
-                  // getPreviewOpenCampaignIsLoading ? <CardLoader /> : dateFormatter(getPreviewOpenCampaign?.endDate?.slice(0, 10) as string)
+                  getPreviewOpenCampaignIsLoading ? <CardLoader /> : dateFormatter(getPreviewOpenCampaign?.endDate?.slice(0, 10) as string)
                 }
               </div>
             </div>

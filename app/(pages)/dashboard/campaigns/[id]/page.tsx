@@ -1,7 +1,9 @@
 'use client';
 
 import Breadcrumb from '@/app/components/Breadcrumb';
-import { campaignStatus } from '@/app/components/Campaigns/CampaignCad';
+import CampaginDonationUpdate from '@/app/components/Campaigns/CampaginDonationUpdate';
+import CampaignCad, { campaignStatus } from '@/app/components/Campaigns/CampaignCad';
+import CampaignRecentActivity from '@/app/components/Campaigns/CampaignRecentActivity';
 import { CardLoader } from '@/app/components/Loader/Loader';
 import AddBankDetailsModal from '@/app/components/Modal/AddBankDetailsModal';
 import ShareCampaignModal from '@/app/components/Modal/ShareCampaignModal';
@@ -11,6 +13,7 @@ import ProgressBar from '@/app/components/ProgressBar';
 import Spinner from '@/app/components/Spinner/Spinner';
 import calculateDaysLeft from '@/app/utils/helper/deadlineCalculator';
 import moneyFormatter from '@/app/utils/helper/moneyFormatter';
+import PercentageCalculator from '@/app/utils/helper/percentageCalculator';
 import useUpdateParams from '@/app/utils/hooks/useUpdateParams';
 import { ICampaign, ICampaignDetails } from '@/app/utils/models/Model';
 import { getSingleCampaign, getSingleCampaignDetail, stopCampaignApi } from '@/app/utils/services/campaign/campaignApiService';
@@ -113,92 +116,96 @@ const SingleCampaign = () => {
         </div>
       </div>
 
-      <div className='bg-white rounded-r-lg flex flex-col md:flex-row items-center gap-12 pr-6 relative mt-4'>
-        <div className="w-[326px] h-[213px] spb-[153.05%] relative">
-          <Image
-            className='h-full'
-            src={'/images/campaign-page-preview.png'}
-            width={326}
-            height={213}
-            alt=''
-          />
-          <div className="absolute bg-[#f4ffe3eb] border border-[#FC9D51] rounded-lg py-1 px-3 font-medium right-4 bottom-4 text-[11px] flex items-center gap-1"> {data && campaignStatus(data?.status)} {data?.status}</div>
-        </div>
-        <div className="font-inter !w-1/2 py-6">
-          <h6 className="font-semibold md:leading-loose text-base text-[#3f4343] mb-1">{isLoading ? <CardLoader /> : data?.name}</h6>
-          <p className="text-[#899192] text-sm mb-3">{isLoading ? <CardLoader /> : data?.description}</p>
-          <ProgressBar value={data?.donatedAmount ?? 0} />
-          <div className="grid grid-cols-4 items-center gap-2 mt-4">
-            <div className="">
-              <p className="font-semibold text-xl">{isLoading ? <CardLoader /> : `₦${moneyFormatter(data?.targetAmount as string | number)} `}</p>
-              <p className="leading-loose font-light text-[#8B8B8B]">Target</p>
-            </div>
-            <div className="">
-              <p className="font-semibold text-xl">{isLoading ? <CardLoader /> : `₦${moneyFormatter(data?.donatedAmount as string | number) ?? 0}`}</p>
-              <p className="leading-loose font-light text-[#8B8B8B]">Raised so far</p>
-            </div>
-            <div className="">
-              <p className="font-semibold text-xl">
-                {
-                  isCampaignDetailLoading ? <CardLoader /> :
-                    (CampaignDetail && CampaignDetail?.numberOfDonors < 1
-                      ? '0' :
-                      `${CampaignDetail?.numberOfDonors}`)
-                }
-              </p>
-              <p className="leading-loose font-light text-[#8B8B8B]">Donors</p>
-            </div>
-            <div className="">
-              <p className="font-semibold text-xl">
-                {
-                  isLoading ? <CardLoader /> : (data?.endDate ? `${calculateDaysLeft(data?.endDate).toLocaleString()}` : 'Now')
-                }
-              </p>
-              <p className="leading-loose font-light text-[#8B8B8B]">Days Left</p>
-            </div>
-          </div>
-        </div>
-        <span className="absolute top-4 right-5 inline-block bg-red-400 rounded-full"></span>
-      </div>
+      <div className="mt-4"></div>
+      <CampaignCad
+        isLoading={isLoading}
+        isLoading2={isCampaignDetailLoading}
+        key={data?.id}
+        category={data?.category ?? ''}
+        numberOfDonors={CampaignDetail?.numberOfDonors ?? 0}
+        numberOfDonations={CampaignDetail?.numberOfDonations ?? 0}
+        daysLeft={data?.daysLeft ?? 0}
+        progress={PercentageCalculator(data?.donatedAmount ?? 0, data?.targetAmount ?? 1)}
+        amountRaised={data?.donatedAmount ?? 0}
+        amount={data?.targetAmount ?? 1}
+        description={data?.description ?? ''}
+        status={data?.status ?? ''}
+        link={`/dashboard/campaigns/${data?.id}`}
+        title={data?.name ?? ''}
+        dateCreated={data?.endDate.slice(0, 10) ?? ''}
+        imageSrc="/images/underbridge.png"
+      />
 
       <div className='grid grid-cols-3 gap-4 mt-6'>
+        {/* tabs */}
         <div className="col-span-3 md:col-span-2">
+
           <div className='mt-4 space-y-2'>
+            {/* tabs header */}
             <div className="bg-white w-fit py-1 px-2 rounded-md flex items-center gap-2">
-              <div className="py-2">
-                <input
-                  type="radio"
-                  defaultChecked
-                  className="hidden peer/active"
-                  name='tabs'
-                  id='active'
-                  onClick={handleRecentActivityQueryParam}
-                />
-                <label htmlFor="active" className="ease-out duration-200 bg-transparent peer-checked/active:bg-leafGreen-50/50 rounded-md font-medium px-4 py-2 text-sm cursor-pointer peer-checked/active:text-leafGreen-5">Recent Actvity</label>
-              </div>
               <div className="">
                 <input
                   type="radio"
+                  defaultChecked
                   className="hidden peer/completed"
                   name='tabs'
                   id='donation-update'
-                  onClick={handleDonationUpdateQueryParam}
+                  onClick={handleRecentActivityQueryParam}
                 />
                 <label htmlFor="donation-update" className="ease-out duration-200 bg-transparent peer-checked/completed:bg-leafGreen-50/50 rounded-md font-medium px-4 py-2 text-sm cursor-pointer peer-checked/completed:text-leafGreen-5">Donation Update</label>
               </div>
+              <div className="py-2">
+                <input
+                  type="radio"
+                  className="hidden peer/active"
+                  name='tabs'
+                  id='active'
+                  onClick={handleDonationUpdateQueryParam}
+                />
+                <label htmlFor="active" className="ease-out duration-200 bg-transparent peer-checked/active:bg-leafGreen-50/50 rounded-md font-medium px-4 py-2 text-sm cursor-pointer peer-checked/active:text-leafGreen-5">Recent Actvity</label>
+              </div>
             </div>
+            {/* tabs body */}
             {
-              getPathname('campaign-det') === 'recent-activity' ? (
+              getPathname('campaign-det') !== 'recent-activity' ? (
                 <div className="bg-white rounded-lg p-4">
-                  <h3 className="font-semibold">Recent Activity</h3>
-                  <Image src='/images/no-notification.gif' width={300} className='mx-auto' height={300} alt='' unoptimized />
-                  <p className="text-center max-w-md mx-auto text-[#535758]">Looks like you do not have any ongoing campaigns. Try creating one to get started.</p>
+                  <h3 className="font-semibold">Recent Activity {Array.isArray(CampaignDetail?.activities) && `(${CampaignDetail?.activities?.length})`}</h3>
+                  {
+                    isCampaignDetailLoading ? <CardLoader /> :
+                      (!CampaignDetail?.activities || (Array.isArray(CampaignDetail?.activities) && CampaignDetail?.activities?.length < 1)) ?
+                        <>
+                          <Image src='/images/no-notification.gif' width={300} className='mx-auto' height={300} unoptimized alt='' />
+                          <p className="text-center max-w-md mx-auto text-[#535758]">Looks like you do not have any ongoing campaigns. Try creating one to get started.</p>
+                        </>
+                        :
+                        <div className='mt-4 space-y-4 max-h-[700px] overflow-y-auto'>
+                          {
+                            Array.isArray(CampaignDetail?.activities) && CampaignDetail.activities?.map((activity, idx) => {
+                              return <CampaignRecentActivity key={idx} description={activity.description} />
+                            })
+                          }
+                        </div>
+                  }
                 </div>
-              ) : getPathname('campaign-det') !== 'recent-activity' ? (
+              ) : getPathname('campaign-det') === 'recent-activity' ? (
                 <div className="bg-white rounded-lg p-4">
                   <h3 className="font-semibold">Donation Update</h3>
-                  <Image src='/images/no-notification.gif' width={300} className='mx-auto' height={300} unoptimized alt='' />
-                  <p className="text-center max-w-md mx-auto text-[#535758]">Looks like you do not have any ongoing campaigns. Try creating one to get started.</p>
+                  {
+                    isCampaignDetailLoading ? <CardLoader /> :
+                      (!CampaignDetail?.donations || (Array.isArray(CampaignDetail?.donations) && CampaignDetail?.donations?.length < 1)) ?
+                        <>
+                          <Image src='/images/no-notification.gif' width={300} className='mx-auto' height={300} unoptimized alt='' />
+                          <p className="text-center max-w-md mx-auto text-[#535758]">Looks like you do not have any ongoing campaigns. Try creating one to get started.</p>
+                        </>
+                        :
+                        <div className='mt-4 space-y-4 max-h-[700px] overflow-y-auto'>
+                          {
+                            Array.isArray(CampaignDetail?.donations) && CampaignDetail.donations?.map((donation, idx) => {
+                              return <CampaginDonationUpdate key={idx} name={donation.name} amount={donation.amount} picture={donation.profileImage} />
+                            })
+                          }
+                        </div>
+                  }
                 </div>
               ) : null
             }
@@ -244,11 +251,8 @@ const SingleCampaign = () => {
             }
             <button className="rounded-md py-2 text-sm px-4 flex items-center justify-center gap-2 text-white bg-red-700 flex-shrink-0 whitespace-nowrap" onClick={handleStopCampaign} disabled={res.isPending}> {res.isPending ? <Spinner /> : <><LiaTimesSolid /> End Campaign</>}</button>
           </div>
-
         </div>
-
       </div>
-
 
       <ShareCampaignModal
         showModal={showShareCampaignModal}
@@ -256,7 +260,9 @@ const SingleCampaign = () => {
         pushToUrl=''
         shareableUrl={CampaignDetail?.campaign?.shareableUrl as unknown as string}
       />
+
       <AddBankDetailsModal isOpen={showAddAccountModal} onClose={handleShowAddAccountModal} />
+
       <WithdrawFundsModal
         amountToWithdraw={data?.donatedAmount as number}
         accountName={data?.bankDetails?.accountName as string || '--'}
@@ -265,7 +271,7 @@ const SingleCampaign = () => {
         showModal={showWithdrawCampaignModal}
         handleModal={handleShowWithdrawCampaignModal}
       />
-    </Fragment>
+    </Fragment >
   )
 }
 

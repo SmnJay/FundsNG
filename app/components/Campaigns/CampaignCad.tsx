@@ -3,6 +3,7 @@ import React from 'react'
 import ProgressBar from '../ProgressBar'
 import moneyFormatter from '@/app/utils/helper/moneyFormatter'
 import Link from 'next/link'
+import { CardLoader } from '../Loader/Loader'
 
 type Props = {
     link: string
@@ -15,8 +16,11 @@ type Props = {
     progress: number
     daysLeft: number
     numberOfDonors: number
+    numberOfDonations?: number
     amountRaised: number
     category: string
+    isLoading?: boolean
+    isLoading2?: boolean
 }
 
 export const campaignStatus = (status: string) => {
@@ -101,24 +105,33 @@ const CampaignCad = (props: Props) => {
                 </div>
             </div>
             <div className="font-inter w-[60%] py-6">
-                <h6 className="font-semibold md:leading-loose text-base text-[#3f4343] mb-1">{props.title}</h6>
-                <p className="text-[#899192] text-sm mb-3">{props.description}</p>
-                <ProgressBar value={props.progress} />
-                <div className="grid grid-cols-4 items-center gap-2 mt-4">
+                <h6 className="font-semibold md:leading-loose text-base text-[#3f4343] mb-1">{props.isLoading ? <CardLoader /> : props.title}</h6>
+                <p className="text-[#899192] text-sm mb-3">{props.isLoading ? <CardLoader /> : props.description}</p>
+                {
+                    props.isLoading ? <CardLoader /> : <ProgressBar value={props.progress ?? 0} />
+                }
+                <div className={`grid grid-cols-4 ${props.numberOfDonations && 'grid-cols-5'} items-center gap-2 mt-4`}>
                     <div className="">
-                        <p className="font-semibold text-xl">&#8358;{moneyFormatter(props.amount as string | number)}</p>
+                        <p className="font-semibold text-xl">{props.isLoading ? <CardLoader /> : `₦${moneyFormatter(props.amount as string | number)}`}</p>
                         <p className="leading-loose font-light text-[#8B8B8B]">Target</p>
                     </div>
                     <div className="">
-                        <p className="font-semibold text-xl">{props.amountRaised}</p>
+                        <p className="font-semibold text-xl">{props.isLoading ? <CardLoader /> : `₦${moneyFormatter(props.amountRaised)}`}</p>
                         <p className="leading-loose font-light text-[#8B8B8B]">Raised so far</p>
                     </div>
                     <div className="">
-                        <p className="font-semibold text-xl">{props.numberOfDonors.toLocaleString()}</p>
+                        <p className="font-semibold text-xl">{props.isLoading2 ? <CardLoader /> : props.numberOfDonors.toLocaleString()}</p>
                         <p className="leading-loose font-light text-[#8B8B8B]">Donors</p>
                     </div>
+                    {
+                        props.numberOfDonations &&
+                        <div className="">
+                            <p className="font-semibold text-xl">{props.isLoading2 ? <CardLoader /> : props.numberOfDonations.toLocaleString()}</p>
+                            <p className="leading-loose font-light text-[#8B8B8B]">Donations</p>
+                        </div>
+                    }
                     <div className="">
-                        <p className="font-semibold text-xl">{props.daysLeft.toLocaleString()}</p>
+                        <p className="font-semibold text-xl">{props.isLoading ? <CardLoader /> : props.daysLeft.toLocaleString()}</p>
                         <p className="leading-loose font-light text-[#8B8B8B]">Days Left</p>
                     </div>
                 </div>
