@@ -110,7 +110,7 @@ const CampaignCad = (props: Props) => {
                 {
                     props.isLoading ? <CardLoader /> : <ProgressBar value={props.progress ?? 0} />
                 }
-                <div className={`grid grid-cols-4 ${props.numberOfDonations && 'grid-cols-5'} items-center gap-2 mt-4`}>
+                <div className={`grid grid-cols-4 items-center gap-2 mt-4`}>
                     <div className="">
                         <p className="font-semibold text-xl">{props.isLoading ? <CardLoader /> : `₦${moneyFormatter(props.amount as string | number)}`}</p>
                         <p className="leading-loose font-light text-[#8B8B8B]">Target</p>
@@ -140,5 +140,58 @@ const CampaignCad = (props: Props) => {
         </Link>
     )
 }
+
+export const CampaignCadWithoutLink = (props: Props) => {
+    return (
+        <div className='bg-white rounded-r-lg flex flex-col md:flex-row items-center gap-12 pr-6 relative'>
+            <div className="w-[326px] h-[213px] spb-[153.05%] relative">
+                <Image
+                    className='h-full'
+                    src={'/images/campaign-page-preview.png'}
+                    width={326}
+                    height={213}
+                    alt=''
+                />
+                <div className="absolute right-4 bottom-4 flex items-center gap-2">
+                    <div className="">{campaignCategory(props.category)}
+                    </div>
+                    <div className=" bg-[#f4ffe3eb] border border-[#FC9D51] rounded-lg py-1 px-3 font-medium  text-[11px] flex items-center gap-1">{campaignStatus(props.status)} {props.status}</div>
+                </div>
+            </div>
+            <div className="font-inter w-[60%] py-6">
+                <h6 className="font-semibold md:leading-loose text-base text-[#3f4343] mb-1">{props.isLoading ? <CardLoader /> : props.title}</h6>
+                <p className="text-[#899192] text-sm mb-3">{props.isLoading ? <CardLoader /> : props.description}</p>
+                {
+                    props.isLoading ? <CardLoader /> : <ProgressBar value={props.progress ?? 0} />
+                }
+                <div className={`grid grid-cols-5 items-center gap-2 mt-4`}>
+                    <div className="">
+                        <p className="font-semibold text-xl">{props.isLoading ? <CardLoader /> : `₦${moneyFormatter(props.amount as string | number)}`}</p>
+                        <p className="leading-loose font-light text-[#8B8B8B]">Target</p>
+                    </div>
+                    <div className="">
+                        <p className="font-semibold text-xl">{props.isLoading ? <CardLoader /> : `₦${moneyFormatter(props.amountRaised)}`}</p>
+                        <p className="leading-loose font-light text-[#8B8B8B]">Raised so far</p>
+                    </div>
+                    <div className="">
+                        <p className="font-semibold text-xl">{props.isLoading2 ? <CardLoader /> : props.numberOfDonors.toLocaleString()}</p>
+                        <p className="leading-loose font-light text-[#8B8B8B]">Donors</p>
+                    </div>
+                    <div className="">
+                        <p className="font-semibold text-xl">{props.isLoading2 ? <CardLoader /> : props.numberOfDonations ? props.numberOfDonations.toLocaleString() : 0}</p>
+                        <p className="leading-loose font-light text-[#8B8B8B]">Donations</p>
+                    </div>
+                    <div className="">
+                        <p className="font-semibold text-xl">{props.isLoading ? <CardLoader /> : props.daysLeft.toLocaleString()}</p>
+                        <p className="leading-loose font-light text-[#8B8B8B]">Days Left</p>
+                    </div>
+                </div>
+            </div>
+            <span className="absolute top-4 right-5 inline-block bg-red-400 rounded-full"></span>
+        </div>
+    )
+}
+
+
 
 export default CampaignCad

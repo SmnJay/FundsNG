@@ -20,6 +20,7 @@ import { CardLoader } from '../Loader/Loader';
 import { dateFormatter } from '@/app/utils/helper/dateFormatter';
 import moneyFormatter from '@/app/utils/helper/moneyFormatter';
 import toast from 'react-hot-toast';
+import PercentageCalculator from '@/app/utils/helper/percentageCalculator';
 
 const PreviewCampaign = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -138,7 +139,6 @@ const PreviewCampaign = () => {
   }
 
   const handlePaystackPayment = (ref: string) => {
-    console.log(ref)
     if (isClient && donorEmail && donorAmount > 0) {
       const handler = (window as any).PaystackPop.setup({
         key: 'pk_test_bbfc5cbc4a3c1e1c50ad34cbf4383512aa389fdc', // Replace with your Paystack public key
@@ -147,9 +147,9 @@ const PreviewCampaign = () => {
         reference: ref, // Unique reference
         callback: function (response: any) {
           // Payment successful callback
-          console.log({ response })
           toast.success(`Payment successful: ${response.reference}`);
-          handlePaystackSuccessAction(ref, response.reference)
+          handlePaystackSuccessAction(ref, response.reference);
+          closeDrawer();
         },
         onClose: function () {
           // Payment closed callback
@@ -195,7 +195,8 @@ const PreviewCampaign = () => {
             </div>
             {
               getPreviewOpenCampaignIsLoading ? <CardLoader /> :
-                <ProgressBar value={getPreviewOpenCampaign?.donatedAmount as number ?? 0} />
+
+                <ProgressBar value={PercentageCalculator(getPreviewOpenCampaign?.donatedAmount ?? 0, getPreviewOpenCampaign?.targetAmount ?? 1)} />
             }
             <div className="mt-6 flex flex-col md:flex-row md:justify-between gap-4">
               <div className="">
@@ -292,7 +293,6 @@ const PreviewCampaign = () => {
                 userName: e.target.value
               }))}
             />
-            {/* <PaystackButton {...paystackProps} className='bg-leafGreen-5 font-semibold text-sm text-white rounded-md p-3 w-full text-center ' /> */}
             <Button
               onClick={handleInitializePaystack}
               ariaLabel="initialize donate to campaign"
@@ -302,9 +302,7 @@ const PreviewCampaign = () => {
               name="Initialize Payment"
               processing={initializePaystack?.isPending}
             />
-
           </div>
-
         </section>
       </DrawerTab>
     </main>

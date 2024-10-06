@@ -2,16 +2,15 @@
 
 import Breadcrumb from '@/app/components/Breadcrumb';
 import CampaginDonationUpdate from '@/app/components/Campaigns/CampaginDonationUpdate';
-import CampaignCad, { campaignStatus } from '@/app/components/Campaigns/CampaignCad';
+import { CampaignCadWithoutLink } from '@/app/components/Campaigns/CampaignCad';
+import CampaignDonationUpdateLoader from '@/app/components/Campaigns/CampaignDonationUpdateLoader';
 import CampaignRecentActivity from '@/app/components/Campaigns/CampaignRecentActivity';
 import { CardLoader } from '@/app/components/Loader/Loader';
 import AddBankDetailsModal from '@/app/components/Modal/AddBankDetailsModal';
 import ShareCampaignModal from '@/app/components/Modal/ShareCampaignModal';
 import WithdrawFundsModal from '@/app/components/Modal/WithdrawFundsModal';
 import UserBank from '@/app/components/Profile/UserBank';
-import ProgressBar from '@/app/components/ProgressBar';
 import Spinner from '@/app/components/Spinner/Spinner';
-import calculateDaysLeft from '@/app/utils/helper/deadlineCalculator';
 import moneyFormatter from '@/app/utils/helper/moneyFormatter';
 import PercentageCalculator from '@/app/utils/helper/percentageCalculator';
 import useUpdateParams from '@/app/utils/hooks/useUpdateParams';
@@ -81,15 +80,6 @@ const SingleCampaign = () => {
     }
   })
 
-  const handleCopyClick = async () => {
-    try {
-      await navigator.clipboard.writeText(data?.shareableUrl as string);
-      toast.success('Link copied to clipboard!');
-    } catch (err) {
-      toast.error('Failed to copy link: ' + err);
-    }
-  };
-
   const { handleCreateQueryParams, getPathname } = useUpdateParams();
 
   const handleRecentActivityQueryParam = () => {
@@ -117,7 +107,7 @@ const SingleCampaign = () => {
       </div>
 
       <div className="mt-4"></div>
-      <CampaignCad
+      <CampaignCadWithoutLink
         isLoading={isLoading}
         isLoading2={isCampaignDetailLoading}
         key={data?.id}
@@ -139,7 +129,6 @@ const SingleCampaign = () => {
       <div className='grid grid-cols-3 gap-4 mt-6'>
         {/* tabs */}
         <div className="col-span-3 md:col-span-2">
-
           <div className='mt-4 space-y-2'>
             {/* tabs header */}
             <div className="bg-white w-fit py-1 px-2 rounded-md flex items-center gap-2">
@@ -150,7 +139,7 @@ const SingleCampaign = () => {
                   className="hidden peer/completed"
                   name='tabs'
                   id='donation-update'
-                  onClick={handleRecentActivityQueryParam}
+                  onClick={handleDonationUpdateQueryParam}
                 />
                 <label htmlFor="donation-update" className="ease-out duration-200 bg-transparent peer-checked/completed:bg-leafGreen-50/50 rounded-md font-medium px-4 py-2 text-sm cursor-pointer peer-checked/completed:text-leafGreen-5">Donation Update</label>
               </div>
@@ -160,7 +149,7 @@ const SingleCampaign = () => {
                   className="hidden peer/active"
                   name='tabs'
                   id='active'
-                  onClick={handleDonationUpdateQueryParam}
+                  onClick={handleRecentActivityQueryParam}
                 />
                 <label htmlFor="active" className="ease-out duration-200 bg-transparent peer-checked/active:bg-leafGreen-50/50 rounded-md font-medium px-4 py-2 text-sm cursor-pointer peer-checked/active:text-leafGreen-5">Recent Actvity</label>
               </div>
@@ -168,6 +157,32 @@ const SingleCampaign = () => {
             {/* tabs body */}
             {
               getPathname('campaign-det') !== 'recent-activity' ? (
+                <div className="bg-white rounded-lg p-4">
+                  <h3 className="font-semibold">Donation Update</h3>
+                  {
+                    isCampaignDetailLoading ?
+                      <div className="space-y-4 my-4">
+                        {Array.from({ length: 5 }, (_, index) => (
+                          <CampaignDonationUpdateLoader key={index} />
+                        ))}
+                      </div>
+                      :
+                      (!CampaignDetail?.donations || (Array.isArray(CampaignDetail?.donations) && CampaignDetail?.donations?.length < 1)) ?
+                        <>
+                          <Image src='/images/no-notification.gif' width={300} className='mx-auto' height={300} unoptimized alt='' />
+                          <p className="text-center max-w-md mx-auto text-[#535758]">Looks like you do not have any ongoing campaigns. Try creating one to get started.</p>
+                        </>
+                        :
+                        <div className='mt-4 space-y-4 max-h-[700px] overflow-y-auto'>
+                          {
+                            Array.isArray(CampaignDetail?.donations) && CampaignDetail.donations?.map((donation, idx) => {
+                              return <CampaginDonationUpdate key={idx} name={donation.name} amount={donation.amount} picture={donation.profileImage} />
+                            })
+                          }
+                        </div>
+                  }
+                </div>
+              ) : getPathname('campaign-det') === 'recent-activity' ? (
                 <div className="bg-white rounded-lg p-4">
                   <h3 className="font-semibold">Recent Activity {Array.isArray(CampaignDetail?.activities) && `(${CampaignDetail?.activities?.length})`}</h3>
                   {
@@ -187,26 +202,7 @@ const SingleCampaign = () => {
                         </div>
                   }
                 </div>
-              ) : getPathname('campaign-det') === 'recent-activity' ? (
-                <div className="bg-white rounded-lg p-4">
-                  <h3 className="font-semibold">Donation Update</h3>
-                  {
-                    isCampaignDetailLoading ? <CardLoader /> :
-                      (!CampaignDetail?.donations || (Array.isArray(CampaignDetail?.donations) && CampaignDetail?.donations?.length < 1)) ?
-                        <>
-                          <Image src='/images/no-notification.gif' width={300} className='mx-auto' height={300} unoptimized alt='' />
-                          <p className="text-center max-w-md mx-auto text-[#535758]">Looks like you do not have any ongoing campaigns. Try creating one to get started.</p>
-                        </>
-                        :
-                        <div className='mt-4 space-y-4 max-h-[700px] overflow-y-auto'>
-                          {
-                            Array.isArray(CampaignDetail?.donations) && CampaignDetail.donations?.map((donation, idx) => {
-                              return <CampaginDonationUpdate key={idx} name={donation.name} amount={donation.amount} picture={donation.profileImage} />
-                            })
-                          }
-                        </div>
-                  }
-                </div>
+
               ) : null
             }
           </div>
