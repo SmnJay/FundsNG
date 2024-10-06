@@ -95,7 +95,7 @@ const PreviewCampaign = () => {
   const handlePaystackSuccessAction = (reference: string, trxnref: string, amount: string = '1000') => {
     // Implementation for whatever you want to do with reference and after success call.
     console.log(reference);
-    verifyPaystackPayment({ reference, amount, trxnref })
+    verifyPaystackPayment({ reference, amount, trxnref, userId: '' })
   };
 
   // you can call this function anything
@@ -147,7 +147,7 @@ const PreviewCampaign = () => {
         reference: ref, // Unique reference
         callback: function (response: any) {
           // Payment successful callback
-          console.log({response})
+          console.log({ response })
           toast.success(`Payment successful: ${response.reference}`);
           handlePaystackSuccessAction(ref, response.reference)
         },
@@ -177,10 +177,10 @@ const PreviewCampaign = () => {
         <section className="lg:col-span-3 bg-white rounded-b-lg">
           <div className="relative w-full h-0 pb-[59.68%]">
             <Image
-              alt="campaign-preview-image"
+              alt="campaign preview image"
               src="/images/campaign-page-preview.png"
-              objectFit="cover"
               fill
+              style={{ objectFit: 'cover' }}
             />
           </div>
           <p className="text-[#7D847C] p-4 rounded-b-md text-sm leading-6 lg:leading-8">
@@ -218,7 +218,8 @@ const PreviewCampaign = () => {
               }</div>
               <div className="flex items-center gap-2 text-sm"><RiCalendarTodoFill />
                 {
-                  getPreviewOpenCampaignIsLoading ? <CardLoader /> : dateFormatter(getPreviewOpenCampaign?.endDate?.slice(0, 10) as string)
+                  getPreviewOpenCampaignIsLoading ? <CardLoader /> : getPreviewOpenCampaign?.endDate as string
+                  // getPreviewOpenCampaignIsLoading ? <CardLoader /> : dateFormatter(getPreviewOpenCampaign?.endDate?.slice(0, 10) as string)
                 }
               </div>
             </div>

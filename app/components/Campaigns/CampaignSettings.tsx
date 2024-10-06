@@ -103,6 +103,15 @@ const CampaignSettings = () => {
         }
     }, [CampaignSettingData]);
 
+    useEffect(() => {
+        if (data) {
+            setFormData((prev) => ({
+                ...prev,
+                bankAccountId: data.bankAccountId
+            }))
+        }
+    }, [data, isLoading]);
+
     return (
         <Fragment>
             <Breadcrumb items={items} />
