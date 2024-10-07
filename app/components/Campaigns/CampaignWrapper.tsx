@@ -25,7 +25,7 @@ const CampaignWrapper = () => {
         <>
             {campaignQuery?.isLoading ? (
                 <>
-                    {Array.from({ length: 2 }, (_, index) => (
+                    {Array.from({ length: 8 }, (_, index) => (
                         <CampaignLoader key={index} />
                     ))}
                 </>

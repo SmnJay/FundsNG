@@ -5,8 +5,6 @@ import React, { useState } from 'react'
 import Cards from '../Cards';
 import { FaHandHoldingHeart } from 'react-icons/fa';
 import { ButtonLink } from '../Button/Button';
-import Image from 'next/image';
-import ProgressBar from '../ProgressBar';
 import RecentActivity from '../Activity';
 import { CgChevronRight } from 'react-icons/cg';
 import { IoWalletOutline } from 'react-icons/io5';
@@ -19,11 +17,10 @@ import DashboardCarousels from './DashboardCarousels';
 import { getCampaignApiService } from '@/app/utils/services/campaign/campaignApiService';
 import PopularCategories from './PopularCategories';
 import CampaignLoader from '../Campaigns/CampaignLoader';
-import CampaignDashboard from '../Campaigns/CampaignDashboard';
-import moneyFormatter from '@/app/utils/helper/moneyFormatter';
 import { useSearchParams } from 'next/navigation';
 import { ICampaign } from '@/app/utils/models/Model';
 import PercentageCalculator from '@/app/utils/helper/percentageCalculator';
+import CampaignCad from '../Campaigns/CampaignCad';
 
 type DashboardWrapperProps = {
     isProfileSetUp: boolean
@@ -123,41 +120,21 @@ const DashboardWrapper: React.FC<DashboardWrapperProps> = ({ isProfileSetUp }) =
                                                 />
                                             </div>
                                             :
-                                            <div className='bg-white rounded-r-lg flex flex-col md:flex-row items-center gap-12 pr-6'>
-                                                <div className="w-[326px] h-[213px] spb-[153.05%]">
-                                                    <Image
-                                                        className='h-full'
-                                                        src={'/images/campaign-page-preview.png'}
-                                                        width={326}
-                                                        height={213}
-
-                                                        alt=''
-                                                    />
-                                                </div>
-                                                <div className="font-inter w-full py-6">
-                                                    <h6 className="font-semibold md:leading-loose text-base text-[#3f4343] mb-1">{campaignQuery?.data?.data[0]?.name}</h6>
-                                                    <p className="text-[#899192] text-sm mb-3">{campaignQuery?.data?.data[0]?.description}</p>
-                                                    <ProgressBar value={PercentageCalculator(campaignQuery?.data?.data[0]?.donatedAmount as number, campaignQuery?.data?.data[0]?.targetAmount as number)} />
-                                                    <div className="grid grid-cols-4 items-center gap-2 mt-4">
-                                                        <div className="">
-                                                            <p className="font-semibold text-xl">&#8358;{moneyFormatter(campaignQuery?.data?.data[0]?.targetAmount as string | number)}</p>
-                                                            <p className="leading-loose font-light text-[#8B8B8B]">Target</p>
-                                                        </div>
-                                                        <div className="">
-                                                            <p className="font-semibold text-xl">{campaignQuery?.data?.data[0]?.donatedAmount}</p>
-                                                            <p className="leading-loose font-light text-[#8B8B8B]">Raised so far</p>
-                                                        </div>
-                                                        <div className="">
-                                                            <p className="font-semibold text-xl">{campaignQuery?.data?.data[0]?.numberOfDonors}</p>
-                                                            <p className="leading-loose font-light text-[#8B8B8B]">Donors</p>
-                                                        </div>
-                                                        <div className="">
-                                                            <p className="font-semibold text-xl">{(campaignQuery?.data?.data[0]?.daysLeft)?.toLocaleString()}</p>
-                                                            <p className="leading-loose font-light text-[#8B8B8B]">Days Left</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <CampaignCad
+                                                key={campaignQuery?.data?.data[0]?.id}
+                                                category={campaignQuery?.data?.data[0]?.category ?? '--'}
+                                                numberOfDonors={campaignQuery?.data?.data[0]?.numberOfDonors ?? 0}
+                                                daysLeft={campaignQuery?.data?.data[0]?.daysLeft ?? 0}
+                                                progress={PercentageCalculator(campaignQuery?.data?.data[0]?.donatedAmount ?? 0, campaignQuery?.data?.data[0]?.targetAmount ?? 0)}
+                                                amountRaised={campaignQuery?.data?.data[0]?.donatedAmount ?? 0}
+                                                amount={campaignQuery?.data?.data[0]?.targetAmount ?? 0}
+                                                description={campaignQuery?.data?.data[0]?.description ?? '--'}
+                                                status={campaignQuery?.data?.data[0]?.status ?? ''}
+                                                link={`/dashboard/campaigns/${campaignQuery?.data?.data[0]?.id}`}
+                                                title={campaignQuery?.data?.data[0]?.name ?? '--'}
+                                                dateCreated={campaignQuery?.data?.data[0]?.endDate.slice(0, 10) ?? ''}
+                                                imageSrc="/images/underbridge.png"
+                                            />
                                     }
                                 </div>
                             </>
